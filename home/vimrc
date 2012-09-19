@@ -1,0 +1,99 @@
+"-----------------------------------------------------------------------------
+"  ~/vimrc && ~/.gvimrc
+"
+"	Leandro Pincini <leandropincini@gmail.com>
+"-----------------------------------------------------------------------------
+
+" always set autoindenting on
+set autoindent
+
+" add indentation itens in vim's edited files
+set smartindent
+
+" use 4 spaces for each tab (with autoidenting)
+set shiftwidth=4
+
+" use tabs instead spaces
+set noexpandtab
+
+" force tabs to be displayed to 4 spaces
+set tabstop=4
+set softtabstop=4
+
+" display tabs and trailing spaces
+set list
+set listchars=tab:\ ¬,trail:.
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" keep 50 lines of command line history
+set history=50
+
+" do incremental searching
+set incsearch
+
+" hilight searches by default
+set hlsearch
+
+" backup in the right place
+set backupdir=/tmp
+
+" always ignore some files extensions
+set wildignore=*.bak,*.o,*.e,*~,*.obj,*.swp,#*#
+
+" display incomplete commands
+set showcmd
+
+" show the matching bracket for the last ')'
+set showmatch
+
+" setting the number of characters by line
+set textwidth=78
+
+" secure option
+set nomodeline
+
+" no bell sound
+set vb t_vb=
+
+" if terminal support syntax hilight, turn it on
+if &t_Co > 1
+	syntax enable
+endif
+
+" charset utf-8
+set encoding=utf-8
+
+" deleting win/dos cr/lf
+fun RmCR()
+	let oldLine=line('.')
+	exe ":%s/\r//g"
+	exe ':' . oldLine
+endfun
+
+" completing words
+function! MoshTabOrComplete()
+	if col('.')>1 && strpart(getline('.'),col('.')-2,3) =~ '^\w'
+		return "\<C-N>"
+	else
+		return "\<Tab>"
+endfunction
+
+inoremap <D-/> <C-R>=MoshTabOrComplete()<CR>
+
+" utf8 conversion
+nmap ,utf8 !recode -q ISO-8859-1..utf-8
+
+" line numbers
+set number
+
+" telling vim a billy the kid with keyboards
+set ttyfast
+
+" only redraws screen if necessary
+set lazyredraw
+
+" removing trailing spaces from files
+autocmd BufWritePre * :%s/\s\+$//e
+

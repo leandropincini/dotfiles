@@ -1,0 +1,24 @@
+[core]
+	excludesfile= ~/.gitignore
+	editor = /usr/bin/vim
+[user]
+	name = Leandro Pincini
+	email = leandropincini@gmail.com
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+[color "diff"]
+	whitespace = red reverse
+	plain = black bold
+	meta = white
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	commit = yellow
+[color "status"]
+	added = green bold
+	changed = red bold
+	untracked = blue bold
+
