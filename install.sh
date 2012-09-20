@@ -10,7 +10,7 @@ cp -v ./home/* ~/.dotfiles/
 
 for i in ~/.dotfiles/*; do
 	echo "Installing $(basename $i)..."
-	rm -f ~/.$(basename $i)
+	rm -f ~/.$i
 	ln -s $i ~/.$(basename $i)
 done
 
