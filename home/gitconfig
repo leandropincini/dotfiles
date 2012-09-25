@@ -1,6 +1,20 @@
+[apply]
+	# detect whitespace errors when applying a patch
+	whitespace = fix
 [core]
+	# use custom .gitignore and .gitattributes
 	excludesfile= ~/.gitignore
+	attributesfile = ~/.gitattributes
+	# use vim
 	editor = /usr/bin/vim
+	# treat spaces before tab, lines that are indented with 8 or more spaces,
+	# indents with spaces (use only tabs), and all kinds of trailing spaces
+	whitespace = space-before-tab,ident-with-non-tab,trailing-space
+[merge]
+	log = true
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
 [user]
 	name = Leandro Pincini
 	email = leandropincini@gmail.com
@@ -9,6 +23,10 @@
 	status = auto
 	branch = auto
 	interactive = auto
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
 [color "diff"]
 	whitespace = red reverse
 	plain = black bold

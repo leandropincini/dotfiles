@@ -1,9 +1,3 @@
-"-----------------------------------------------------------------------------
-"  ~/vimrc && ~/.gvimrc
-"
-"	Leandro Pincini <leandropincini@gmail.com>
-"-----------------------------------------------------------------------------
-
 " always set autoindenting on
 set autoindent
 
@@ -22,7 +16,7 @@ set softtabstop=4
 
 " display tabs and trailing spaces
 set list
-set listchars=tab:\ ¬,trail:.
+set listchars=tab:\ ¬,trail:.,nbsp:_
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -35,6 +29,9 @@ set incsearch
 
 " hilight searches by default
 set hlsearch
+
+" ignore case of searches
+set ignorecase
 
 " backup in the right place
 set backupdir=/tmp
@@ -54,13 +51,22 @@ set textwidth=78
 " secure option
 set nomodeline
 
-" no bell sound
-set vb t_vb=
+" no bell sound (for error)
+set noerrorbells
 
 " if terminal support syntax hilight, turn it on
 if &t_Co > 1
 	syntax enable
 endif
+
+" highlight current line
+set cursorline
+
+" show the cursor position
+set ruler
+
+" always show status line
+set laststatus=2
 
 " charset utf-8
 set encoding=utf-8
@@ -96,4 +102,10 @@ set lazyredraw
 
 " removing trailing spaces from files
 autocmd BufWritePre * :%s/\s\+$//e
+
+" enable file type detection
+filetype on
+
+" treat .json files as .js
+autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 
