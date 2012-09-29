@@ -1,4 +1,9 @@
 .DS\_Store
+Destkop.ini
+._*
+Thumbs.db
+.Trashes
+.Spotlight-V100
 .svn
 *.sqlite3
 XX106-5TY6

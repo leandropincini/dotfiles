@@ -1,0 +1,6 @@
+# avoid creating .DS_Store files on network volumes, don't work with external
+# usb drivers
+echo "Avoiding creating .DS_Store files on network volumes..."
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+echo "Complete."
+

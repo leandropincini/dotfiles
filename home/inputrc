@@ -1,4 +1,18 @@
+# make tab autocomplete regardless of filename case
 set completion-ignore-case on
+
+# list all matches in case multiple possible completions are possible
 set show-all-if-ambiguous on
-TAB: menu-complete
+
+# immediately add a trailing slash when autocompleting symlinks to directories
+set mark-symlinked-directories on
+
+# don't autcomplete hidden files unless the pattern explicitly begins with a
+# dot
+set match-hidden-files off
+
+# allow utf-8 input and output, instead of showing stuff like $'\0123\0456'
+set input-meta on
+set output-meta on
+set convert-meta off
 
