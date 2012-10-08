@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# owner
-REPO_OWNER="leandropincini"
-
-set -e
-
 echo ">>> Installing dotfiles:"
 cp -v ./home/* ~/.dotfiles/
 

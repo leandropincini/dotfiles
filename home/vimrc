@@ -16,7 +16,7 @@ set softtabstop=4
 
 " display tabs and trailing spaces
 set list
-set listchars=tab:\ ¬,trail:.,nbsp:_
+set listchars=tab:\ →,trail:·,nbsp:_
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -71,13 +71,6 @@ set laststatus=2
 " charset utf-8
 set encoding=utf-8
 
-" deleting win/dos cr/lf
-fun RmCR()
-	let oldLine=line('.')
-	exe ":%s/\r//g"
-	exe ':' . oldLine
-endfun
-
 " completing words
 function! MoshTabOrComplete()
 	if col('.')>1 && strpart(getline('.'),col('.')-2,3) =~ '^\w'
@@ -100,6 +93,9 @@ set ttyfast
 " only redraws screen if necessary
 set lazyredraw
 
+" removing win/dos cr/lf
+autocmd BufWritePre * :%s/\r//e
+
 " removing trailing spaces from files
 autocmd BufWritePre * :%s/\s\+$//e
 
@@ -108,4 +104,8 @@ filetype on
 
 " treat .json files as .js
 autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+
+" if you wish use configuration by languages
+" autocmd FileType make setlocal noexpandtab
+" autocmd FileType ruby setlocal expandtab ts=2 sts=2 sw=2
 

@@ -4,3 +4,20 @@ echo "Avoiding creating .DS_Store files on network volumes..."
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 echo "Complete."
 
+# stop pasting full names when copying an email address in mac osx mail
+echo "Stopping pasting full names in mac osx mail..."
+defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
+echo "Complete."
+
+# only use utf-8 in Terminal.app
+echo "Using only UTF-8 in Terminall.app..."
+defaults write com.apple.terminal StringEncodings -array 4
+echo "Complete."
+
+# disable local time machine backups
+echo "To turn off local time machine backups...run:"
+echo "  $hash tmutil &> /dev/null && sudo tmutil disablelocal"
+# hash tmutil &> /dev/null && sudo tmutil disablelocal
+echo "And enter with your password."
+#echo "Complete."
+
