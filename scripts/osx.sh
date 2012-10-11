@@ -11,7 +11,7 @@ echo "Setting this machine name : valholl..."
 sudo scutil --set ComputerName "valholl"
 sudo scutil --set HostName "valholl"
 sudo scutil --set LocalHostName "valholl"
-sudo defaults write /Libary/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "valholl"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "valholl"
 
 # save to disk (not to iCloud) by default
 echo "Setting to save to disk (not to iCloud) by default"
@@ -75,4 +75,8 @@ defaults write com.apple.TextEdit RichText -int 0
 # open and save files as UTF-8 in TextEdit
 defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
+
+# change where screen shots are saved to
+echo "Screen Shots will be saved at ~/Pictures..."
+defaults write com.apple.screencapture location ~/Pictures
 

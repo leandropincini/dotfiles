@@ -13,7 +13,7 @@ done
 
 if [ $(uname) = "Darwin" ]; then
 echo ">>> Installing osx prefs"
-bash ./scripts/osx
+bash ./scripts/osx.sh
 echo "Done. Note that some of these changs require a logout/restart to take effect."
 fi
 
