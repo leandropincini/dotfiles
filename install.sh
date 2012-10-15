@@ -9,8 +9,8 @@ chmod 700 ~/.dotfiles/
 for i in ~/.dotfiles/*; do
 	echo "Installing $(basename $i)..."
 	rm -f ~/.$(basename $i)
-	chmod 600 $i
 	ln -s $i ~/.$(basename $i)
+	chmod 600 $i
 	chmod 700 ~/.$(basename $i)
 done
 
