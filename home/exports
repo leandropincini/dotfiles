@@ -1,0 +1,10 @@
+# make vim the default editor
+export EDITOR="vim"
+
+# a little color to man pages
+export LESS_TERMCAP_md=$'\E[01;32m'
+
+# bash history without trash
+export HISTCONTROL=ignoredups
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+

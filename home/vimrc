@@ -59,6 +59,9 @@ if &t_Co > 1
 	syntax enable
 endif
 
+" set colors for dark background
+set background="dark"
+
 " highlight current line
 set cursorline
 

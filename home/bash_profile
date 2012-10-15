@@ -1,0 +1,11 @@
+# loading everything
+# ~/.extra, ~/.bash_prompt, ~/.exports, ~/.aliases and ~/.functions
+for file in ~/.{aliases,exports}; do
+	[ -r "$file" ] && source "$file"
+done
+unset file
+
+# prefer us english and use utf-8
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US"
+

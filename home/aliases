@@ -1,0 +1,23 @@
+# easier navigation
+alias ..="cd .."
+alias ...="cd ../.."
+
+# shortcuts
+alias p="cd ~/Projects"
+alias v="vim"
+
+# list all files colarized
+alias ls="ls -G"
+
+# list all files colorized in long format
+alias ll="ls -Gl"
+
+# list all files colorized in long format, including dot files
+alias la="ls -Gla"
+
+# list only directories
+alias lsd='ls -l | grep "^d"'
+
+# recursively delete '.DS_Store' files
+alias cleanup="find . -type f -name '*DS_Store' -ls -delete"
+
