@@ -7,11 +7,29 @@ Thumbs.db
 .svn
 *.sqlite3
 XX106-5TY6
-*.swp
-*.~
 \#*#
 .todo
 .bundle
+*.ser
+
+# IDE and editors
+*.swp
+*.~
+*~
+.idea
+nbproject
+eclipse
+.amateras
+.settings
+.classpath
+.project
+*.iml
+*.ipr
+*.iws
+atlassian-ide-plugin.xml
+
+# Python
+*.pyc
 
 # Scala / Java
 *.class
