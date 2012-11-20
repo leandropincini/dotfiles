@@ -3,7 +3,7 @@
 set -e
 
 echo ">>> Installing dotfiles:"
-cp -v ./home/* ~/.dotfiles/
+cp -v ./home/files/* ~/.dotfiles/
 chmod 700 ~/.dotfiles/
 
 for i in ~/.dotfiles/*; do
@@ -13,6 +13,11 @@ for i in ~/.dotfiles/*; do
 	chmod 600 $i
 	chmod 700 ~/.$(basename $i)
 done
+
+if [ ! -d ~/.ssh ]; then
+	mkdir ~/.ssh
+fi
+cp -v ./home/ssh/config ~/.ssh/config
 
 if [ $(uname) = "Darwin" ]; then
 	echo ">>> Installing osx prefs"

@@ -1,0 +1,5 @@
+Host midgard
+	HostName midgard
+	User redpill
+	IdentityFile ~/.ssh/localnetwork_rsa
+
