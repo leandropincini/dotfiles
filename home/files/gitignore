@@ -1,4 +1,8 @@
+# gitignore collection : https://github.com/github/gitignore
 .DS\_Store
+.AppleDouble
+.LSOverride
+Icon
 Destkop.ini
 ._*
 Thumbs.db
