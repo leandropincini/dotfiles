@@ -1,3 +1,12 @@
+" set magic on
+set magic
+
+" set title
+set title
+
+" vim, not vi
+set nocompatible
+
 " always set autoindenting on
 set autoindent
 
@@ -35,6 +44,9 @@ set ignorecase
 
 " backup in the right place
 set backupdir=/tmp
+set nobackup
+set nowb
+set noswapfile
 
 " always ignore some files extensions
 set wildignore=*.bak,*.o,*.e,*~,*.obj,*.swp,#*#
@@ -63,10 +75,13 @@ endif
 set background="dark"
 
 " highlight current line
-set cursorline
+"set cursorline
 
 " show the cursor position
-set ruler
+"set ruler
+
+" more informative statusbar
+:set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]\ [BUFFER:%n]
 
 " always show status line
 set laststatus=2
@@ -96,6 +111,12 @@ set ttyfast
 " only redraws screen if necessary
 set lazyredraw
 
+" watch for file changes
+set autoread
+
+" don't automagically write on :next
+set noautowrite
+
 " removing win/dos cr/lf
 autocmd BufWritePre * :%s/\r//e
 
@@ -105,10 +126,24 @@ autocmd BufWritePre * :%s/\s\+$//e
 " enable file type detection
 filetype on
 
+" enable filetype-specific indenting
+filetype indent on
+
+" enable filetype-specific plugins
+filetype plugin on
+
 " treat .json files as .js
 autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 
 " if you wish use configuration by languages
 " autocmd FileType make setlocal noexpandtab
 " autocmd FileType ruby setlocal expandtab ts=2 sts=2 sw=2
+
+" Java specific stuff
+let java_highlight_all=1
+let java_highlight_debug=1
+
+let java_ignore_javadoc=1
+let java_highlight_functions=1
+let java_mark_braces_in_parens_as_errors=1
 
