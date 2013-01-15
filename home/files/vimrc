@@ -72,7 +72,7 @@ if &t_Co > 1
 endif
 
 " set colors for dark background
-set background="dark"
+set background=dark
 
 " highlight current line
 "set cursorline

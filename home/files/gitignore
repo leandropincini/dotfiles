@@ -31,6 +31,8 @@ eclipse
 *.ipr
 *.iws
 atlassian-ide-plugin.xml
+*.bak
+.settings
 
 # Python
 *.pyc
