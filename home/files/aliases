@@ -5,6 +5,7 @@ alias ...="cd ../.."
 # shortcuts
 alias p="cd ~/Projects"
 alias v="vim"
+alias e="exit"
 
 # list all files colarized
 alias ls="ls -G"

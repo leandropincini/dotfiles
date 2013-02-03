@@ -140,6 +140,7 @@ autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 " autocmd FileType ruby setlocal expandtab ts=2 sts=2 sw=2
 
 " Java specific stuff
+autocmd FileType java setlocal nowrap
 let java_highlight_all=1
 let java_highlight_debug=1
 
