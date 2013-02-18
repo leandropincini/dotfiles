@@ -25,12 +25,6 @@ alias lsd='ls -lh | grep "^d"'
 # recursively delete '.DS_Store' files
 alias cleanup="find . -type f -name '*DS_Store' -ls -delete"
 
-# start postgresql daemon
-alias postgresql_start="sudo launchctl load /Library/LaunchDaemons/com.edb.launchd.postgresql-9.2.plist"
-
-# stop postgresql daemon
-alias postgresql_stop="sudo launchctl unload /Library/LaunchDaemons/com.edb.launchd.postgresql-9.2.plist"
-
 # stop apache tomcat
 alias tomcat_stop="/Library/Tomcat/bin/shutdown.sh"
 
