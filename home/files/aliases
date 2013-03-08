@@ -31,3 +31,12 @@ alias tomcat_stop="/Library/Tomcat/bin/shutdown.sh"
 # start apache tomcat
 alias tomcat_start="/Library/Tomcat/bin/startup.sh"
 
+# start postgresql (installed with homebrew)
+alias pgsql_start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+
+# stop postgresql (installed with homebrew)
+alias pgsql_stop='pg_ctl -D /usr/local/var/postgres stop'
+
+# status postgresql (installed with homebrew)
+alias pgsql_status='pg_ctl -D /usr/local/var/postgres status'
+
