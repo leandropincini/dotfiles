@@ -132,6 +132,11 @@ filetype indent on
 " enable filetype-specific plugins
 filetype plugin on
 
+
+" set no textwidth for .rst
+autocmd BufNewFile,BufRead *.rst setfiletype rst
+autocmd FileType rst setlocal tw=8000
+
 " set no textwidth for .textiles
 autocmd BufNewFile,BufRead *.textile setfiletype textile
 autocmd FileType textile setlocal tw=8000
