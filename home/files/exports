@@ -1,3 +1,6 @@
+# set architeture flags
+export ARCHFLAGS="-arch x86_64"
+
 # make vim the default editor
 export EDITOR="vim"
 
@@ -7,4 +10,12 @@ export LESS_TERMCAP_md=$'\E[01;32m'
 # bash history without trash
 export HISTCONTROL=ignoredups
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+
+# prefer us english and use utf-8
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US"
+
+# use /usr/local/bin before /usr/bin
+PATH="/usr/local/bin:${PATH}"
+export PATH
 

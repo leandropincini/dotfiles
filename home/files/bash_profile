@@ -5,11 +5,3 @@ for file in ~/.{aliases,exports}; do
 done
 unset file
 
-# prefer us english and use utf-8
-export LC_ALL="en_US.UTF-8"
-export LANG="en_US"
-
-# use /usr/local/bin before /usr/bin
-PATH="/usr/local/bin:${PATH}"
-export PATH
-

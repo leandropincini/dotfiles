@@ -90,3 +90,9 @@ fi
 echo "Adding new /etc/hosts..."
 cp -v ../toolbox/etc/hosts /etc/hosts
 
+# install homebrew
+echo "Installing homebrew..."
+ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+echo "Updating homebrew..."
+brew update && brew upgrade
+
