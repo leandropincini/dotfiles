@@ -1,0 +1,10 @@
+# bash completion
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+	. $(brew --prefix)/etc/bash_completion
+fi
+
+# source mkvirtalenv
+if [ -f /usr/local/share/python/virtualenvwrapper.sh ]; then
+	source /usr/local/share/python/virtualenvwrapper.sh
+fi
+
