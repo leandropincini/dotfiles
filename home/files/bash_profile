@@ -1,6 +1,6 @@
 # loading everything
 # ~/.extra, ~/.bash_prompt, ~/.exports, ~/.aliases and ~/.functions
-for file in ~/.{aliases,exports}; do
+for file in ~/.{aliases,exports,functions,extra}; do
 	[ -r "$file" ] && source "$file"
 done
 unset file

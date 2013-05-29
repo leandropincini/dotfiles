@@ -91,8 +91,22 @@ echo "Adding new /etc/hosts..."
 cp -v ../toolbox/etc/hosts /etc/hosts
 
 # install homebrew
-echo "Installing homebrew..."
-ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+if [ ! -f /usr/local/bin/brew ]; then
+	echo "Installing homebrew..."
+	ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+fi
+
+# update homebrew
 echo "Updating homebrew..."
 brew update && brew upgrade
+
+# install bash-completion with homebrew
+echo "Installing bash-completion with homebrew..."
+brew install bash-completion
+
+# install a python environment
+echo "Installing a python complete environment (python/pip/distribute/virtualenv/mkvirtualenvwrapper)..."
+if [ -f ./python-environment.sh ]; then
+	bash ./python-environment.sh
+fi
 
