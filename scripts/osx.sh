@@ -110,3 +110,11 @@ if [ -f ./python-environment.sh ]; then
 	bash ./python-environment.sh
 fi
 
+# install a java environment
+echo "Installing a java environment (maven)..."
+if [ -f ./java-environment.sh ]; then
+	if [ -f /usr/bin/java ]; then
+		bash ./java-environment.sh
+	fi
+fi
+
