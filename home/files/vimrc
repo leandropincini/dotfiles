@@ -138,7 +138,7 @@ autocmd FileType rst setlocal tw=8000 spelllang=pt-BR spell
 
 " set no textwidth for .textiles
 autocmd BufNewFile,BufRead *.textile setfiletype textile
-autocmd FileType textile setlocal tw=8000
+autocmd FileType textile setlocal tw=8000 spelllang=pt-BR spell
 
 " treat .json files as .js
 autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
