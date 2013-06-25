@@ -1,23 +1,16 @@
-" set magic on
-set magic
+set magic " set magic on
 
-" set title
-set title
+set title " set title
 
-" vim, not vi
-set nocompatible
+set nocompatible " vim, not vi
 
-" always set autoindenting on
-set autoindent
+set autoindent " always set autoindenting on
 
-" add indentation itens in vim's edited files
-set smartindent
+set smartindent " add indentation itens in vim's edited files
 
-" use 4 spaces for each tab (with autoidenting)
-set shiftwidth=4
+set shiftwidth=4 " use 4 spacs for each tab (with autoindenting)
 
-" use tabs instead spaces
-set noexpandtab
+set noexpandtab " use tabs instead spaces
 
 " force tabs to be displayed to 4 spaces
 set tabstop=4
@@ -28,43 +21,36 @@ set list
 set listchars=tab:\ →,trail:·,nbsp:_
 
 " allow backspacing over everything in insert mode
-set backspace=indent,eol,start
+set backspace=indent,eol,start " backspacing over everything in insert mode
 
-" keep 50 lines of command line history
-set history=50
+set history=50 " 50 lines of commandline history
 
-" do incremental searching
-set incsearch
+set incsearch " incremental searching
 
-" hilight searches by default
-set hlsearch
+set hlsearch " hilight searches
 
-" ignore case of searches
-set ignorecase
+set ignorecase " ignore case of searches
 
 " backup in the right place
-set backupdir=/tmp
+set nowritebackup
 set nobackup
-set nowb
 set noswapfile
+set backupdir=/tmp
+
+set hidden " don't write buffers to disk when put then to background
 
 " always ignore some files extensions
 set wildignore=*.bak,*.o,*.e,*~,*.obj,*.swp,#*#
 
-" display incomplete commands
-set showcmd
+set showcmd " display incomplete commands
 
-" show the matching bracket for the last ')'
-set showmatch
+set showmatch " show the matching bracket
 
-" setting the number of characters by line
-set textwidth=78
+set textwidth=78 " number of characters by line
 
-" secure option
-set nomodeline
+set nomodeline " secure option
 
-" no bell sound (for error)
-set noerrorbells
+set noerrorbells " no bell sound (for errors)
 
 " if terminal support syntax hilight, turn it on
 if &t_Co > 1
@@ -75,7 +61,7 @@ endif
 set background=dark
 
 " highlight current line
-"set cursorline
+set cursorline
 
 " show the cursor position
 "set ruler
@@ -83,11 +69,9 @@ set background=dark
 " more informative statusbar
 :set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]\ [BUFFER:%n]
 
-" always show status line
-set laststatus=2
+set laststatus=2 " always show status line
 
-" charset utf-8
-set encoding=utf-8
+set encoding=utf-8 " charset
 
 " completing words
 function! MoshTabOrComplete()
@@ -102,41 +86,31 @@ inoremap <D-/> <C-R>=MoshTabOrComplete()<CR>
 " utf8 conversion
 nmap ,utf8 !recode -q ISO-8859-1..utf-8
 
-" line numbers
-set number
+set number " line numbers
 
-" telling vim a billy the kid with keyboards
-set ttyfast
+set ttyfast " telling vim you're a billy the kid with keyboards
 
-" only redraws screen if necessary
-set lazyredraw
+set lazyredraw " only redraws screen if necessary
 
-" watch for file changes
-set autoread
+set autoread " watch for file changes
 
-" don't automagically write on :next
-set noautowrite
+set noautowrite " don't automagically write on :next
 
-" removing win/dos cr/lf
-autocmd BufWritePre * :%s/\r//e
+autocmd BufWritePre * :%s/\r//e " removing win/dos cr/lf
 
-" removing trailing spaces from files
-autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufWritePre * :%s/\s\+$//e " removing trainling spaces
 
-" enable file type detection
-filetype on
+filetype on " enable filetype detection
 
-" enable filetype-specific indenting
-filetype indent on
+source ~/.vim/bundle/bundles.vim
 
-" enable filetype-specific plugins
-filetype plugin on
+filetype plugin indent on " enable filetype specific plugin/indenting
 
-" set no textwidth for .rst
+" sets for .rst
 autocmd BufNewFile,BufRead *.rst setfiletype rst
-autocmd FileType rst setlocal tw=8000 spelllang=pt-BR spell
+autocmd FileType rst setlocal spelllang=pt-BR spell
 
-" set no textwidth for .textiles
+" sets for .textiles
 autocmd BufNewFile,BufRead *.textile setfiletype textile
 autocmd FileType textile setlocal tw=8000 spelllang=pt-BR spell
 

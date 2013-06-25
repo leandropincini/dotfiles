@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -e
+
+echo "Installing osx prefs..."
+
 # ask for the administrator password upfront
 sudo -v
 
@@ -99,6 +103,10 @@ fi
 # update homebrew
 echo "Updating homebrew..."
 brew update && brew upgrade
+
+# install git with homebrew
+echo "Installing git with homebrew..."
+brew install git
 
 # install bash-completion with homebrew
 echo "Installing bash-completion with homebrew..."
