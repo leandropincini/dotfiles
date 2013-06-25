@@ -2,8 +2,6 @@
 
 set -e
 
-echo ">>> Installing dotfiles..."
-
 bash ./scripts/dotfiles.sh
 
 bash ./scripts/ssh.sh
