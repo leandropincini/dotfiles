@@ -40,3 +40,9 @@ alias pgsql_stop='pg_ctl -D /usr/local/var/postgres stop'
 # status postgresql (installed with homebrew)
 alias pgsql_status='pg_ctl -D /usr/local/var/postgres status'
 
+# start jenkins (installed with homebrew)
+alias jenkins_start='launchctl load /usr/local/opt/jenkins/homebrew.mxcl.jenkins.plist'
+
+# stop jenkins (installed with homebrew)
+alias jenkins_stop='launchctl unload /usr/local/opt/jenkins/homebrew.mxcl.jenkins.plist'
+
