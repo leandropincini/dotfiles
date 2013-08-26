@@ -104,6 +104,10 @@ fi
 echo "Updating homebrew..."
 brew update && brew upgrade
 
+# install wget with homebrew
+echo "Installing wget with homebrew..."
+brew install wget
+
 # install git with homebrew
 echo "Installing git with homebrew..."
 brew install git
