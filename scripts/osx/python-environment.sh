@@ -19,3 +19,7 @@ pip install virtualenv
 echo "Installing mkvirtualenvwrapper with pip..."
 pip install virutalenvwrapper
 
+# install ipython
+echo "Installing ipython with pip..."
+pip install ipython
+
