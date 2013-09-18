@@ -17,6 +17,7 @@
 *.sh		text
 *.txt		text
 *.xml		text
+*.rb		text
 
 # windows specific files (crlf)
 *.bat		eol=crlf
