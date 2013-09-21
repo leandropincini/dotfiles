@@ -20,7 +20,7 @@ PATH="/usr/local/bin:${PATH}"
 export PATH
 
 # add java_home
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_25.jdk/Contents/Home"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home"
 
 # add java_home to path
 PATH="${PATH}:/JAVA_HOME"
