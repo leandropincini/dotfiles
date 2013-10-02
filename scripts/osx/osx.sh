@@ -84,12 +84,6 @@ defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 echo "Screen Shots will be saved at ~/Pictures..."
 defaults write com.apple.screencapture location ~/Pictures
 
-# add playframework 1.2.5 into path
-echo "Adding playframework 1.2.5 into path..."
-if [ -d /Applications/play-1.2.5 ]; then
-	echo '/Applications/play-1.2.5' >> /etc/paths
-fi
-
 # copy /etc/hosts
 echo "Adding new /etc/hosts..."
 cp -v ../toolbox/etc/hosts /etc/hosts
@@ -123,7 +117,7 @@ if [ -f ./python-environment.sh ]; then
 fi
 
 # install a java environment
-echo "Installing a java environment (maven)..."
+echo "Installing a java environment (maven/jenkins)..."
 if [ -f ./java-environment.sh ]; then
 	if [ -f /usr/bin/java ]; then
 		bash ./java-environment.sh
