@@ -47,8 +47,8 @@ echo "Avoiding creating .DS_Store files on network volumes..."
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
 # empty trash securely by defult
-echo "Setting to empty trash securely by default..."
-defaults write com.apple.finder EmptyTrashSecurely -bool true
+#echo "Setting to empty trash securely by default..."
+#defaults write com.apple.finder EmptyTrashSecurely -bool true
 
 # show the ~/Library folder
 echo "Setting to show ~/Library folder..."
