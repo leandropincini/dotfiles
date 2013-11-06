@@ -13,13 +13,13 @@ pip install --upgrade distribute
 
 # intall virtualenv
 echo "Installing virtualenv with pip..."
-pip install virtualenv
+pip install --upgrade virtualenv
 
 # install mkvirtualenvwrapper
 echo "Installing mkvirtualenvwrapper with pip..."
-pip install virutalenvwrapper
+pip install --upgrade virutalenvwrapper
 
 # install ipython
 echo "Installing ipython with pip..."
-pip install ipython
+pip install --upgrade ipython
 
