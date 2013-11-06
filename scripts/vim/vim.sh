@@ -4,7 +4,7 @@ set -e
 
 echo ">>> Installing vim configs..."
 
-bash ./spell.sh
+bash ./scripts/vim/spell.sh
 
-bash ./vundle.sh
+bash ./scripts/vim/vundle.sh
 

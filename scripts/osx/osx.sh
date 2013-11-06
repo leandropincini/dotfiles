@@ -18,7 +18,7 @@ sudo scutil --set LocalHostName "valholl"
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "valholl"
 
 # save to disk (not to iCloud) by default
-echo "Setting to save to disk (not to iCloud) by default"
+echo "Setting to save to disk (not to iCloud) by default..."
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
 # automatically quit printer app once the print jobs complete
@@ -67,10 +67,10 @@ echo "No more Time Machine prompting to use new HDs as backup volumes..."
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 # disable local time machine backups
-echo "To turn off local time machine backups...run:"
-echo "  $hash tmutil &> /dev/null && sudo tmutil disablelocal"
+#echo "To turn off local time machine backups...run:"
+#echo "  $hash tmutil &> /dev/null && sudo tmutil disablelocal"
 # hash tmutil &> /dev/null && sudo tmutil disablelocal
-echo "And enter with your password."
+#echo "And enter with your password."
 #echo "Complete."
 
 # use plain text mode for new TextEdit documents
@@ -86,7 +86,7 @@ defaults write com.apple.screencapture location ~/Pictures
 
 # copy /etc/hosts
 echo "Adding new /etc/hosts..."
-cp -v ../toolbox/etc/hosts /etc/hosts
+sudo cp -v ./toolbox/etc/hosts /etc/hosts
 
 # install homebrew
 if [ ! -f /usr/local/bin/brew ]; then
@@ -112,15 +112,15 @@ brew install bash-completion
 
 # install a python environment
 echo "Installing a python complete environment (python/pip/distribute/virtualenv/mkvirtualenvwrapper)..."
-if [ -f ./python-environment.sh ]; then
-	bash ./python-environment.sh
+if [ -f ./scripts/osx/python-environment.sh ]; then
+	bash ./scripts/osx/python-environment.sh
 fi
 
 # install a java environment
 echo "Installing a java environment (maven/jenkins)..."
-if [ -f ./java-environment.sh ]; then
+if [ -f ./scripts/osx/java-environment.sh ]; then
 	if [ -f /usr/bin/java ]; then
-		bash ./java-environment.sh
+		bash ./scripts/osx/java-environment.sh
 	fi
 fi
 

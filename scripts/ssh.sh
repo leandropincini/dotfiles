@@ -7,5 +7,5 @@ if [ ! -d ~/.ssh ]; then
 	mkdir ~/.ssh
 fi
 
-cp -v ../home/ssh/config ~/.ssh/config
+cp -v ./home/ssh/config ~/.ssh/config
 

@@ -8,7 +8,7 @@ brew install jenkins
 
 # playframework
 echo "Installing playframework environment..."
-if [ -f ./playframework.sh ]; then
-	bash playframework.sh
+if [ -f ./scripts/osx/playframework.sh ]; then
+	bash ./scripts/osx/playframework.sh
 fi
 
