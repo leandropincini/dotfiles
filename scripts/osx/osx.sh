@@ -110,6 +110,10 @@ brew install git
 echo "Installing bash-completion with homebrew..."
 brew install bash-completion
 
+# install youtube-dl with homebrew
+echo "Installing youtube-dl with homebrew..."
+brew install youtube-dl
+
 # install a python environment
 echo "Installing a python complete environment (python/pip/distribute/virtualenv/mkvirtualenvwrapper)..."
 if [ -f ./scripts/osx/python-environment.sh ]; then
