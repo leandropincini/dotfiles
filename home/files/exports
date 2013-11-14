@@ -4,6 +4,13 @@ export ARCHFLAGS="-arch x86_64"
 # make vim the default editor
 export EDITOR="vim"
 
+# ls colourful
+export CLICOLOR=1
+export LSCOLORS=Exfxcxdxbxegedabagacad
+
+# grep highlight matches
+export GREP_OPTIONS='--color=auto'
+
 # a little color to man pages
 export LESS_TERMCAP_md=$'\E[01;32m'
 
@@ -24,10 +31,6 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Hom
 
 # add java_home to path
 PATH="${PATH}:/JAVA_HOME"
-export PATH
-
-# add python binaries to path
-PATH="${PATH}:/usr/local/share/python"
 export PATH
 
 # virtualenv should use Distribute instead of legacy setuptools

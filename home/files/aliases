@@ -7,17 +7,14 @@ alias p="cd ~/Projects"
 alias v="vim"
 alias e="exit"
 
-# list all files colarized
-alias ls="ls -G"
-
 # list all files colorized in long format
-alias ll="ls -Glh"
+alias ll="ls -lh"
 
 # list all files colorized, including dot files
-alias la="ls -Ga"
+alias la="ls -a"
 
 # list all files colorized in long format, including dot files
-alias lla="ls -Glah"
+alias lla="ls -lah"
 
 # list only directories
 alias lsd='ls -lh | grep "^d"'
