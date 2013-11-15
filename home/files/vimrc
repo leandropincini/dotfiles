@@ -102,6 +102,7 @@ autocmd BufWritePre * :%s/\s\+$//e " removing trainling spaces
 
 filetype on " enable filetype detection
 
+" loading vundle's configs and settings
 source ~/.vim/bundle/bundles.vim
 
 filetype plugin indent on " enable filetype specific plugin/indenting
