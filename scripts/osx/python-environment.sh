@@ -8,18 +8,17 @@ fi
 echo "Installing distribute with pip..."
 
 # deactivating require virtualenv ;)
-PIP_REQUIRE_VIRTUALENV=""
-pip install --upgrade distribute
+sudo pip install --upgrade distribute
 
 # intall virtualenv
 echo "Installing virtualenv with pip..."
-pip install --upgrade virtualenv
+sudo pip install --upgrade virtualenv
 
 # install mkvirtualenvwrapper
 echo "Installing mkvirtualenvwrapper with pip..."
-pip install --upgrade virutalenvwrapper
+sudo pip install --upgrade virutalenvwrapper
 
 # install ipython
 echo "Installing ipython with pip..."
-pip install --upgrade ipython
+sudo pip install --upgrade ipython
 
