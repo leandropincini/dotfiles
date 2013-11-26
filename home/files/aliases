@@ -4,6 +4,8 @@ alias ...="cd ../.."
 
 # shortcuts
 alias p="cd ~/Projects"
+alias t="cd ~/Tutorials"
+alias poc="cd ~/POCs"
 alias v="vim"
 alias e="exit"
 
