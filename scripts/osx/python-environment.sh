@@ -1,6 +1,6 @@
 # install python with homebrew's up-to-date OpenSSl
-echo "Installing python with homebrew's up-to-date OpenSSL..."
 if [ ! -f /usr/local/bin/python ]; then
+	echo "Installing python with homebrew's up-to-date OpenSSL..."
 	brew install python --with-brewed-openssl
 fi
 
@@ -16,7 +16,7 @@ sudo pip install --upgrade virtualenv
 
 # install mkvirtualenvwrapper
 echo "Installing mkvirtualenvwrapper with pip..."
-sudo pip install --upgrade virutalenvwrapper
+sudo pip install --upgrade virtualenvwrapper
 
 # install ipython
 echo "Installing ipython with pip..."
