@@ -90,7 +90,7 @@ set number " line numbers
 
 set ttyfast " telling vim you're a billy the kid with keyboards
 
-set lazyredraw " only redraws screen if necessary
+"set lazyredraw " only redraws screen if necessary
 
 set autoread " watch for file changes
 
