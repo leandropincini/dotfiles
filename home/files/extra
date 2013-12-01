@@ -4,7 +4,7 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 fi
 
 # source mkvirtalenv
-if [ -f /usr/local/share/python/virtualenvwrapper.sh ]; then
-	source /usr/local/share/python/virtualenvwrapper.sh
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+	source /usr/local/bin/virtualenvwrapper.sh
 fi
 

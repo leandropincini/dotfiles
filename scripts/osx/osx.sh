@@ -115,15 +115,15 @@ echo "Installing youtube-dl with homebrew..."
 brew install youtube-dl
 
 # install a python environment
-echo "Installing a python complete environment (python/pip/distribute/virtualenv/mkvirtualenvwrapper)..."
 if [ -f ./scripts/osx/python-environment.sh ]; then
+	echo "Installing a python environment (python/pip/distribute/virtualenv/mkvirtualenvwrapper)..."
 	bash ./scripts/osx/python-environment.sh
 fi
 
 # install a java environment
-echo "Installing a java environment (maven/jenkins)..."
 if [ -f ./scripts/osx/java-environment.sh ]; then
 	if [ -f /usr/bin/java ]; then
+		echo "Installing a java environment (maven/jenkins)..."
 		bash ./scripts/osx/java-environment.sh
 	fi
 fi
