@@ -45,3 +45,6 @@ alias jenkins_start='launchctl load /usr/local/opt/jenkins/homebrew.mxcl.jenkins
 # stop jenkins (installed with homebrew)
 alias jenkins_stop='launchctl unload /usr/local/opt/jenkins/homebrew.mxcl.jenkins.plist'
 
+# generates resume with rst2pdf
+alias generate_resume='rst2pdf -c -s stylesheet.txt $1'
+
