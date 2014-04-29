@@ -14,6 +14,9 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'jmcantrell/vim-virtualenv'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'bling/vim-airline'
+Bundle 'vim-scripts/SearchComplete'
+Bundle 'ervandew/supertab'
+Bundle 'vim-scripts/taglist.vim'
 
 filetype plugin indent on
 
