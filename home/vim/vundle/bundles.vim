@@ -9,7 +9,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " My modules here
-Bundle 'altercation/vim-colors-solarized'
+"Bundle 'altercation/vim-colors-solarized'
+Bundle 'zenorocha/dracula-theme'
 Bundle 'tpope/vim-fugitive'
 Bundle 'jmcantrell/vim-virtualenv'
 Bundle 'airblade/vim-gitgutter'
@@ -21,8 +22,7 @@ Bundle 'vim-scripts/taglist.vim'
 filetype plugin indent on
 
 " set solarized colorscheme
-let g:solarized_termcolors=256
-colorscheme solarized
+"let g:solarized_termcolors=256
 
 " settings for airline
 let g:airline_theme             = 'powerlineish'

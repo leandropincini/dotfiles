@@ -5,8 +5,8 @@ export ARCHFLAGS="-arch x86_64"
 export EDITOR="vim"
 
 # ls colourful
-export CLICOLOR=1
-export LSCOLORS=Exfxcxdxbxegedabagacad
+#export CLICOLOR=1
+#export LSCOLORS=Exfxcxdxbxegedabagacad
 
 # grep highlight matches
 export GREP_OPTIONS='--color=auto'
