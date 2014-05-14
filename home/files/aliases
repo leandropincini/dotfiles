@@ -45,6 +45,12 @@ alias jenkins_start='launchctl load /usr/local/opt/jenkins/homebrew.mxcl.jenkins
 # stop jenkins (installed with homebrew)
 alias jenkins_stop='launchctl unload /usr/local/opt/jenkins/homebrew.mxcl.jenkins.plist'
 
+# start monogdb's mongod service (installed with homebrew)
+alias mongodb_start='launchctl load /usr/local/opt/mongodb/homebrew.mxcl.mongodb.plist'
+
+# stop mongodb's mongod service (installed with homebrew)
+alias mongodb_stop='launchctl unload /usr/local/opt/mongodb/homebrew.mxcl.mongodb.plist'
+
 # generates resume with rst2pdf
 alias generate_resume='rst2pdf -c -s stylesheet.txt $1'
 
