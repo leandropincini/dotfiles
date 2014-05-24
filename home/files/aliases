@@ -7,6 +7,7 @@ alias p="cd ~/Projects"
 alias t="cd ~/Tutorials"
 alias poc="cd ~/POCs"
 alias v="vim"
+alias g="git"
 alias e="exit"
 
 # list all files colorized in long format
