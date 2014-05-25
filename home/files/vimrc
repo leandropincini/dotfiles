@@ -12,6 +12,8 @@ set shiftwidth=4 " use 4 spacs for each tab (with autoindenting)
 
 set noexpandtab " use tabs instead spaces
 
+set smarttab " tab key uses the shiftwidth value
+
 " force tabs to be displayed to 4 spaces
 set tabstop=4
 set softtabstop=4
@@ -25,11 +27,15 @@ set backspace=indent,eol,start " backspacing over everything in insert mode
 
 set history=50 " 50 lines of commandline history
 
+set undolevels=50 " 50 undo actions
+
 set incsearch " incremental searching
 
 set hlsearch " hilight searches
 
 set ignorecase " ignore case of searches
+
+set smartcase " just without search pattern
 
 " backup in the right place
 set nowritebackup
@@ -40,7 +46,7 @@ set backupdir=/tmp
 set hidden " don't write buffers to disk when put then to background
 
 " always ignore some files extensions
-set wildignore=*.bak,*.o,*.e,*~,*.obj,*.swp,#*#
+set wildignore=*.bak,*.o,*.e,*~,*.obj,*.swp,.git,*.rbc,*.class,.svn,vendor/gems/*,#*#
 
 set showcmd " display incomplete commands
 
@@ -50,11 +56,14 @@ set textwidth=78 " number of characters by line
 
 set nomodeline " secure option
 
-set noerrorbells " no bell sound (for errors)
+" no bell sounds
+set visualbell
+set noerrorbells " (for errors)
 
 " if terminal support syntax hilight, turn it on
 if &t_Co > 1
 	syntax enable
+	syntax on
 endif
 
 " set colors for dark background
@@ -64,10 +73,10 @@ set background=dark
 set cursorline
 
 " show the cursor position
-"set ruler
+set ruler
 
 " more informative statusbar
-:set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]\ [BUFFER:%n]
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]\ [BUFFER:%n]
 
 set laststatus=2 " always show status line
 
@@ -107,20 +116,27 @@ source ~/.vim/bundle/bundles.vim
 
 filetype plugin indent on " enable filetype specific plugin/indenting
 
+" if you wish use configuration by languages
+" - examples :
+" autocmd FileType make setlocal noexpandtab
+" autocmd FileType ruby setlocal expandtab ts=2 sts=2 sw=2
+
+" make uses real tabs
+autocmd FileType make setlocal noexpandtab
+
 " sets for .rst
 autocmd BufNewFile,BufRead *.rst setfiletype rst
 autocmd FileType rst setlocal spelllang=pt-BR spell
 
 " sets for .textiles
 autocmd BufNewFile,BufRead *.textile setfiletype textile
-autocmd FileType textile setlocal tw=8000 spelllang=pt-BR spell
+autocmd FileType textile setlocal nowrap spelllang=pt-BR spell
 
 " treat .json files as .js
 autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 
-" if you wish use configuration by languages
-" autocmd FileType make setlocal noexpandtab
-" autocmd FileType ruby setlocal expandtab ts=2 sts=2 sw=2
+" Python follow PEP8 (http://www.python.org/dev/peps/pep-0008/)
+autocmd FileType python set noexpandtab, softtabstop=4, tabstop=4, shiftwidth=4, textwidth=79
 
 " Java specific stuff
 autocmd FileType java setlocal nowrap
