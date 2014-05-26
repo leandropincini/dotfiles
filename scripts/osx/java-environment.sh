@@ -12,7 +12,7 @@ brew install jenkins
 
 # playframework
 echo "Installing playframework environment..."
-if [ -f ./scripts/osx/playframework.sh ]; then
-	bash ./scripts/osx/playframework.sh
+if [ -f ./playframework.sh ]; then
+	bash ./playframework.sh
 fi
 

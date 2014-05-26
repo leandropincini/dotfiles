@@ -18,5 +18,5 @@ if [ ! -d ~/.vim/spell ]; then
 	mkdir ~/.vim/spell
 fi
 
-cp -v -r ./home/vim/spell/* ~/.vim/spell/
+cp -v -r ../../home/vim/spell/* ~/.vim/spell/
 

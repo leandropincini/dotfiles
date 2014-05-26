@@ -7,8 +7,7 @@ set show-all-if-ambiguous on
 # immediately add a trailing slash when autocompleting symlinks to directories
 set mark-symlinked-directories on
 
-# don't autcomplete hidden files unless the pattern explicitly begins with a
-# dot
+# don't autcomplete hidden files unless the pattern explicitly begins with a dot
 set match-hidden-files off
 
 # allow utf-8 input and output, instead of showing stuff like $'\0123\0456'
