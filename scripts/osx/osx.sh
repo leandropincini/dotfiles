@@ -91,6 +91,10 @@ sudo touch /private/var/vm/sleepimage
 # ... and make sure it can't be rewritten
 sudo chflags uchg /private/var/vm/sleepimage
 
+# disable the sudden motion sensor as it's not useful for SSDs
+echo "Disabling motion sensor..."
+sudo pmset -a sms 0
+
 # use plain text mode for new TextEdit documents
 echo "Making TextEdit better..."
 defaults write com.apple.TextEdit RichText -int 0
