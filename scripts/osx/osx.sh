@@ -25,6 +25,11 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 echo "Setting to automatically quit printer app once the print jobs complete..."
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
+# reveal ip address, hostname, OS version, etc. when clicking the clock in the
+# login window
+echo "Show more info when clicking the clock in the login window..."
+defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hostname
+
 # check for software update daily, not just once per week
 echo "Setting to check for software update daily..."
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
@@ -36,6 +41,10 @@ defaults write com.apple.finder AppleShowAllExtensions -bool true
 # finder: show status bar
 echo "Setting finder to show status bar..."
 defaults write com.apple.finder ShowStatusBar -bool true
+
+# finder: show path bar
+echo "Setting finder to show path bar..."
+defaults write com.apple.finder ShowPathBar -bool true
 
 # when performing a search, search the current folder by default
 echo "Setting finder to search the current folde by default..."
@@ -67,11 +76,20 @@ echo "No more Time Machine prompting to use new HDs as backup volumes..."
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 # disable local time machine backups
-#echo "To turn off local time machine backups...run:"
-#echo "  $hash tmutil &> /dev/null && sudo tmutil disablelocal"
-# hash tmutil &> /dev/null && sudo tmutil disablelocal
-#echo "And enter with your password."
-#echo "Complete."
+echo "Turning off local time machine backups and snapshots..."
+hash tmutil &> /dev/null && sudo tmutil disablelocal
+
+# disable hibernation (speeds up entering sleep mode)
+echo "Turning off hibernation..."
+sudo pmset -a hibernatemode 0
+
+# remove the sleep image file to save disk space
+echo "Removing sleep image file..."
+sudo rm /private/var/vm/sleepimage
+#create a zero-byte file instead...
+sudo touch /private/var/vm/sleepimage
+# ... and make sure it can't be rewritten
+sudo chflags uchg /private/var/vm/sleepimage
 
 # use plain text mode for new TextEdit documents
 echo "Making TextEdit better..."
@@ -80,13 +98,43 @@ defaults write com.apple.TextEdit RichText -int 0
 defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
+# require password immediataly after sleep or screen saver begins
+echo "Require the password after sleep or screen saver begins..."
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
+
 # change where screen shots are saved to
 echo "Screen Shots will be saved at ~/Pictures..."
 defaults write com.apple.screencapture location ~/Pictures
 
+# enable subpixel font rendering on non-Apple LCDs
+echo "Better fonts for non-Appel LCDs..."
+defaults write NSGlobalDomain AppleFontSmoothing -int 2
+
+# enable HiDPI display modes (requires restart)
+sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+
 # copy /etc/hosts
 echo "Adding new /etc/hosts..."
-sudo cp -v ./toolbox/etc/hosts /etc/hosts
+sudo cp -v ../../toolbox/etc/hosts /etc/hosts
+
+# restart automatically if the computer freezes
+echo "Restart if computer freezes..."
+systemsetup -setrestartfreeze on
+
+# enable tap to click
+echo "Enabling tap to click with trackpad..."
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+# increase sound quality for bluetooth headphones/headsets
+echo "Better sound quality for bluetooth headphones/headsets..."
+defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+
+# enable auto-correct
+echo "Auto correct ON..."
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
 
 # install homebrew
 if [ ! -f /usr/local/bin/brew ]; then
@@ -98,13 +146,13 @@ fi
 echo "Updating homebrew..."
 brew update && brew upgrade
 
-# install wget with homebrew
-echo "Installing wget with homebrew..."
-brew install wget
-
 # install git with homebrew
 echo "Installing git with homebrew..."
 brew install git
+
+# install wget with homebrew
+echo "Installing wget with homebrew..."
+brew install wget
 
 # install bash-completion with homebrew
 echo "Installing bash-completion with homebrew..."
@@ -115,16 +163,16 @@ echo "Installing youtube-dl with homebrew..."
 brew install youtube-dl
 
 # install a python environment
-if [ -f ./scripts/osx/python-environment.sh ]; then
+if [ -f ./python-environment.sh ]; then
 	echo "Installing a python environment (python/pip/distribute/virtualenv/mkvirtualenvwrapper)..."
-	bash ./scripts/osx/python-environment.sh
+	bash ./python-environment.sh
 fi
 
 # install a java environment
-if [ -f ./scripts/osx/java-environment.sh ]; then
+if [ -f ./java-environment.sh ]; then
 	if [ -f /usr/bin/java ]; then
 		echo "Installing a java environment (maven/jenkins)..."
-		bash ./scripts/osx/java-environment.sh
+		bash ./java-environment.sh
 	fi
 fi
 
