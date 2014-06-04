@@ -10,9 +10,7 @@ brew install gradle
 echo "Installing jenkins with homebrew..."
 brew install jenkins
 
-# playframework
-echo "Installing playframework environment..."
-if [ -f ./playframework.sh ]; then
-	bash ./playframework.sh
-fi
+# newest playframework
+echo "Installing playframework with homebrew..."
+brew install play
 
