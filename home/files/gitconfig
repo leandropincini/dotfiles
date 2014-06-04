@@ -26,6 +26,8 @@
 	remote = origin
 	merge = refs/heads/master
 	mergeoptions = log
+[remote "origin"]
+	push = HEAD
 [user]
 	name = Leandro Pincini
 	email = leandropincini@gmail.com
