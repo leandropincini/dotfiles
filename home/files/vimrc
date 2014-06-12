@@ -132,6 +132,9 @@ autocmd FileType rst setlocal spelllang=pt-BR spell
 autocmd BufNewFile,BufRead *.textile setfiletype textile
 autocmd FileType textile setlocal nowrap spelllang=pt-BR spell
 
+" sets for .md
+autocmd BufNewFile,BufRead *.md setfiletype textile
+
 " treat .json files as .js
 autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 
