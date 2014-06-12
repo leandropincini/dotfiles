@@ -19,6 +19,7 @@ Bundle 'vim-scripts/SearchComplete'
 Bundle 'ervandew/supertab'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'mattn/emmet-vim'
+Bundle 'editorconfig/editorconfig-vim'
 
 filetype plugin indent on
 

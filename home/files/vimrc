@@ -107,7 +107,7 @@ set noautowrite " don't automagically write on :next
 
 autocmd BufWritePre * :%s/\r//e " removing win/dos cr/lf
 
-autocmd BufWritePre * :%s/\s\+$//e " removing trainling spaces
+autocmd BufWritePre * :%s/\s\+$//e " removing trailing spaces
 
 filetype on " enable filetype detection
 
@@ -136,10 +136,10 @@ autocmd FileType textile setlocal nowrap spelllang=pt-BR spell
 autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 
 " Python follow PEP8 (http://www.python.org/dev/peps/pep-0008/)
-autocmd FileType python set noexpandtab, softtabstop=4, tabstop=4, shiftwidth=4, textwidth=79
+autocmd FileType python setlocal expandtab, softtabstop=4, tabstop=4, shiftwidth=4, textwidth=78
 
 " Java specific stuff
-autocmd FileType java setlocal nowrap
+autocmd FileType java setlocal noexpandtab, softtabstop=4, tabstop=4, shiftwidth=4, nowrap
 let java_highlight_all=1
 let java_highlight_debug=1
 
