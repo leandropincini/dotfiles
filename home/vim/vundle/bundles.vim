@@ -10,6 +10,7 @@ Bundle 'gmarik/vundle'
 
 " My modules here
 "Bundle 'altercation/vim-colors-solarized'
+Bundle 'rizzatti/dash.vim'
 Bundle 'zenorocha/dracula-theme'
 Bundle 'tpope/vim-fugitive'
 Bundle 'jmcantrell/vim-virtualenv'
