@@ -10,9 +10,7 @@ set smartindent " add indentation itens in vim's edited files
 
 set shiftwidth=4 " use 4 spacs for each tab (with autoindenting)
 
-set noexpandtab " use tabs instead spaces
-
-set smarttab " tab key uses the shiftwidth value
+set expandtab " indent with spaces
 
 " force tabs to be displayed to 4 spaces
 set tabstop=4
@@ -126,27 +124,26 @@ autocmd FileType make setlocal noexpandtab
 
 " sets for .rst
 autocmd BufNewFile,BufRead *.rst setfiletype rst
-autocmd FileType rst setlocal spelllang=pt-BR, spell
+autocmd FileType rst setlocal spelllang=pt-BR spell
 
 " sets for .textiles
 autocmd BufNewFile,BufRead *.textile setfiletype textile
-autocmd FileType textile setlocal nowrap, spelllang=pt-BR, spell
+autocmd FileType textile setlocal nowrap spelllang=pt-BR spell
 
 " sets for .md
 autocmd BufNewFile,BufRead *.md setfiletype md
-autocmd FileType md setlocal spelllang=pt-BR, spell
+autocmd FileType md setlocal spelllang=pt-BR spell
 
 " treat .json files as .js
 autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 
 " Python follow PEP8 (http://www.python.org/dev/peps/pep-0008/)
-autocmd FileType python setlocal expandtab, softtabstop=4, tabstop=4, shiftwidth=4, textwidth=78
+autocmd FileType python setlocal expandtab softtabstop=4 tabstop=4 shiftwidth=4 textwidth=78
 
 " Java specific stuff
-autocmd FileType java setlocal noexpandtab, softtabstop=4, tabstop=4, shiftwidth=4, nowrap
+autocmd FileType java setlocal expandtab softtabstop=4 tabstop=4 shiftwidth=4 nowrap
 let java_highlight_all=1
 let java_highlight_debug=1
-
 let java_ignore_javadoc=1
 let java_highlight_functions=1
 let java_mark_braces_in_parens_as_errors=1
