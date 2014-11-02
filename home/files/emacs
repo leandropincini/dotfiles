@@ -1,0 +1,135 @@
+;; only runs on emacs >= 24
+(let ((minver 24))
+  (unless (>= emacs-major-version minver)
+    (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
+
+;; are you running osx?
+(defconst *is-a-mac* (eq system-type 'darwin))
+
+;;----------------------------------------------------------------------------
+;; System Configs
+;;----------------------------------------------------------------------------
+
+;; proxy
+;(setq url-proxy-services
+;      '(("no_proxy" . "^\\(localhost\\|10.*\\)")
+;        ("http" . "proxy.com:8080")
+;        ("https" . "proxy.com:8080")))
+
+;(setq url-http-proxy-basic-auth-storage
+;      (list (list "proxy.com:8080"
+;                  (cons "Input your LDAP UID !"
+;                        (based64-encode-string "USER:PASS")))))
+
+;; MELPA
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
+
+;; set enconding to UTF-8
+(setq utf-translate-cjk-mode nil)
+(set-language-environment 'utf-8)
+(set-keyboard-coding-system 'utf-8-mac)
+(setq locale-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(unless (eq system-type 'windows-nt)
+  (set-selection-coding-system 'utf-8))
+(prefer-coding-system 'utf-8)
+;(setq current-language-environment "UTF-8")
+
+;; no backup files
+(setq delete-auto-save-files t)
+(setq make-backup-files nil)
+
+;; alarmbell off
+(setq visible-bell 1)
+(setq ring-bell-function 'ignore)
+
+;;----------------------------------------------------------------------------
+;; Editor Configs
+;;----------------------------------------------------------------------------
+
+;; indent with spaces
+(setq-default indent-tabs-mode nil)
+;(setq tabify nil)
+
+; smart inference of indentation style
+(defun how-many-region (begin end regexp &optional interactive)
+  "Print number of non-trivial matches for REGEXP in region.
+Non-interactive arguments are Begin End Regexp"
+  (interactive "r\nsHow many matches for (regexp): \np")
+  (let ((count 0) opoint)
+    (save-excursion
+      (setq end (or end (point-max)))
+      (goto-char (or begin (point)))
+      (while (and (< (setq opoint (point)) end)
+                  (re-search-forward regexp end t))
+        (if (= opoint (point))
+            (forward-char 1)
+          (setq count (1+ count))))
+      (if interactive (message "%d occurrrences" count))
+      count)))
+
+(defun infer-indentation-style ()
+  ;; if our source file uses tabs, we use tabs, if spaces spaces, and if
+  ;; neither, we use the current indent-tabs-mode
+  (let ((space-count (how-many-region (point-min) (point-max) "^ "))
+        (tab-count (how-many-region (point-min) (point-max) "^\t")))
+    (if (> space-count tab-count) (setq indent-tabs-mode nil))
+    (if (> tab-count space-count) (setq indent-tabs-mode t))))
+
+;(infer-indentation-style)
+
+;; auto (on save) clear trailing spaces
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; auto (on save) add new eof line
+(setq require-final-newline t)
+
+;;----------------------------------------------------------------------------
+;; Visual Configs
+;;----------------------------------------------------------------------------
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ ;;
+ ; encoding UTF-8
+ '(current-language-environment "UTF-8")
+ ; no blinking cursor
+ '(blink-cursor-mode nil)
+ ; wombat theme
+ '(custom-enabled-themes (quote (wombat))))
+
+;; column number
+(setq column-number-mode t)
+
+;; line number
+;(setq line-number-mode t)
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; turn off toolbar
+(tool-bar-mode -1)
+
+;; show line number
+(setq line-number-mode t)
+
+;; highligh the current line
+(hl-line-mode 1)
+
+;; show matching pairs
+(show-paren-mode 1)
+
+;; color-theme-solarized by purcell
+;(add-to-list 'load-path "~/.emacs.d/elpa/color-theme-sanityinc-solarized-2.27")
+;(require 'color-theme-sanityinc-solarized)
+;(load-theme 'sanityinc-solarized-dark t)

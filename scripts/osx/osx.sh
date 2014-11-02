@@ -181,6 +181,6 @@ if [ -f ./java-environment.sh ]; then
 fi
 
 # install emacs
-echo "Instaling emacs with homebrew..."
-brew install --HEAD --use-git-head --cocoa --with-gnutls
-
+echo "Installing emacs with homebrew..."
+brew install --cocoa --with-gnutls
+brew linkapps
