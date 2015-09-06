@@ -61,3 +61,6 @@ alias redis_start="launchctl load /usr/local/opt/redis/homebrew.mxcl.redis.plist
 # stop redis service (installed with homebrew)
 alias redis_stop="launchctl unload /usr/local/opt/redis/homebrew.mxcl.redis.plist"
 
+# start wildfly standalone (installed with homebrew)
+alias wildfly_standalone="bash /usr/local/opt/wildfly-as/libexec/bin/standalone.sh"
+

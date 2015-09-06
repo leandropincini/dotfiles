@@ -6,6 +6,10 @@ brew install maven
 echo "Installing gradle with homebrew..."
 brew install gradle
 
+# widlfly
+echo "Installing wildfly with homebrew..."
+brew install wildfly
+
 # jenkins
 echo "Installing jenkins with homebrew..."
 brew install jenkins

@@ -182,5 +182,9 @@ fi
 
 # install emacs
 #echo "Installing emacs with homebrew..."
-#brew install --cocoa --with-gnutls
-#brew linkapps
+#brew install emacs --cocoa --with-gnutls
+
+# clearing
+brew cleanup
+brew linkapps
+
