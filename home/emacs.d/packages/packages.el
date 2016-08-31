@@ -11,7 +11,7 @@
   (package-refresh-contents))
 
 (defvar _packages
-  '(scala-mode2))
+  '(scala-mode))
 
 (mapc #'(lambda (package)
 	  (unless (package-installed-p package)
