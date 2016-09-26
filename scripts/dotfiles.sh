@@ -8,7 +8,7 @@ if [ ! -d ~/.dotfiles ]; then
 	mkdir ~/.dotfiles
 fi
 
-cp -v ../home/files/* ~/.dotfiles/
+cp -v ./home/files/* ~/.dotfiles/
 
 for i in ~/.dotfiles/*; do
 	echo "Installing $(basename $i)..."

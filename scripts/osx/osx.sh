@@ -25,11 +25,6 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 echo "Setting to automatically quit printer app once the print jobs complete..."
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
-# reveal ip address, hostname, OS version, etc. when clicking the clock in the
-# login window
-echo "Show more info when clicking the clock in the login window..."
-defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hostname
-
 # check for software update daily, not just once per week
 echo "Setting to check for software update daily..."
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
@@ -120,7 +115,7 @@ sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutio
 
 # copy /etc/hosts
 echo "Adding new /etc/hosts..."
-sudo cp -v ../../toolbox/etc/hosts /etc/hosts
+sudo cp -v ./toolbox/etc/hosts /etc/hosts
 
 # restart automatically if the computer freezes
 echo "Restart if computer freezes..."
@@ -132,6 +127,15 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
+# enable tap to click for the login screen
+echo "Enabling tap to click with trackpad for the login screen..."
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+# enable three finger drag
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+
 # increase sound quality for bluetooth headphones/headsets
 echo "Better sound quality for bluetooth headphones/headsets..."
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
@@ -140,10 +144,17 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 echo "Auto correct ON..."
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
 
+# install command line tools for xcode
+if xcode-select --install 2>&1 | grep installed; then
+        echo "Command line tools for xcode installed.";
+else
+        echo "Installing Command Line Tools for XCode...";
+fi
+
 # install homebrew
 if [ ! -f /usr/local/bin/brew ]; then
 	echo "Installing homebrew..."
-	ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 # update homebrew

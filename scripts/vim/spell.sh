@@ -14,9 +14,13 @@ set -e
 
 echo ">> >> pt_BR's spell checker.."
 
-if [ ! -d ~/.vim/spell ]; then
-	mkdir ~/.vim/spell
+if [ ! -d ~/.vim ]; then
+    mkdir ~/.vim;
 fi
 
-cp -v -r ../../home/vim/spell/* ~/.vim/spell/
+if [ ! -d ~/.vim/spell ]; then
+    mkdir ~/.vim/spell;
+fi
+
+cp -v -r ./home/vim/spell/* ~/.vim/spell/
 

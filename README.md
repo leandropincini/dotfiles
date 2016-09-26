@@ -1,6 +1,6 @@
 Hello,
 
-This is my macbook's dot files.
+This is my Mac OSX 10.12 dot files.
 
 Hope you enjoy!
 Thank you github.

@@ -12,5 +12,5 @@ if [ -d ~/.emacs.d ]; then
     rm -rf ~/.emacs.d
 fi
 
-cp -rv ../home/emacs.d/ ~/.emacs.d/
+cp -rv ./home/emacs.d/ ~/.emacs.d/
 chmod 700 ~/.emacs.d/
