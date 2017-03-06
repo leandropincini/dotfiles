@@ -173,6 +173,10 @@ brew install wget
 echo "Installing bash-completion with homebrew..."
 brew install bash-completion
 
+# replace vim with macvim
+#echo "Replacing vim with macvim (with homebrew)..."
+#brew install macvim --env-std --with-override-system-vim
+
 # install youtube-dl with homebrew
 echo "Installing youtube-dl with homebrew..."
 brew install youtube-dl
@@ -197,5 +201,4 @@ fi
 
 # clearing
 brew cleanup
-brew linkapps
 

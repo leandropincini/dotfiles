@@ -19,5 +19,5 @@ if [ -f /usr/local/bin/python ]; then
     echo "Installing ipython with pip..."
     sudo pip install --upgrade ipython
 else
-    echo "Install Python via official pacakge at https://www.python.org/downloads/"
+    echo "Install Python via official package at https://www.python.org/downloads/"
 fi
