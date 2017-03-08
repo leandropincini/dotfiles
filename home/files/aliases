@@ -10,6 +10,9 @@ alias v="vim"
 alias g="git"
 alias e="exit"
 
+# use colors
+alias ls="ls -G"
+
 # list all files colorized in long format
 alias ll="ls -lh"
 
