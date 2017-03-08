@@ -2,7 +2,10 @@
 	# detect whitespace errors when applying a patch
 	whitespace = fix
 [alias]
+    a  = add
+    pl = pull
 	ci = commit
+    ps = push
 	st = status
 	br = branch
 	co = checkout
