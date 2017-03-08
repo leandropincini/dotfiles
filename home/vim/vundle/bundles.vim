@@ -11,7 +11,7 @@ Bundle 'gmarik/vundle'
 " My modules here
 "Bundle 'altercation/vim-colors-solarized'
 Bundle 'rizzatti/dash.vim'
-Bundle 'zenorocha/dracula-theme'
+Bundle 'dracula/vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'jmcantrell/vim-virtualenv'
 Bundle 'airblade/vim-gitgutter'

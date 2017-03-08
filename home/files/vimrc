@@ -114,6 +114,8 @@ source ~/.vim/bundle/bundles.vim
 
 filetype plugin indent on " enable filetype specific plugin/indenting
 
+color dracula
+
 " if you wish use configuration by languages
 " - examples :
 " autocmd FileType make setlocal noexpandtab
