@@ -58,12 +58,6 @@ set nomodeline " secure option
 set visualbell
 set noerrorbells " (for errors)
 
-" if terminal support syntax hilight, turn it on
-if &t_Co > 1
-	syntax enable
-	syntax on
-endif
-
 " set colors for dark background
 set background=dark
 
@@ -114,7 +108,12 @@ source ~/.vim/bundle/bundles.vim
 
 filetype plugin indent on " enable filetype specific plugin/indenting
 
-color dracula
+" if terminal support syntax hilight, turn it on
+if &t_Co > 1
+    syntax enable
+    syntax on
+    color dracula
+endif
 
 " if you wish use configuration by languages
 " - examples :
