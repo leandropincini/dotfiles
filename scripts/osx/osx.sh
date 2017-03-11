@@ -196,8 +196,8 @@ if [ -f ./java-environment.sh ]; then
 fi
 
 # install emacs
-#echo "Installing emacs with homebrew..."
-#brew install emacs --cocoa --with-gnutls
+echo "Installing emacs with homebrew..."
+brew install emacs --with-cocoa --with-gnutls
 
 # clearing
 brew cleanup

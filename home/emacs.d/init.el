@@ -15,6 +15,7 @@
 (require 'system-configs)
 (require 'editor-configs)
 (require 'packages)
+(require 'theme-configs)
 
 ;; are you running osx? load mac-configs
 (when (eq system-type 'darwin)

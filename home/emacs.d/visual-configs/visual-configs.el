@@ -1,4 +1,4 @@
-;; visual.el - emacs visual configs
+;; visual-configs.el - emacs visual configs
 
 ;; hide startup message
 (setq inhibit-startup-message t)
@@ -20,4 +20,4 @@
 (show-paren-mode 1)
 
 (provide 'visual-configs)
-;; end of visual.el
+;; end of visual-configs.el
