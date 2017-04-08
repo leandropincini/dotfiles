@@ -169,6 +169,10 @@ brew install git
 echo "Installing wget with homebrew..."
 brew install wget
 
+# install p7zip with homebrew
+echo "Installing p7zip with homebrew..."
+brew install p7zip
+
 # install bash-completion with homebrew
 echo "Installing bash-completion with homebrew..."
 brew install bash-completion
@@ -180,6 +184,14 @@ brew install bash-completion
 # install youtube-dl with homebrew
 echo "Installing youtube-dl with homebrew..."
 brew install youtube-dl
+
+# install keepingyouawake
+echo "Installing cask keepingyouawake with homebrew..."
+brew cask install keepingyouawake
+
+# install spectacle
+echo "Installing cask spectacle with homebrew..."
+brew cask install spectacle
 
 # install a python environment
 if [ -f ./python-environment.sh ]; then
@@ -201,4 +213,3 @@ brew install emacs --with-cocoa --with-gnutls
 
 # clearing
 brew cleanup
-

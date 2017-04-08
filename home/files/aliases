@@ -8,6 +8,7 @@ alias t="cd ~/Tutorials"
 alias poc="cd ~/POCs"
 alias v="vim"
 alias g="git"
+alias o="open"
 alias e="exit"
 
 # use colors
@@ -66,4 +67,3 @@ alias redis_stop="launchctl unload /usr/local/opt/redis/homebrew.mxcl.redis.plis
 
 # start wildfly standalone (installed with homebrew)
 alias wildfly_standalone="bash /usr/local/opt/wildfly-as/libexec/bin/standalone.sh"
-
