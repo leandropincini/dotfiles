@@ -1,4 +1,4 @@
-;; web-mode-config.el - emacs web-mode editor configs
+;; web-mode-configs.el - emacs web-mode editor configs
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
@@ -10,4 +10,4 @@
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
 (provide 'web-mode-configs)
-;; end of web-mode-confi.el
+;; end of web-mode-configs.el
