@@ -9,6 +9,7 @@
 	st = status
 	br = branch
 	co = checkout
+        sba = show-branch -a
 	cl = clone
 	clnd = clone --depth 1
 	df = diff

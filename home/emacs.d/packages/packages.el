@@ -11,9 +11,10 @@
   (package-refresh-contents))
 
 (defvar _packages
-  '(scala-mode
-     editorconfig
-     dracula-theme))
+  '(
+    editorconfig
+    dracula-theme
+    web-mode))
 
 (mapc #'(lambda (package)
 	  (unless (package-installed-p package)
