@@ -213,6 +213,10 @@ brew cask install keepingyouawake
 echo "Installing cask spectacle with homebrew..."
 brew cask install spectacle
 
+# install emacs
+echo "Installing cask emacs with homebrew..."
+brew cask install emacs
+
 # install a python environment
 if [ -f ./python-environment.sh ]; then
 	echo "Installing a python environment (python/pip/distribute/virtualenv/mkvirtualenvwrapper)..."
@@ -226,10 +230,6 @@ if [ -f ./java-environment.sh ]; then
 		bash ./java-environment.sh
 	fi
 fi
-
-# install emacs
-echo "Installing emacs with homebrew..."
-brew install emacs --with-cocoa --with-gnutls
 
 # clearing
 brew cleanup
