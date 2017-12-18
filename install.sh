@@ -14,5 +14,4 @@ if [ $(uname) = "Darwin" ]; then
 	bash ./scripts/osx/osx.sh
 fi
 
-echo "Done. Note that some of these changes require a logout/restart to take
-effect."
+echo "Done. Note that some of these changes require a logout/restart to take effect."

@@ -16,6 +16,8 @@
 (require 'editor-configs)
 (require 'packages)
 (require 'theme-configs)
+(require 'docker-compose-mode-configs)
+(require 'dockerfile-mode-configs)
 (require 'web-mode-configs)
 
 ;; are you running osx? load mac-configs

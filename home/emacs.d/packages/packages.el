@@ -14,6 +14,8 @@
   '(
     editorconfig
     dracula-theme
+    dockerfile-mode
+    docker-compose-mode
     web-mode))
 
 (mapc #'(lambda (package)
