@@ -153,49 +153,11 @@ fi
 
 # install homebrew
 if [ ! -f /usr/local/bin/brew ]; then
-	echo "Installing homebrew..."
-	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    if [ -f ./brew.sh ]; then
+        echo "Installing homebrew..."
+        bash ./brew.sh
+    fi
 fi
-
-# update homebrew
-echo "Updating homebrew..."
-brew update && brew upgrade
-
-# install git with homebrew
-echo "Installing git with homebrew..."
-brew install git
-
-# install wget with homebrew
-echo "Installing wget with homebrew..."
-brew install wget
-
-# install p7zip with homebrew
-echo "Installing p7zip with homebrew..."
-brew install p7zip
-
-# install bash-completion with homebrew
-#echo "Installing bash-completion with homebrew..."
-#brew install bash-completion
-
-# replace vim with macvim
-#echo "Replacing vim with macvim (with homebrew)..."
-#brew install macvim --env-std --with-override-system-vim
-
-# install youtube-dl with homebrew
-echo "Installing youtube-dl with homebrew..."
-brew install youtube-dl
-
-# install keepingyouawake
-echo "Installing cask keepingyouawake with homebrew..."
-brew cask install keepingyouawake
-
-# install spectacle
-echo "Installing cask spectacle with homebrew..."
-brew cask install spectacle
-
-# install emacs
-echo "Installing cask emacs with homebrew..."
-brew cask install emacs
 
 # install a python environment
 if [ -f ./python-environment.sh ]; then
