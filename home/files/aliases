@@ -6,11 +6,15 @@ alias ...="cd ../.."
 alias p="cd ~/Projects"
 alias t="cd ~/Tutorials"
 alias poc="cd ~/POCs"
+
+alias em="emacs"
 alias v="vim"
 alias g="git"
+alias d="docker"
+alias b="brew"
+
 alias o="open"
 alias e="exit"
-alias d="docker"
 
 # use colors
 alias ls="ls -G"
@@ -27,47 +31,50 @@ alias lla="ls -lah"
 # list only directories
 alias lsd='ls -lh | grep "^d"'
 
+# brew update all
+alias bua="brew update --all && brew upgrade && brew cleanup && brew cask upgrade && brew cask cleanup"
+
 # recursively delete '.DS_Store' files
 alias cleanup="find . -type f -name '*DS_Store' -ls -delete"
 
 # generates resume with rst2pdf
-alias generate_resume="rst2pdf -c -s stylesheet.txt $1"
+alias generate-resume="rst2pdf -c -s stylesheet.txt $1"
 
 # start apache tomcat
-alias tomcat_start="/Library/Tomcat/bin/startup.sh"
+#alias tomcat_start="/Library/Tomcat/bin/startup.sh"
 
 # stop apache tomcat
-alias tomcat_stop="/Library/Tomcat/bin/shutdown.sh"
+#alias tomcat_stop="/Library/Tomcat/bin/shutdown.sh"
 
 # start postgresql (installed with homebrew)
-alias pgsql_start="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
+#alias pgsql_start="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
 
 # stop postgresql (installed with homebrew)
-alias pgsql_stop="pg_ctl -D /usr/local/var/postgres stop"
+#alias pgsql_stop="pg_ctl -D /usr/local/var/postgres stop"
 
 # status postgresql (installed with homebrew)
-alias pgsql_status="pg_ctl -D /usr/local/var/postgres status"
+#alias pgsql_status="pg_ctl -D /usr/local/var/postgres status"
 
 # start jenkins (installed with homebrew)
-alias jenkins_start="launchctl load /usr/local/opt/jenkins/homebrew.mxcl.jenkins.plist"
+#alias jenkins_start="launchctl load /usr/local/opt/jenkins/homebrew.mxcl.jenkins.plist"
 
 # stop jenkins (installed with homebrew)
-alias jenkins_stop="launchctl unload /usr/local/opt/jenkins/homebrew.mxcl.jenkins.plist"
+#alias jenkins_stop="launchctl unload /usr/local/opt/jenkins/homebrew.mxcl.jenkins.plist"
 
 # start monogdb's mongod service (installed with homebrew)
-alias mongodb_start="launchctl load /usr/local/opt/mongodb/homebrew.mxcl.mongodb.plist"
+#alias mongodb_start="launchctl load /usr/local/opt/mongodb/homebrew.mxcl.mongodb.plist"
 
 # stop mongodb's mongod service (installed with homebrew)
-alias mongodb_stop="launchctl unload /usr/local/opt/mongodb/homebrew.mxcl.mongodb.plist"
+#alias mongodb_stop="launchctl unload /usr/local/opt/mongodb/homebrew.mxcl.mongodb.plist"
 
 # start redis service (installed with homebrew)
-alias redis_start="launchctl load /usr/local/opt/redis/homebrew.mxcl.redis.plist"
+#alias redis_start="launchctl load /usr/local/opt/redis/homebrew.mxcl.redis.plist"
 
 # stop redis service (installed with homebrew)
-alias redis_stop="launchctl unload /usr/local/opt/redis/homebrew.mxcl.redis.plist"
+#alias redis_stop="launchctl unload /usr/local/opt/redis/homebrew.mxcl.redis.plist"
 
 # start wildfly standalone (installed with homebrew)
-alias wildfly_standalone="bash /usr/local/opt/wildfly-as/libexec/bin/standalone.sh"
+#alias wildfly_standalone="bash /usr/local/opt/wildfly-as/libexec/bin/standalone.sh"
 
 # docker <command> all containers
 #alias docker-stop-all="docker stop $(docker ps -a -q)"
