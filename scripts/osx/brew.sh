@@ -28,6 +28,10 @@ brew install p7zip
 echo "Installing youtube-dl with homebrew..."
 brew install youtube-dl
 
+# install terminal-notifier with homebrew
+echo "Installing terminal-notifier with homebrew..."
+brew install terminal-notifier
+
 if [ -f ./brew-cask.sh ]; then
     bash ./brew-cask.sh
 fi
