@@ -21,6 +21,6 @@ if [ -f /usr/bin/git ]; then
     ln -sf ~/Projects/oh-my-zsh-custom-plugins/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
     echo ">>> >>> Installing zsh-autosuggestions plugin..."
-    git clone https://github.com/zsh-users/zsh-autosuggestions.git
+    git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git
     ln -sf ~/Projects/oh-my-zsh-custom-plugins/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 fi
