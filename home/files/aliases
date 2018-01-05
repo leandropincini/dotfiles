@@ -81,3 +81,9 @@ alias generate-resume="rst2pdf -c -s stylesheet.txt $1"
 #alias docker-start-all="docker start $(docker ps -a -q)"
 #alias docker-restart-all="docker restart $(docker ps -a -q)"
 #alias docker-rm-all="docker rm $(docker ps -a -q)"
+
+# last-pom
+alias last-pom="bash ~/Projects/last-pom.sh"
+
+# mvn-release
+alias mvn-release="mvn -Duser.timezone=UTC clean test && mvn -Darguments="-DskipTests" -DignoreSnapshots=true release:clean release:prepare release:perform"
