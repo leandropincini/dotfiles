@@ -87,3 +87,6 @@ alias last-pom="bash ~/Projects/last-pom.sh"
 
 # mvn-release
 alias mvn-release="mvn -Duser.timezone=UTC clean test && mvn -Darguments="-DskipTests" -DignoreSnapshots=true release:clean release:prepare release:perform"
+
+# aws-login
+alias aws-login="bash ~/Projects/aws_login.sh"
