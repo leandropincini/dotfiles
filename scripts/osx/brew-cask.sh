@@ -9,3 +9,8 @@ brew cask install spectacle
 # install emacs
 echo "Installing cask emacs with homebrew..."
 brew cask install emacs
+
+# install gnucash
+echo "Installing cask gnucash with homebrew..."
+brew cask install gnucash
+
