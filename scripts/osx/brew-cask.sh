@@ -14,3 +14,6 @@ brew cask install emacs
 echo "Installing cask gnucash with homebrew..."
 brew cask install gnucash
 
+# install tuxguitar
+echo "Installing cask tuxguitar with homebrew..."
+brew cask install tuxguitar
