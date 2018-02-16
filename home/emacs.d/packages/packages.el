@@ -11,11 +11,11 @@
   (package-refresh-contents))
 
 (defvar _packages
-  '(
-    editorconfig
+  '(editorconfig
     dracula-theme
     dockerfile-mode
     docker-compose-mode
+    feature-mode
     web-mode))
 
 (mapc #'(lambda (package)
