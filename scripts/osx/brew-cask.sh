@@ -10,6 +10,10 @@ brew cask install spectacle
 echo "Installing cask emacs with homebrew..."
 brew cask install emacs
 
+# install postman
+echo "Installing cask postman with homebrew..."
+brew cask install postman
+
 # install gnucash
 echo "Installing cask gnucash with homebrew..."
 brew cask install gnucash
