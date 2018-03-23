@@ -11,7 +11,8 @@
   (package-refresh-contents))
 
 (defvar _packages
-  '(editorconfig
+  '(auto-package-update
+    editorconfig
     dracula-theme
     dockerfile-mode
     docker-compose-mode
