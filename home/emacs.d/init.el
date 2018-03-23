@@ -15,6 +15,7 @@
 (require 'system-configs)
 (require 'editor-configs)
 (require 'packages)
+(require 'auto-package-update-configs)
 (require 'theme-configs)
 (require 'docker-compose-mode-configs)
 (require 'dockerfile-mode-configs)
