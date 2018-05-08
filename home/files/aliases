@@ -34,6 +34,9 @@ alias lsd='ls -lh | grep "^d"'
 # brew update all
 alias bua="brew update --all && brew upgrade && brew cleanup && brew cask upgrade && brew cask cleanup"
 
+# vim update and quit
+alias vu="vim +BundleUpdate +qall"
+
 # recursively delete '.DS_Store' files
 alias cleanup="find . -type f -name '*DS_Store' -ls -delete"
 

@@ -6,3 +6,7 @@ syspip() {
 docker-join() {
     docker exec -it $1 bash
 }
+
+dlaudio() {
+    youtube-dl -f bestaudio --extract-audio --audio-format mp3 $1"
+}
