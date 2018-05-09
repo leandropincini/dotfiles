@@ -8,5 +8,5 @@ docker-join() {
 }
 
 dlaudio() {
-    youtube-dl -f bestaudio --extract-audio --audio-format mp3 $1"
+    youtube-dl -f bestaudio --extract-audio --audio-format mp3 $1
 }
