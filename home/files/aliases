@@ -37,6 +37,9 @@ alias bua="brew update --all && brew upgrade && brew cleanup && brew cask upgrad
 # vim update and quit
 alias vu="vim +BundleUpdate +qall"
 
+# oh my zsh + brew + vim
+alias upa="bua && vu && upgrade_oh_my_zsh"
+
 # recursively delete '.DS_Store' files
 alias cleanup="find . -type f -name '*DS_Store' -ls -delete"
 
