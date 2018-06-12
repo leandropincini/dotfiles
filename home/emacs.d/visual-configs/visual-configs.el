@@ -19,5 +19,8 @@
 ;; show matching pairs
 (show-paren-mode 1)
 
+;; open maximized
+(toggle-frame-maximized)
+
 (provide 'visual-configs)
 ;; end of visual-configs.el
