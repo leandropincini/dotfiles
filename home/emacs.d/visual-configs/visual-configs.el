@@ -6,6 +6,9 @@
 ;; turn off tollbar
 (tool-bar-mode -1)
 
+;; turn off scrollbar
+(scroll-bar-mode -1)
+
 ;; no blinking cursor
 (blink-cursor-mode -1)
 

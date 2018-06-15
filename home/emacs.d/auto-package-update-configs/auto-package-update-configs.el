@@ -1,5 +1,7 @@
 ;; auto-package-update-configs.el - emacs configs for auto-update-packages
 
+(require 'auto-package-update)
+
 ;; update installed packages at startup if there is an update pending
 (auto-package-update-maybe)
 

@@ -17,9 +17,11 @@
 (prefer-coding-system 'utf-8)
 (setq current-language-environment "UTF-8")
 
-;; no backup files
+;; Backup files
 (setq delete-auto-save-files t)
 (setq make-backup-files nil)
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
 
 (provide 'system-configs)
 ;; end of system-configs.el
