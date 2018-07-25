@@ -43,6 +43,12 @@ alias upa="bua && vu && upgrade_oh_my_zsh"
 # recursively delete '.DS_Store' files
 alias cleanup="find . -type f -name '*DS_Store' -ls -delete"
 
+# disable pip requires virtual_env flag
+alias pip_virtual_off="export PIP_REQUIRE_VIRTUALENV=false"
+
+# enable pip requires virtual_env flag
+alias pip_virtual_on="export PIP_REQUIRE_VIRTUALENV=true"
+
 # generates resume with rst2pdf
 alias generate-resume="rst2pdf -c -s stylesheet.txt $1"
 
