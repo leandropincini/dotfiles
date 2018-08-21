@@ -32,7 +32,7 @@ alias lla="ls -lah"
 alias lsd='ls -lh | grep "^d"'
 
 # brew update all
-alias bua="brew update --all && brew upgrade && brew cleanup && brew cask upgrade && brew cask cleanup"
+alias bua="brew update --all && brew upgrade && brew cask upgrade && brew cleanup"
 
 # vim update and quit
 alias vu="vim +BundleUpdate +qall"
