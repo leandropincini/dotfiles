@@ -25,8 +25,9 @@ brew install p7zip
 #brew install macvim --env-std --with-override-system-vim
 
 # install emacs with homebrew
-echo "Installing emacs with homebrew..."
+echo "Installing emacs and actvating emacs service with homebrew..."
 brew install emacs --with-cocoa
+brew services start emacs
 
 # install youtube-dl with homebrew
 echo "Installing youtube-dl with homebrew..."
