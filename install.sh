@@ -11,7 +11,11 @@ bash ./scripts/emacs.sh
 bash ./scripts/vim/vim.sh
 
 if [ $(uname) = "Darwin" ]; then
-	bash ./scripts/osx/osx.sh
+        bash ./scripts/osx/osx.sh
+fi
+
+if [ $(uname) = "Linux" ]; then
+    bash ./scritps/linux/linux.sh
 fi
 
 echo "Done. Note that some of these changes require a logout/restart to take effect."
