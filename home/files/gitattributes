@@ -4,7 +4,7 @@
 *.gitattributes	text
 
 # text files must be normalized (convert crlf => lf)
-*.c			text
+*.c		text
 *.check		text
 *.css		text
 *.flags		text
@@ -33,4 +33,3 @@
 *.png		binary
 *.class		-text	diff=class
 *.jar		-text	diff=jar
-

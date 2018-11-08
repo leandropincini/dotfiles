@@ -1,0 +1,4 @@
+#easier navigation
+alias l="ls"
+
+alias ls="ls --color=auto"

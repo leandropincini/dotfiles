@@ -1,0 +1,14 @@
+# easier navigation
+alias b="brew"
+
+# use colors
+alias ls="ls -G"
+
+# brew update all
+alias bua="brew update --all && brew upgrade && brew cask upgrade && brew cleanup"
+
+# oh my zsh + brew + vim
+alias upa="bua && vu && upgrade_oh_my_zsh"
+
+# recursively delete '.DS_Store' files
+alias cleanup="find . -type f -name '*DS_Store' -ls -delete"

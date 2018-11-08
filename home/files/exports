@@ -2,14 +2,11 @@
 export ARCHFLAGS="-arch x86_64"
 
 # make vim the default editor
-export EDITOR="vim"
+export EDITOR="emacs"
 
 # ls colourful
 #export CLICOLOR=1
 #export LSCOLORS=Exfxcxdxbxegedabagacad
-
-# grep highlight matches
-export GREP_OPTIONS='--color=auto'
 
 # a little color to man pages
 export LESS_TERMCAP_md=$'\E[01;32m'
@@ -21,32 +18,6 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 # prefer us english and use utf-8
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
-
-# use /usr/local/bin before /usr/bin
-PATH="/usr/local/bin:${PATH}"
-export PATH
-
-# add java_home
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home"
-
-# add java_home to path
-PATH="${PATH}:${JAVA_HOME}/bin"
-export PATH
-
-# add m2_home
-#export M2_HOME="/usr/local/Cellar/maven/3.3.9"
-#export M2=#{M2_HOME}/bin
-
-#add m2 to path
-#PATH="${PATH}:${M2}"
-#export PATH
-
-# add wildfly (jboss 8>) home
-export JBOSS_HOME="/usr/local/opt/wildfly-as/libexec"
-
-# add wildfly (jboss 8>) home to path
-PATH="${PATH}:${JBOSS_HOME}/bin"
-export PATH
 
 # virtualenv should use Distribute instead of legacy setuptools
 export VIRTUALENV_DISTRIBUTE=true

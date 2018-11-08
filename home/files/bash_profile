@@ -1,7 +1,21 @@
 # loading everything
 # ~/.extra, ~/.bash_prompt, ~/.exports, ~/.aliases and ~/.functions
+
 for file in ~/.{aliases,exports,functions,extra}; do
 	[ -r "$file" ] && source "$file"
 done
 unset file
 
+if [ $(uname) = "Darwin" ]; then
+    for file in ~/.{aliases_mac,exports_mac,extra_mac}; do
+        [ -r "$file" ] && source "$file"
+    done
+    unset file
+fi
+
+if [ $(uname) = "Linux" ]; then
+    for file in ~/.{aliases_linux,exports_linux}; do
+        [ -r "$file" ] && source "$file"
+    done
+    unset file
+fi

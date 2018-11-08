@@ -1,17 +1,5 @@
-# bash completion
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-   . $(brew --prefix)/etc/bash_completion
-fi
-
 # source mkvirtalenv
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
    source /usr/local/bin/virtualenvwrapper.sh
-fi
-
-# mount ntfs disk with ntfs-3g
-if [ ! -d /Volumes/NTFS ]; then
-    sudo -v
-    sudo mkdir /Volues/NTFS
-    sudo /usr/local/bin/ntfs-3g /dev/disk1s1 /Volues/NTFS -olocal -oallow_other
 fi
 
