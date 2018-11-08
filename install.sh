@@ -4,9 +4,9 @@ set -e
 
 bash ./scripts/dotfiles.sh
 
-#bash ./scripts/ssh.sh
+bash ./scripts/ssh.sh
 
-#bash ./scripts/emacs.sh
+bash ./scripts/emacs.sh
 
 #bash ./scripts/vim/vim.sh
 
