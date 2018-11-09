@@ -3,6 +3,6 @@ echo ">>> Installing zsh and zsh-completions with homebrew..."
 brew install zsh zsh-completions
 
 # install oh-my-zsh
-if [ -f ./oh-my-zsh/oh-my-zsh.sh ]; then
-    bash ./oh-my-zsh/oh-my-zsh.sh
+if [ -f ./scripts/osx/oh-my-zsh/oh-my-zsh.sh ]; then
+    bash ./scripts/osx/oh-my-zsh/oh-my-zsh.sh
 fi

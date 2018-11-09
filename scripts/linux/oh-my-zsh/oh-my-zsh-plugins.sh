@@ -15,6 +15,10 @@ fi
 cd ~/Projects/oh-my-zsh-custom-plugins
 
 if [ -f /usr/bin/git ]; then
+    echo ">>> >>> Installing zsh-completions plugin..."
+    git clone --depth 1 https://github.com/zsh-users/zsh-completions.git
+    ln -sf ~/Projects/oh-my-zsh-custom-plugins/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+
     echo ">>> >>> Installing zsh-syntax-highlighting plugin..."
     git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git
     ln -sf ~/Projects/oh-my-zsh-custom-plugins/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting

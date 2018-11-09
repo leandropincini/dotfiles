@@ -2,10 +2,3 @@
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
    source /usr/local/bin/virtualenvwrapper.sh
 fi
-
-# mount ntfs disk with ntfs-3g
-if [ -d /Volumes/NTFS ]; then
-    sudo -v
-    sudo mkdir /Volumes/NTFS
-    sudo /usr/local/bin/ntfs-3g /dev/disk1s1 /Volues/NTFS -olocal -oallow_other
-fi

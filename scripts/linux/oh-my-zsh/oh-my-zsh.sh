@@ -1,12 +1,17 @@
 # install oh-my-zsh
 echo ">>> Installing oh-my-zsh..."
+
+if [ -d ~/.oh-my-zsh ]; then
+    rm -rf ~/.oh-my-zsh
+fi
+
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # install oh-my-zsh dracula-theme
 echo ">>> Installing oh-my-zsh dracula-theme..."
 if [ -f /usr/bin/git ]; then
     if [ ! -d ~/.oh-my-zsh/themes ]; then
-        mkdir ~/.oh-my-zsh-themes
+        mkdir ~/.oh-my-zsh/themes
     fi
     if [ ! -d ~/Projects ]; then
         mkdir ~/Projects
@@ -24,6 +29,6 @@ if [ -f /usr/bin/git ]; then
 fi
 
 # install oh-my-zsh custom plugins
-if [ -f ./scripts/osx/oh-my-zsh/oh-my-zsh-plugins.sh ]; then
-    bash ./scripts/osx/oh-my-zsh/oh-my-zsh-plugins.sh
+if [ -f ./scripts/linux/oh-my-zsh/oh-my-zsh-plugins.sh ]; then
+    bash ./scripts/linux/oh-my-zsh/oh-my-zsh-plugins.sh
 fi

@@ -160,21 +160,21 @@ if [ ! -f /usr/local/bin/brew ]; then
 fi
 
 # install a python environment
-if [ -f ./python-environment.sh ]; then
-	echo "Installing a python environment (python/pip/distribute/virtualenv/mkvirtualenvwrapper)..."
-	bash ./python-environment.sh
+if [ -f ./scripts/osx/python-environment.sh ]; then
+        echo "Installing a python environment (python/pip/distribute/virtualenv/mkvirtualenvwrapper)..."
+        bash ./scripts/osx/python-environment.sh
 fi
 
 # install a java environment
-if [ -f ./java-environment.sh ]; then
-	if [ -f /usr/bin/java ]; then
-		echo "Installing a java environment (maven/jenkins)..."
-		bash ./java-environment.sh
-	fi
+if [ -f ./scripts/osx/java-environment.sh ]; then
+        if [ -f /usr/bin/java ]; then
+                echo "Installing a java environment (maven/jenkins)..."
+                bash ./scripts/osx/java-environment.sh
+        fi
 fi
 
 # install a zsh environment
-if [ -f ./zsh.sh ]; then
+if [ -f ./scripts/osx/zsh.sh ]; then
     echo "Installing a zsh enviroment..."
-    bash ./zsh.sh
+    bash ./scripts/osx/zsh.sh
 fi
