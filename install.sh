@@ -14,7 +14,7 @@ if [ $(uname) = "Darwin" ]; then
     bash ./scripts/osx/osx.sh
 fi
 
-if [ $(uname) = "Linux" ] && [ -f /usr/bin/yum ]; then
+if [ $(uname) = "Linux" ] && [ -f /usr/bin/dnf ]; then
     bash ./scripts/linux/linux.sh
 fi
 

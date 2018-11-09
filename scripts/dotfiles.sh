@@ -14,7 +14,7 @@ if [ $(uname) = "Darwin" ]; then
     cp -v ./home/osx_files/* ~/.dotfiles/
 fi
 
-if [ $(uname) = "Linux" ] && [ -f /usr/bin/yum ]; then
+if [ $(uname) = "Linux" ] && [ -f /usr/bin/dnf ]; then
     cp -v ./home/linux_files/* ~/.dotfiles/
 fi
 

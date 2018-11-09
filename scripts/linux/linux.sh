@@ -10,21 +10,24 @@ sudo -v
 # update existing 'sudo' time stamp until 'instalation' is finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# yum update
-sudo yum update -y
+# dnf update
+sudo dnf update -y
 
 # softwares
-echo "Installing gnome-tweaks with yum"
-sudo yum install gnome-tweaks -y
+echo "Installing gnome-tweaks with dnf"
+sudo dnf install gnome-tweaks -y
 
-echo "Installing util-linux-user with yum"
-sudo yum install util-linux-user -y
+echo "Installing util-linux-user with dnf"
+sudo dnf install util-linux-user -y
 
-echo "Installing p7zip with yum"
-sudo yum install p7zip p7zip-plugins -y
+echo "Installing p7zip with dnf"
+sudo dnf install p7zip p7zip-plugins -y
 
-echo "Installing emacs with yum"
-sudo yum install emacs -y
+echo "Installing ripgrep with dnf"
+sudo dnf install ripgrep -y
+
+echo "Installing emacs with dnf"
+sudo dnf install emacs -y
 
 # install a java environment
 if [ -f ./scripts/linux/java-environment.sh ]; then
