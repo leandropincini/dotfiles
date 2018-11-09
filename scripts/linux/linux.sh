@@ -26,6 +26,9 @@ sudo dnf install p7zip p7zip-plugins -y
 echo "Installing ripgrep with dnf"
 sudo dnf install ripgrep -y
 
+echo "Installing docker with dnf"
+sudo dnf install docker docker-compose -y
+
 echo "Installing emacs with dnf"
 sudo dnf install emacs -y
 
