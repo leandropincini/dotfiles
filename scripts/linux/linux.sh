@@ -20,6 +20,9 @@ sudo dnf install gnome-tweaks -y
 echo "Installing util-linux-user with dnf"
 sudo dnf install util-linux-user -y
 
+echo "Installing htop with dnf"
+sudo dnf install htop -y
+
 echo "Installing p7zip with dnf"
 sudo dnf install p7zip p7zip-plugins -y
 
