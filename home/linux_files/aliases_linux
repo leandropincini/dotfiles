@@ -4,4 +4,4 @@ alias l="ls"
 alias ls="ls --color=auto"
 
 alias f="free"
-alias free="free -mh"
+alias free="free -h"
