@@ -17,9 +17,6 @@
 (require 'packages)
 (require 'auto-package-update-configs)
 (require 'theme-configs)
-(require 'docker-compose-mode-configs)
-(require 'dockerfile-mode-configs)
-(require 'web-mode-configs)
 
 ;; are you running osx? load mac-configs
 (when (eq system-type 'darwin)
