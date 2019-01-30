@@ -31,6 +31,10 @@
 (eval-when-compile
   (require 'use-package))
 
+;; xml mode configs
+(use-package xml-mode
+  :mode ("\\.wsdl\\'" . xml-mode))
+
 ;; web-mode configs
 (use-package web-mode
   :mode ("\\.phtml\\'" . web-mode)
