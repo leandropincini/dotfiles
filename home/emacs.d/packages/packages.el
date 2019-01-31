@@ -57,6 +57,7 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-switchb)
+(setq org-log-done 'time)
 
 (provide 'packages)
 ;; end of packages.el
