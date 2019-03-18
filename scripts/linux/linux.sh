@@ -35,6 +35,10 @@ sudo dnf install docker docker-compose -y
 echo "Installing emacs with dnf"
 sudo dnf install emacs -y
 
+echo "Installing alacritty oranenj copr repo with dnf copr plugin"
+sudo dnf copr enable -y mizuo/alacritty
+sudo dnf install alacritty -y
+
 # install a java environment
 if [ -f ./scripts/linux/java-environment.sh ]; then
     if [ -f /usr/bin/java ]; then
