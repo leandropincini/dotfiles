@@ -38,8 +38,12 @@ echo "Installing terminal-notifier with homebrew..."
 brew install terminal-notifier
 
 # install the_silver_searcher with homebrew
-echo "Installing the_silver_searcher with homebrew..."
-brew install the_silver_searcher
+#echo "Installing the_silver_searcher with homebrew..."
+#brew install the_silver_searcher
+
+# install ripgrep with homebrew
+echo "Installing ripgrep with homebrew..."
+brew install ripgrep
 
 if [ -f ./brew-cask.sh ]; then
     bash ./brew-cask.sh
