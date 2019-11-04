@@ -19,7 +19,11 @@
     dockerfile-mode
     docker-compose-mode
     feature-mode
+    magit
     go-mode
+    clojure-mode
+    cider
+    rainbow-delimiters
     web-mode))
 
 (mapc #'(lambda (package)
