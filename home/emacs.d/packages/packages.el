@@ -16,14 +16,16 @@
     use-package
     editorconfig
     dracula-theme
+    magit
+    paredit
+    rainbow-delimiters
+    company
     dockerfile-mode
     docker-compose-mode
     feature-mode
-    magit
     go-mode
     clojure-mode
     cider
-    rainbow-delimiters
     web-mode))
 
 (mapc #'(lambda (package)
@@ -34,6 +36,40 @@
 ;; use-package configs
 (eval-when-compile
   (require 'use-package))
+
+;; magit-config
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status)))
+
+;; paredit configs
+(use-package paredit
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook #'paredit-mode)
+  (add-hook 'ielm-mode-hook #'paredit-mode)
+  (add-hook 'lisp-mode-hook  #'paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode))
+
+;; rainbow-delimiters configs
+(use-package rainbow-delimiters
+  :ensure t)
+
+;; company
+(use-package company
+  :ensure t
+  :bind (("C-c /" . company-complete))
+  :config
+  (global-company-mode))
+
+;; clojure-mode configs
+(use-package clojure-mode
+  :ensure t
+  :mode ("\\.clj\\'" . clojure-mode)
+  :config
+  (add-hook 'clojure-mode-hook #'paredit-mode)
+  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode))
 
 ;; xml mode configs
 (use-package xml-mode
