@@ -168,9 +168,15 @@ fi
 # install a java environment
 if [ -f ./scripts/osx/java-environment.sh ]; then
         if [ -f /usr/bin/java ]; then
-                echo "Installing a java environment (maven/jenkins)..."
+                echo "Installing a java environment (maven/gradle)..."
                 bash ./scripts/osx/java-environment.sh
         fi
+fi
+
+# install a clojure environment
+if [ -f ./script/osx/clojure-environment.sh ]; then
+    echo "Installing a clojure environment (leiningen)..."
+    bash ./scripts/osx/clojure-environment.sh
 fi
 
 # install a zsh environment
