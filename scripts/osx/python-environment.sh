@@ -1,10 +1,11 @@
 # verify if python is already installed
 if [ -f /usr/local/bin/python ]; then
-    echo "Python is already installed..."
+    # update pip
+    echo "Updating pip..."
+    sudo pip install --upgrade pip
 
     # install up-to-date pip's distribute
     echo "Installing distribute with pip..."
-    # deactivating require virtualenv ;)
     sudo pip install --upgrade distribute
 
     # intall virtualenv
@@ -18,6 +19,15 @@ if [ -f /usr/local/bin/python ]; then
     # install ipython
     echo "Installing ipython with pip..."
     sudo pip install --upgrade ipython
+
+    # deactivating require virtualenv ;)
+    export PIP_REQUIRE_VIRTUALENV=false
+
+    # install certifi for emacs tls
+    pip install --upgrade --user certifi
+
+    # activating require virtualenv again ;)
+    export PIP_REQUIRE_VIRTUAL_ENV=true
 else
     echo "Install Python via official package at https://www.python.org/downloads/"
 fi

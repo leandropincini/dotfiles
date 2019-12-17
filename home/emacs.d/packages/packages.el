@@ -2,6 +2,45 @@
 
 (require 'package)
 
+;; secure gnu repo
+(setq tls-checktrust t)
+
+(setq python (or (executable-find "py.exe")
+                 (executable-find "python")))
+
+(let ((trustfile
+      (replace-regexp-in-string
+       "\\\\" "/"
+       (replace-regexp-in-string
+        "\n" ""
+        (shell-command-to-string (concat python " -m certifi"))))))
+ (setq tls-program
+       (list
+        (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
+                (if (eq window-system 'w32) ".exe" "") trustfile)))
+ (setq gnutls-verify-error t)
+ (setq gnutls-trustfiles (list trustfile)))
+
+;; You can test settings by using the following code snippet:
+
+;;(let ((bad-hosts
+;;       (loop for bad
+;;             in `("https://wrong.host.badssl.com/"
+;;                  "https://self-signed.badssl.com/")
+;;             if (condition-case e
+;;                    (url-retrieve
+;;                     bad (lambda (retrieved) t))
+;;                  (error nil))
+;;             collect bad)))
+;;  (if bad-hosts
+;;      (error (format "tls misconfigured; retrieved %s ok"
+;;                     bad-hosts))
+;;    (url-retrieve "https://badssl.com"
+;;                  (lambda (retrieved) t))))
+
+(add-to-list 'package-archives
+             '("gnu" . "https://elpa.gnu.org/packages") t)
+
 ;; add the melpa package repo
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)

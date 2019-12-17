@@ -4,3 +4,8 @@ if [ -d /Volumes/NTFS ]; then
     sudo mkdir /Volumes/NTFS
     sudo /usr/local/bin/ntfs-3g /dev/disk1s1 /Volues/NTFS -olocal -oallow_other
 fi
+
+# source mkvirtualenv
+if [ -f /Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper.sh ]; then
+   source /Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper.sh
+fi

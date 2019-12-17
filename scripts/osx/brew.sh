@@ -24,6 +24,10 @@ brew install p7zip
 #echo "Replacing vim with macvim (with homebrew)..."
 #brew install macvim --env-std --with-override-system-vim
 
+# install gnutls with homebrew
+echo "Installing gnutls with homebrew..."
+brew install gnutls
+
 # install emacs with homebrew
 echo "Installing emacs and actvating emacs service with homebrew..."
 brew install emacs --with-cocoa
