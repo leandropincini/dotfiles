@@ -38,12 +38,13 @@
 ;;    (url-retrieve "https://badssl.com"
 ;;                  (lambda (retrieved) t))))
 
-(add-to-list 'package-archives
-             '("gnu" . "https://elpa.gnu.org/packages") t)
+(defvar gnu '("gnu" . "https://elpa.gnu.org/packages/"))
+(defvar melpa-stable '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
-;; add the melpa package repo
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+;; set package repo
+(setq package-archives nil)
+(add-to-list 'package-archives melpa-stable t)
+(add-to-list 'package-archives gnu t)
 
 (package-initialize)
 (when (not package-archive-contents)
@@ -55,6 +56,7 @@
     use-package
     editorconfig
     dracula-theme
+    which-key
     magit
     paredit
     rainbow-delimiters
@@ -65,6 +67,7 @@
     go-mode
     clojure-mode
     cider
+    cider-hydra
     web-mode))
 
 (mapc #'(lambda (package)
@@ -75,6 +78,12 @@
 ;; use-package configs
 (eval-when-compile
   (require 'use-package))
+
+;; wichkey config
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
 
 ;; magit-config
 (use-package magit
@@ -93,7 +102,10 @@
 
 ;; rainbow-delimiters configs
 (use-package rainbow-delimiters
-  :ensure t)
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode))
 
 ;; company
 (use-package company
@@ -108,7 +120,8 @@
   :mode ("\\.clj\\'" . clojure-mode)
   :config
   (add-hook 'clojure-mode-hook #'paredit-mode)
-  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode))
+  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'clojure-mode-hook #'cider-hydra-mode))
 
 ;; xml mode configs
 (use-package xml-mode

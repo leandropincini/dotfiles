@@ -1,10 +1,13 @@
 ;; editor-configs.el - emacs editor configs
 
-;; indent with spaces
-(setq-default indent-tabs-mode nil)
+;; change yes-or-no to y-or-n
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; classic select
 (setq shift-select-mode nil)
+
+;; indent with spaces
+(setq-default indent-tabs-mode nil)
 
 ;; smart inference of indentation style
 (defun how-many-region (begin end regexp &optional interactive)
@@ -41,4 +44,5 @@ Non-interactive arguments are Begin End Regexp"
 (setq require-final-newline t)
 
 (provide 'editor-configs)
+
 ;; end of editor-configs.el
