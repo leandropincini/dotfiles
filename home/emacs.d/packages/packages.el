@@ -55,8 +55,10 @@
     org
     use-package
     editorconfig
+    projectile
     dracula-theme
     which-key
+    move-text
     magit
     paredit
     rainbow-delimiters
@@ -66,8 +68,8 @@
     feature-mode
     go-mode
     clojure-mode
+    flycheck-joker
     cider
-    cider-hydra
     web-mode))
 
 (mapc #'(lambda (package)
@@ -79,13 +81,35 @@
 (eval-when-compile
   (require 'use-package))
 
-;; wichkey config
+;; editorconfig configs
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+
+;; projectile configs
+(use-package projectile
+  :ensure t
+  :pin melpa-stable
+  :config
+  (setq projectile-project-search-path '("~/Projects/"))
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1))
+
+;; wichkey configs
 (use-package which-key
   :ensure t
   :config
-  (which-key-mode))
+  (which-key-mode +1))
 
-;; magit-config
+;; move-text configs
+(use-package move-text
+  :ensure t
+  :bind
+  (([(meta shift up)] . move-text-up)
+   ([(meta shift down)] . move-text-down)))
+
+;; magit-configs
 (use-package magit
   :ensure t
   :bind (("C-x g" . magit-status)))
@@ -107,12 +131,20 @@
   (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
   (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode))
 
-;; company
+;; company-mode configs
 (use-package company
   :ensure t
   :bind (("C-c /" . company-complete))
   :config
-  (global-company-mode))
+  (setq company-idle-delay 0.5)
+  (setq company-show-numbers t)
+  (setq company-tooltip-limit 10)
+  (setq company-minimum-prefix-length 2)
+  (setq company-tooltip-align-annotations t)
+  ;; invert the navigation direction if the competion popup-isear-match
+  ;; is displayed on top (happens near the bottom of windows)
+  (setq company-tooltip-flip-when-above t)
+  (global-company-mode +1))
 
 ;; clojure-mode configs
 (use-package clojure-mode
@@ -120,8 +152,23 @@
   :mode ("\\.clj\\'" . clojure-mode)
   :config
   (add-hook 'clojure-mode-hook #'paredit-mode)
-  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'clojure-mode-hook #'cider-hydra-mode))
+  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode))
+
+;; cider configs
+(use-package cider
+  :ensure t
+  :config
+  (add-hook 'cider-repl-mode-hook #'paredit-mode)
+  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'cider-repl-mode-hook #'company-mode))
+
+;; flycheck-joker configs
+(use-package flycheck-joker
+  :ensure t)
+
+;; yaml-mode configs
+(use-package yaml-mode
+  :ensure t)
 
 ;; xml mode configs
 (use-package xml-mode
@@ -129,6 +176,7 @@
 
 ;; web-mode configs
 (use-package web-mode
+  :ensure t
   :mode ("\\.phtml\\'" . web-mode)
   :mode ("\\.tpl\\.php\\'" . web-mode)
   :mode ("\\.[agj]sp\\'" . web-mode)
@@ -142,7 +190,8 @@
   :mode ("\\Dockerfile\\'" . dockerfile-mode))
 
 ;; docker-comopose-mode configs
-(use-package docker-compose-mode)
+(use-package docker-compose-mode
+  :ensure t)
 
 ;; org-mode configs
 (global-set-key "\C-cl" 'org-store-link)
