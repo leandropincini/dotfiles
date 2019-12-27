@@ -9,6 +9,9 @@
 (let ((default-directory "~/.emacs.d/"))
   (normal-top-level-add-subdirs-to-load-path))
 
+;; local path
+(add-to-list 'exec-path "/usr/local/bin")
+
 ;; load all other configuration
 ;(require 'proxy)
 (require 'visual-configs)
