@@ -14,6 +14,7 @@
 
 ;; load all other configuration
 ;(require 'proxy)
+(require 'utils)
 (require 'visual-configs)
 (require 'system-configs)
 (require 'editor-configs)
