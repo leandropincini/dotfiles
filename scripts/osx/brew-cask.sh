@@ -21,3 +21,19 @@ brew cask install tuxguitar
 # install unetbootin
 echo "Installing cask unetbootin with homebrew..."
 brew cask install unetbootin
+
+# install emacs
+echo  "Installing cask emacs with homebrew..."
+brew cask install emacs
+
+# install alacritty
+echo "Installing cask alacritty with homebrew..."
+brew cask install alacritty
+
+# install telegram for mac
+echo "Installing cask telegram with homebrew..."
+brew cask install telegram
+
+# install spotify
+echo "Installing cask spotify with homebrew..."
+brew cask install spotify

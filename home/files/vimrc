@@ -76,10 +76,10 @@ set encoding=utf-8 " charset
 
 " completing words
 function! MoshTabOrComplete()
-	if col('.')>1 && strpart(getline('.'),col('.')-2,3) =~ '^\w'
-		return "\<C-N>"
-	else
-		return "\<Tab>"
+    if col('.')>1 && strpart(getline('.'),col('.')-2,3) =~ '^\w'
+        return "\<C-N>"
+    else
+        return "\<Tab>"
 endfunction
 
 inoremap <D-/> <C-R>=MoshTabOrComplete()<CR>
@@ -104,7 +104,7 @@ autocmd BufWritePre * :%s/\s\+$//e " removing trailing spaces
 filetype on " enable filetype detection
 
 " loading vundle's configs and settings
-source ~/.vim/bundle/bundles.vim
+" source ~/.vim/bundle/bundles.vim
 
 filetype plugin indent on " enable filetype specific plugin/indenting
 
@@ -112,7 +112,7 @@ filetype plugin indent on " enable filetype specific plugin/indenting
 if &t_Co > 1
     syntax enable
     syntax on
-    color dracula
+"    color dracula
 endif
 
 " if you wish use configuration by languages
@@ -148,4 +148,3 @@ let java_highlight_debug=1
 let java_ignore_javadoc=1
 let java_highlight_functions=1
 let java_mark_braces_in_parens_as_errors=1
-

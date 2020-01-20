@@ -29,9 +29,9 @@ echo "Installing gnutls with homebrew..."
 brew install gnutls
 
 # install emacs with homebrew
-echo "Installing emacs and actvating emacs service with homebrew..."
-brew install emacs --with-cocoa
-brew services start emacs
+#echo "Installing emacs and actvating emacs service with homebrew..."
+#brew install emacs --with-cocoa
+#brew services start emacs
 
 # install youtube-dl with homebrew
 echo "Installing youtube-dl with homebrew..."
