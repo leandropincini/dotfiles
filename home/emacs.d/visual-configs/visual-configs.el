@@ -25,5 +25,8 @@
 ;; open maximized
 (toggle-frame-maximized)
 
+;; highline cursor line
+(global-hl-line-mode +1)
+
 (provide 'visual-configs)
 ;; end of visual-configs.el

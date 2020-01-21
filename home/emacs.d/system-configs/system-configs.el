@@ -23,5 +23,12 @@
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
 
+;; Always load newest byte code
+(setq load-prefer-newer t)
+
+;; reduce the frequency garbage collection by making it happen on
+;; each 50MB of allocated data (the default is on every 0.76MB)
+(setq gc-cons-threshold 50000000)
+
 (provide 'system-configs)
 ;; end of system-configs.el
