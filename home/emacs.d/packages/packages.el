@@ -71,6 +71,7 @@
     clojure-mode
     flycheck-joker
     cider
+    yaml-mode
     web-mode))
 
 (mapc #'(lambda (package)
@@ -170,6 +171,7 @@
 (use-package cider
   :ensure t
   :config
+  (add-hook 'cider-mode-hook #'clojure-mode)
   (add-hook 'cider-repl-mode-hook #'paredit-mode)
   (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
   (add-hook 'cider-repl-mode-hook #'company-mode))
