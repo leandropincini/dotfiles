@@ -56,6 +56,7 @@
     use-package
     editorconfig
     projectile
+    ivy
     dracula-theme
     which-key
     move-text
@@ -91,10 +92,21 @@
 (use-package projectile
   :ensure t
   :pin melpa-stable
+  :init
+  (setq projectile-completion-system 'ivy)
   :config
   (setq projectile-project-search-path '("~/Projects/"))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode +1))
+
+;; ivy configs
+(use-package ivy
+  :ensure t
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  (global-set-key (kbd "C-c C-r") 'ivy-resume))
 
 ;; wichkey configs
 (use-package which-key

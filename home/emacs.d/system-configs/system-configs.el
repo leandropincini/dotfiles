@@ -30,5 +30,8 @@
 ;; each 50MB of allocated data (the default is on every 0.76MB)
 (setq gc-cons-threshold 50000000)
 
+;; warm when opening files bigger than 100MB
+(setq large-file-warning-threshold 100000000)
+
 (provide 'system-configs)
 ;; end of system-configs.el
