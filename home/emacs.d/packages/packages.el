@@ -71,6 +71,7 @@
     clojure-mode
     flycheck-joker
     cider
+    markdown-mode
     yaml-mode
     web-mode))
 
@@ -179,6 +180,25 @@
 ;; flycheck-joker configs
 (use-package flycheck-joker
   :ensure t)
+
+;; markdown-mode configs
+(use-package markdown-mode
+  :ensure t
+  :mode (("\\.md'" . gfm-mode)
+         ("\\.markdown\\'" . gfm-mode))
+  :config
+  (setq markdown-fontify-code-blocks-natively t)
+  :preface
+  (defun jekyll-insert-image-url ()
+    (interactive)
+    (let* ((files (directory-files "../assets/images"))
+            (selected-file (completing-read "Select image: " files nil t)))
+         (insert (format "![%s](/assets/images/%s)" selected-file selected-file))))
+  (defun jekyll-insert-post-url ()
+    (interactive)
+    (let* ((files (remove "." (mapcar #'file-name-sans-extension (directory-files "."))))
+           (selected-file (completing-read "Select article: " files nil t)))
+      (insert (format "{%% post_url %s %%}" selected-file)))))
 
 ;; yaml-mode configs
 (use-package yaml-mode
