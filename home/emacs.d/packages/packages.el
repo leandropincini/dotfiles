@@ -228,10 +228,10 @@
   :ensure t)
 
 ;; org-mode configs
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-cb" 'org-switchb)
+(global-set-key "\C-col" 'org-store-link)
+(global-set-key "\C-coa" 'org-agenda)
+(global-set-key "\C-coc" 'org-capture)
+(global-set-key "\C-cob" 'org-switchb)
 (setq org-log-done 'time)
 
 (provide 'packages)
