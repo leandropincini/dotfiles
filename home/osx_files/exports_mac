@@ -1,6 +1,3 @@
-# grep highlight matches
-export GREP_OPTIONS='--color=auto'
-
 # use /usr/local/bin before /usr/bin
 PATH="/usr/local/bin:${PATH}"
 export PATH
