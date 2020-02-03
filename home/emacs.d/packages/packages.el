@@ -56,7 +56,6 @@
     use-package
     editorconfig
     projectile
-    ivy
     dracula-theme
     which-key
     move-text
@@ -73,7 +72,8 @@
     cider
     markdown-mode
     yaml-mode
-    web-mode))
+    web-mode
+    ivy))
 
 (mapc #'(lambda (package)
           (unless (package-installed-p package)
