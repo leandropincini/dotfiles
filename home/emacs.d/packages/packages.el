@@ -132,6 +132,7 @@
 (use-package paredit
   :ensure t
   :config
+  (add-hook 'clojure-mode-hook #'paredit-mode)
   (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
   (add-hook 'lisp-interaction-mode-hook #'paredit-mode)
   (add-hook 'ielm-mode-hook #'paredit-mode)
@@ -142,6 +143,7 @@
 (use-package rainbow-delimiters
   :ensure t
   :config
+  (add-hook 'clojure-mode-hook #'paredit-mode)
   (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
   (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode))
 
@@ -150,7 +152,7 @@
   :ensure t
   :bind (("C-c /" . company-complete))
   :config
-  (setq company-idle-delay 0.5)
+  (setq company-idle-delay 0.3)
   (setq company-show-numbers t)
   (setq company-tooltip-limit 10)
   (setq company-minimum-prefix-length 2)
