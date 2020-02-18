@@ -8,18 +8,16 @@
 (setq python (or (executable-find "py.exe")
                  (executable-find "python")))
 
-(let ((trustfile
-      (replace-regexp-in-string
-       "\\\\" "/"
-       (replace-regexp-in-string
-        "\n" ""
-        (shell-command-to-string (concat python " -m certifi"))))))
- (setq tls-program
-       (list
-        (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
-                (if (eq window-system 'w32) ".exe" "") trustfile)))
- (setq gnutls-verify-error t)
- (setq gnutls-trustfiles (list trustfile)))
+(let ((trustfile (replace-regexp-in-string "\\\\" "/"
+                                           (replace-regexp-in-string "\n" ""
+                                                                     (shell-command-to-string (concat python " -m certifi"))))))
+
+  (setq tls-program (list (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
+                                  (if (eq window-system 'w32) ".exe" "")trustfile)))
+
+  (setq gnutls-verify-error t)
+
+  (setq gnutls-trustfiles (list trustfile)))
 
 ;; You can test settings by using the following code snippet:
 
@@ -69,6 +67,11 @@
     go-mode
     clojure-mode
     flycheck-joker
+    flycheck-clojure
+    clj-refactor
+    lsp-mode
+    company-lsp
+    yasnippet
     cider
     markdown-mode
     yaml-mode
@@ -81,8 +84,7 @@
       _packages)
 
 ;; use-package configs
-(eval-when-compile
-  (require 'use-package))
+(eval-when-compile (require 'use-package))
 
 ;; editorconfig configs
 (use-package editorconfig
@@ -131,29 +133,29 @@
 ;; paredit configs
 (use-package paredit
   :ensure t
-  :config
-  (add-hook 'clojure-mode-hook #'paredit-mode)
-  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
-  (add-hook 'lisp-interaction-mode-hook #'paredit-mode)
-  (add-hook 'ielm-mode-hook #'paredit-mode)
-  (add-hook 'lisp-mode-hook  #'paredit-mode)
-  (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode))
+  :hook ((clojure-mode . paredit-mode)
+         (emacs-lisp-mode . paredit-mode)
+         (lisp-interaction-mode . paredit-mode)
+         (ielm-mode . paredit-mode)
+         (lisp-mode . paredit-mode)
+         (eval-expression-minibuffer-setup . paredit-mode)))
 
 ;; rainbow-delimiters configs
 (use-package rainbow-delimiters
   :ensure t
-  :config
-  (add-hook 'clojure-mode-hook #'paredit-mode)
-  (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode))
+  :hook ((clojure-mode . rainbow-delimiters-mode)
+         (emacs-lisp-mode . rainbow-delimiters-mode)
+         (lisp-mode . . rainbow-delimiters-mode)))
 
 ;; company-mode configs
 (use-package company
   :ensure t
   :bind (("C-c /" . company-complete))
   :config
-  (setq company-idle-delay 0.3)
+  (setq company-idle-delay 0.2)
   (setq company-show-numbers t)
+  ;(setq company-echo-delay 0)
+  ;(setq company-candidates-cache t)
   (setq company-tooltip-limit 10)
   (setq company-minimum-prefix-length 2)
   (setq company-tooltip-align-annotations t)
@@ -166,21 +168,85 @@
 (use-package clojure-mode
   :ensure t
   :mode ("\\.clj\\'" . clojure-mode)
+  :hook ((clojure-mode . paredit-mode)
+         (clojure-mode . rainbow-delimiters-mode))
   :config
-  (add-hook 'clojure-mode-hook #'paredit-mode)
-  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode))
+  (define-clojure-indent
+    (fact 1)
+    (facts 1)
+    (flow 1)
+    (fnk 1)
+    (provided 1)
+    (clojure.test.check/quick-check 2)
+    (clojure.test.check.properties/for-all 2)))
 
 ;; cider configs
 (use-package cider
   :ensure t
+  :after clojure-mode
+  :hook ((cider-mode . eldoc-mode)
+         (cider-repl-mode . eldoc-mode)
+         (cider-repl-mode . paredit-mode)
+         (cider-repl-mode . rainbow-delimiters-mode)
+         (cider-repl-mode . company-mode))
   :config
-  (add-hook 'cider-mode-hook #'clojure-mode)
-  (add-hook 'cider-repl-mode-hook #'paredit-mode)
-  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'cider-repl-mode-hook #'company-mode))
+  (setq nrepl-log-messages t))
+
+;; clj-refactor configs
+(use-package clj-refactor
+  :ensure t
+  :after clojure-mode
+  :init
+  (setq cljr-warn-on-eval nil
+    clojure-thread-all-but-last t
+    cljr-magic-require-namespaces
+    '(("s" . "schema.core"
+       "d" . "datomic.api"
+       "pp" . "clojure.pprint"))))
 
 ;; flycheck-joker configs
 (use-package flycheck-joker
+  :ensure t)
+
+;; flycheck-clojure configs
+(use-package flycheck-clojure
+  :ensure t
+  :after flycheck-joker)
+
+;; lsp-mode
+(use-package lsp-mode
+  :ensure t
+  :hook ((clojure-mode . lsp)
+         (clojurec-mode . lsp)
+         (clojurescript-mode . lsp))
+  :commands lsp
+  :init
+  (setq lsp-enable-indentation nil
+        lsp-prefer-flymake nil
+        lsp-log-io t)
+  :custom
+  ((lsp-clojure-server-command '("bash" "-c" "clojure-lsp")))
+  :config
+  (setenv "PATH" (concat
+                  "/usr/local/bin" path-separator
+                  (getenv "PATH")))
+  (dolist (m '(clojure-mode
+               clojurec-mode
+               clojurescript-mode
+               clojurex-mode))
+    (add-to-list 'lsp-language-id-configuration `(,m . "clojure"))))
+
+;; company-lsp
+(use-package company-lsp
+  :ensure t
+  :after company
+  :commands company-lsp
+  :config
+  (setq company-lsp-async t)
+  (push '(company-lsp :with company-yasnippet) company-backends))
+
+;; yasnippet
+(use-package yasnippet
   :ensure t)
 
 ;; markdown-mode configs
