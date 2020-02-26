@@ -168,8 +168,6 @@
 (use-package clojure-mode
   :ensure t
   :mode ("\\.clj\\'" . clojure-mode)
-  :hook ((clojure-mode . paredit-mode)
-         (clojure-mode . rainbow-delimiters-mode))
   :config
   (define-clojure-indent
     (fact 1)
@@ -198,11 +196,11 @@
   :after clojure-mode
   :init
   (setq cljr-warn-on-eval nil
-    clojure-thread-all-but-last t
-    cljr-magic-require-namespaces
-    '(("s" . "schema.core"
-       "d" . "datomic.api"
-       "pp" . "clojure.pprint"))))
+        clojure-thread-all-but-last t
+        cljr-magic-require-namespaces
+        '(("s" . "schema.core"
+           "d" . "datomic.api"
+           "pp" . "clojure.pprint"))))
 
 ;; flycheck-joker configs
 (use-package flycheck-joker
@@ -210,8 +208,7 @@
 
 ;; flycheck-clojure configs
 (use-package flycheck-clojure
-  :ensure t
-  :after flycheck-joker)
+  :ensure t)
 
 ;; lsp-mode
 (use-package lsp-mode
