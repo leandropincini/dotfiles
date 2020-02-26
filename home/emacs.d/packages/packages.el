@@ -8,16 +8,18 @@
 (setq python (or (executable-find "py.exe")
                  (executable-find "python")))
 
-(let ((trustfile (replace-regexp-in-string "\\\\" "/"
-                                           (replace-regexp-in-string "\n" ""
-                                                                     (shell-command-to-string (concat python " -m certifi"))))))
-
-  (setq tls-program (list (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
-                                  (if (eq window-system 'w32) ".exe" "")trustfile)))
-
-  (setq gnutls-verify-error t)
-
-  (setq gnutls-trustfiles (list trustfile)))
+(let ((trustfile
+      (replace-regexp-in-string
+       "\\\\" "/"
+       (replace-regexp-in-string
+        "\n" ""
+        (shell-command-to-string (concat python " -m certifi"))))))
+ (setq tls-program
+       (list
+        (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
+                (if (eq window-system 'w32) ".exe" "") trustfile)))
+ (setq gnutls-verify-error t)
+ (setq gnutls-trustfiles (list trustfile)))
 
 ;; You can test settings by using the following code snippet:
 
@@ -67,10 +69,8 @@
     go-mode
     clojure-mode
     flycheck-joker
-    flycheck-clojure
     clj-refactor
     lsp-mode
-    company-lsp
     yasnippet
     cider
     markdown-mode
@@ -85,16 +85,15 @@
 
 ;; use-package configs
 (eval-when-compile (require 'use-package))
+(setq use-package-always-ensure t)
 
 ;; editorconfig configs
 (use-package editorconfig
-  :ensure t
   :config
   (editorconfig-mode 1))
 
 ;; projectile configs
 (use-package projectile
-  :ensure t
   :pin melpa-stable
   :init
   (setq projectile-completion-system 'ivy)
@@ -105,7 +104,6 @@
 
 ;; ivy configs
 (use-package ivy
-  :ensure t
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
@@ -114,25 +112,21 @@
 
 ;; wichkey configs
 (use-package which-key
-  :ensure t
   :config
   (which-key-mode +1))
 
 ;; move-text configs
 (use-package move-text
-  :ensure t
   :bind
   (([(meta shift up)] . move-text-up)
    ([(meta shift down)] . move-text-down)))
 
 ;; magit-configs
 (use-package magit
-  :ensure t
   :bind (("C-x g" . magit-status)))
 
 ;; paredit configs
 (use-package paredit
-  :ensure t
   :hook ((clojure-mode . paredit-mode)
          (emacs-lisp-mode . paredit-mode)
          (lisp-interaction-mode . paredit-mode)
@@ -142,14 +136,16 @@
 
 ;; rainbow-delimiters configs
 (use-package rainbow-delimiters
-  :ensure t
   :hook ((clojure-mode . rainbow-delimiters-mode)
          (emacs-lisp-mode . rainbow-delimiters-mode)
          (lisp-mode . rainbow-delimiters-mode)))
 
+;; testing
+(use-package rainbow-mode
+  :hook ((prog-mode . rainbow-mode)))
+
 ;; company-mode configs
 (use-package company
-  :ensure t
   :bind (("C-c /" . company-complete))
   :config
   (setq company-idle-delay 0.2)
@@ -162,13 +158,26 @@
   ;; invert the navigation direction if the competion popup-isear-match
   ;; is displayed on top (happens near the bottom of windows)
   (setq company-tooltip-flip-when-above t)
-  (global-company-mode +1))
+  (global-company-mode))
+
+;; testing
+(use-package flyspell
+  :hook ((clojure-mode . flyspell-mode)
+         (text-mode . flyspell-mode)
+         (program-mode . flyspell-prog-mode))
+  :config
+  (setq ispell-program-name "aspell"
+        ispell-extra-args '("--sug-mode=ultra")))
+
+;; testing
+(use-package flycheck
+  :hook ((after-init . global-flycheck-mode)))
 
 ;; clojure-mode configs
 (use-package clojure-mode
-  :ensure t
   :mode ("\\.clj\\'" . clojure-mode)
   :config
+  (setq default-fill-column 80)
   (define-clojure-indent
     (fact 1)
     (facts 1)
@@ -180,7 +189,6 @@
 
 ;; cider configs
 (use-package cider
-  :ensure t
   :after clojure-mode
   :hook ((cider-mode . eldoc-mode)
          (cider-repl-mode . eldoc-mode)
@@ -188,39 +196,48 @@
          (cider-repl-mode . rainbow-delimiters-mode)
          (cider-repl-mode . company-mode))
   :config
-  (setq nrepl-log-messages t))
+  (setq nrepl-log-messages t
+        cider-repl-display-help-banner nil))
 
-;; clj-refactor configs
+;; org-mode configs
+(global-set-key "\C-ccs" 'cider-jack-in)
+(global-set-key "\C-cce" 'cider-eval-buffer)
+(global-set-key "\C-ccf" 'cider-eval-last-sexp)
+(global-set-key "\C-ccnr" 'cider-ns-reload-all)
+
+;; testing
 (use-package clj-refactor
-  :ensure t
   :after clojure-mode
+  :hook ((clojure-mode . clj-refactor-mode))
   :init
   (setq cljr-warn-on-eval nil
         clojure-thread-all-but-last t
         cljr-magic-require-namespaces
-        '(("s" . "schema.core"
-           "d" . "datomic.api"
-           "pp" . "clojure.pprint"))))
+        '(("s" . "schema.core")
+          ("d" . "datomic.api")
+          ("pp" . "clojure.pprint")))
+  :config
+  (setq cljr-add-ns-to-blank-clj-files nil))
 
 ;; flycheck-joker configs
-(use-package flycheck-joker
-  :ensure t)
+(use-package flycheck-joker)
 
 ;; flycheck-clojure configs
-(use-package flycheck-clojure
-  :ensure t)
+(use-package flycheck-clojure)
 
 ;; lsp-mode
 (use-package lsp-mode
-  :ensure t
   :hook ((clojure-mode . lsp)
          (clojurec-mode . lsp)
-         (clojurescript-mode . lsp))
+         (clojurescript-mode . lsp)
+         ;(lsp-mode . lsp-enable-which-key-intergration)
+         )
   :commands lsp
   :init
   (setq lsp-enable-indentation nil
         lsp-prefer-flymake nil
-        lsp-log-io t)
+        lsp-log-io t
+        lsp-enable-symbol-highlighting nil)
   :custom
   ((lsp-clojure-server-command '("bash" "-c" "clojure-lsp")))
   :config
@@ -233,22 +250,18 @@
                clojurex-mode))
     (add-to-list 'lsp-language-id-configuration `(,m . "clojure"))))
 
-;; company-lsp
-(use-package company-lsp
-  :ensure t
-  :after company
-  :commands company-lsp
-  :config
-  (setq company-lsp-async t)
-  (push '(company-lsp :with company-yasnippet) company-backends))
+;; testing
+(use-package lsp-ivy
+  :ensure nil
+  :commands lsp-ivy-workspace-symbol)
 
 ;; yasnippet
 (use-package yasnippet
-  :ensure t)
+  :init
+  (yas-global-mode 1))
 
 ;; markdown-mode configs
 (use-package markdown-mode
-  :ensure t
   :mode (("\\.md'" . gfm-mode)
          ("\\.markdown\\'" . gfm-mode))
   :config
@@ -266,16 +279,19 @@
       (insert (format "{%% post_url %s %%}" selected-file)))))
 
 ;; yaml-mode configs
-(use-package yaml-mode
-  :ensure t)
+(use-package yaml-mode)
+
+;; testing
+(use-package json-mode
+  :mode ("\\.json\\'" . json-mode))
 
 ;; xml mode configs
 (use-package xml-mode
+  :ensure nil
   :mode ("\\.wsdl\\'" . xml-mode))
 
 ;; web-mode configs
 (use-package web-mode
-  :ensure t
   :mode ("\\.phtml\\'" . web-mode)
   :mode ("\\.tpl\\.php\\'" . web-mode)
   :mode ("\\.[agj]sp\\'" . web-mode)
@@ -286,11 +302,11 @@
 
 ;; Dockerfile-mode configs
 (use-package dockefile-mode
+  :ensure nil
   :mode ("\\Dockerfile\\'" . dockerfile-mode))
 
 ;; docker-comopose-mode configs
-(use-package docker-compose-mode
-  :ensure t)
+(use-package docker-compose-mode)
 
 ;; org-mode configs
 (global-set-key "\C-col" 'org-store-link)
@@ -300,4 +316,4 @@
 (setq org-log-done 'time)
 
 (provide 'packages)
-;; end of packages.el
+;;; packages.el ends here
