@@ -145,7 +145,7 @@
   :ensure t
   :hook ((clojure-mode . rainbow-delimiters-mode)
          (emacs-lisp-mode . rainbow-delimiters-mode)
-         (lisp-mode . . rainbow-delimiters-mode)))
+         (lisp-mode . rainbow-delimiters-mode)))
 
 ;; company-mode configs
 (use-package company
