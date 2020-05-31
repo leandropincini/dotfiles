@@ -87,12 +87,10 @@
 (eval-when-compile (require 'use-package))
 (setq use-package-always-ensure t)
 
-;; editorconfig configs
 (use-package editorconfig
   :config
   (editorconfig-mode 1))
 
-;; projectile configs
 (use-package projectile
   :pin melpa-stable
   :init
@@ -102,7 +100,6 @@
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode +1))
 
-;; ivy configs
 (use-package ivy
   :config
   (ivy-mode 1)
@@ -110,22 +107,18 @@
   (setq enable-recursive-minibuffers t)
   (global-set-key (kbd "C-c C-r") 'ivy-resume))
 
-;; wichkey configs
 (use-package which-key
   :config
   (which-key-mode +1))
 
-;; move-text configs
 (use-package move-text
   :bind
   (([(meta shift up)] . move-text-up)
    ([(meta shift down)] . move-text-down)))
 
-;; magit-configs
 (use-package magit
   :bind (("C-x g" . magit-status)))
 
-;; paredit configs
 (use-package paredit
   :hook ((clojure-mode . paredit-mode)
          (emacs-lisp-mode . paredit-mode)
@@ -134,7 +127,6 @@
          (lisp-mode . paredit-mode)
          (eval-expression-minibuffer-setup . paredit-mode)))
 
-;; rainbow-delimiters configs
 (use-package rainbow-delimiters
   :hook ((clojure-mode . rainbow-delimiters-mode)
          (emacs-lisp-mode . rainbow-delimiters-mode)
@@ -144,7 +136,6 @@
 (use-package rainbow-mode
   :hook ((prog-mode . rainbow-mode)))
 
-;; company-mode configs
 (use-package company
   :bind (("C-c /" . company-complete))
   :config
@@ -160,7 +151,6 @@
   (setq company-tooltip-flip-when-above t)
   (global-company-mode))
 
-;; testing
 (use-package flyspell
   :hook ((clojure-mode . flyspell-mode)
          (text-mode . flyspell-mode)
@@ -169,25 +159,30 @@
   (setq ispell-program-name "aspell"
         ispell-extra-args '("--sug-mode=ultra")))
 
-;; testing
 (use-package flycheck
   :hook ((after-init . global-flycheck-mode)))
 
-;; clojure-mode configs
 (use-package clojure-mode
   :mode ("\\.clj\\'" . clojure-mode)
   :config
   (setq default-fill-column 80)
   (define-clojure-indent
-    (fact 1)
-    (facts 1)
     (flow 1)
+    (facts 1)
+    (fact 1)
+    (as-of 1)
+    (assoc 0)
+    (assoc-if 1)
+    (provided 0)
+    (tabular 0)
+    (consume! 0)
+    (try-type 0)
+    (with-fn-validation 0)
+    (system-map 0)
     (fnk 1)
-    (provided 1)
     (clojure.test.check/quick-check 2)
     (clojure.test.check.properties/for-all 2)))
 
-;; cider configs
 (use-package cider
   :after clojure-mode
   :hook ((cider-mode . eldoc-mode)
@@ -199,13 +194,12 @@
   (setq nrepl-log-messages t
         cider-repl-display-help-banner nil))
 
-;; org-mode configs
+;; cider shortcuts configs
 (global-set-key "\C-ccs" 'cider-jack-in)
 (global-set-key "\C-cce" 'cider-eval-buffer)
 (global-set-key "\C-ccf" 'cider-eval-last-sexp)
 (global-set-key "\C-ccnr" 'cider-ns-reload-all)
 
-;; testing
 (use-package clj-refactor
   :after clojure-mode
   :hook ((clojure-mode . clj-refactor-mode))
@@ -219,13 +213,10 @@
   :config
   (setq cljr-add-ns-to-blank-clj-files nil))
 
-;; flycheck-joker configs
 (use-package flycheck-joker)
 
-;; flycheck-clojure configs
 (use-package flycheck-clojure)
 
-;; lsp-mode
 (use-package lsp-mode
   :hook ((clojure-mode . lsp)
          (clojurec-mode . lsp)
@@ -250,17 +241,14 @@
                clojurex-mode))
     (add-to-list 'lsp-language-id-configuration `(,m . "clojure"))))
 
-;; testing
 (use-package lsp-ivy
   :ensure nil
   :commands lsp-ivy-workspace-symbol)
 
-;; yasnippet
 (use-package yasnippet
   :init
   (yas-global-mode 1))
 
-;; markdown-mode configs
 (use-package markdown-mode
   :mode (("\\.md'" . gfm-mode)
          ("\\.markdown\\'" . gfm-mode))
@@ -278,19 +266,15 @@
            (selected-file (completing-read "Select article: " files nil t)))
       (insert (format "{%% post_url %s %%}" selected-file)))))
 
-;; yaml-mode configs
 (use-package yaml-mode)
 
-;; testing
 (use-package json-mode
   :mode ("\\.json\\'" . json-mode))
 
-;; xml mode configs
 (use-package xml-mode
   :ensure nil
   :mode ("\\.wsdl\\'" . xml-mode))
 
-;; web-mode configs
 (use-package web-mode
   :mode ("\\.phtml\\'" . web-mode)
   :mode ("\\.tpl\\.php\\'" . web-mode)
@@ -300,15 +284,13 @@
   :mode ("\\.djhtml\\'" . web-mode)
   :mode ("\\.html?\\'" . web-mode))
 
-;; Dockerfile-mode configs
 (use-package dockefile-mode
   :ensure nil
   :mode ("\\Dockerfile\\'" . dockerfile-mode))
 
-;; docker-comopose-mode configs
 (use-package docker-compose-mode)
 
-;; org-mode configs
+;; org-mode shortcuts configs
 (global-set-key "\C-col" 'org-store-link)
 (global-set-key "\C-coa" 'org-agenda)
 (global-set-key "\C-coc" 'org-capture)
