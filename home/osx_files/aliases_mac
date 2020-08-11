@@ -13,7 +13,7 @@ alias ls="ls -G"
 alias bua="brew update && brew upgrade && brew cask upgrade && brew cleanup"
 
 # oh my zsh + brew + vim
-alias upa="bua && upgrade_oh_my_zsh"
+alias upa="bua && omz update"
 
 # recursively delete '.DS_Store' files
 alias cleanup="find . -type f -name '*DS_Store' -ls -delete"
