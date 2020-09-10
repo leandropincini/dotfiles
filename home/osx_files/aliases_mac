@@ -10,7 +10,7 @@ alias b="brew"
 alias ls="ls -G"
 
 # brew update all
-alias bua="brew update && brew upgrade && brew cask upgrade && brew cleanup"
+alias bua="brew update && brew upgrade && brew upgrade --cask && brew cleanup"
 
 # oh my zsh + brew + vim
 alias upa="bua && omz update"
