@@ -132,7 +132,6 @@
          (emacs-lisp-mode . rainbow-delimiters-mode)
          (lisp-mode . rainbow-delimiters-mode)))
 
-;; testing
 (use-package rainbow-mode
   :hook ((prog-mode . rainbow-mode)))
 
@@ -141,8 +140,8 @@
   :config
   (setq company-idle-delay 0.2)
   (setq company-show-numbers t)
-  ;(setq company-echo-delay 0)
-  ;(setq company-candidates-cache t)
+  (setq company-echo-delay 0)
+  (setq company-candidates-cache t)
   (setq company-tooltip-limit 10)
   (setq company-minimum-prefix-length 2)
   (setq company-tooltip-align-annotations t)
@@ -200,6 +199,13 @@
 (global-set-key "\C-ccf" 'cider-eval-last-sexp)
 (global-set-key "\C-ccnr" 'cider-ns-reload-all)
 
+;; comment
+(global-set-key "\C-ccc" 'comment-region)
+(global-set-key "\C-ccu" 'uncomment-region)
+
+;; format
+(global-set-key "\C-cci" 'indent-region)
+
 (use-package clj-refactor
   :after clojure-mode
   :hook ((clojure-mode . clj-refactor-mode))
@@ -240,6 +246,9 @@
                clojurescript-mode
                clojurex-mode))
     (add-to-list 'lsp-language-id-configuration `(,m . "clojure"))))
+
+;; lsp shortcuts configs
+(global-set-key "\C-clfr" 'lsp-find-references)
 
 (use-package lsp-ivy
   :ensure nil

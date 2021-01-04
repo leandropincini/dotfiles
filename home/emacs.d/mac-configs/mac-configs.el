@@ -6,7 +6,7 @@
 ;; default font and size
 (set-face-attribute 'default nil
                     :family "Menlo"
-                    :height 160
+                    :height 140
                     :weight 'normal
                     :width 'normal)
 
