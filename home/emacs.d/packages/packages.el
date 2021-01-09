@@ -63,6 +63,8 @@
     paredit
     rainbow-delimiters
     company
+    yasnippet
+    ivy
     dockerfile-mode
     docker-compose-mode
     feature-mode
@@ -71,12 +73,11 @@
     flycheck-joker
     clj-refactor
     lsp-mode
-    yasnippet
+    lsp-treemacs
     cider
     markdown-mode
     yaml-mode
-    web-mode
-    ivy))
+    web-mode))
 
 (mapc #'(lambda (package)
           (unless (package-installed-p package)
@@ -223,6 +224,10 @@
 
 (use-package flycheck-clojure)
 
+(use-package lsp-treemacs
+  :init
+  (setq treemacs-space-between-root-nodes nil))
+
 (use-package lsp-mode
   :hook ((clojure-mode . lsp)
          (clojurec-mode . lsp)
@@ -234,7 +239,9 @@
   (setq lsp-enable-indentation nil
         lsp-prefer-flymake nil
         lsp-log-io t
-        lsp-enable-symbol-highlighting nil)
+        lsp-enable-symbol-highlighting nil
+        lsp-lens-enable t
+        lsp-signature-auto-activate nil)
   :custom
   ((lsp-clojure-server-command '("bash" "-c" "clojure-lsp")))
   :config
