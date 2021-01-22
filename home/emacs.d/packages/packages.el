@@ -256,6 +256,7 @@
 
 ;; lsp shortcuts configs
 (global-set-key "\C-clfr" 'lsp-find-references)
+(global-set-key "\C-clfd" 'lsp-find-definition)
 
 (use-package lsp-ivy
   :ensure nil
