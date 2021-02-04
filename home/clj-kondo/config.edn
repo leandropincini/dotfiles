@@ -1,0 +1,9 @@
+{:linters {:refer-all         {:level   :info
+                               :exclude [midje.sweet]}
+           :unresolved-symbol {:level   :warning
+                               :exclude [fact
+                                         facts
+                                         =>
+                                         (midje.sweet/fact)
+                                         (midje.sweet/facts)
+                                         (midje.parsing.arrow-symbols/=>)]}}}
