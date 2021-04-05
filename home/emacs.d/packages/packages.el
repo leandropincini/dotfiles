@@ -70,6 +70,7 @@
     feature-mode
     go-mode
     clojure-mode
+    clojure-mode-extra-font-locking
     flycheck-joker
     clj-refactor
     lsp-mode
@@ -182,6 +183,9 @@
     (fnk 1)
     (clojure.test.check/quick-check 2)
     (clojure.test.check.properties/for-all 2)))
+
+(use-package clojure-mode-extra-font-locking
+  :after clojure-mode)
 
 (use-package cider
   :after clojure-mode
