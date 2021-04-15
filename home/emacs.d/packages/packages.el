@@ -230,7 +230,10 @@
 
 (use-package lsp-treemacs
   :init
-  (setq treemacs-space-between-root-nodes nil))
+  (setq treemacs-space-between-root-nodes nil)
+  :bind
+  (:map lsp-mode-map
+        ("C-c l t e" . lsp-treemacs-error-list)))
 
 (use-package lsp-mode
   :hook ((clojure-mode . lsp)
