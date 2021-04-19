@@ -196,20 +196,16 @@
          (cider-repl-mode . company-mode))
   :config
   (setq nrepl-log-messages t
-        cider-repl-display-help-banner nil))
-
-;; cider shortcuts configs
-(global-set-key "\C-ccs" 'cider-jack-in)
-(global-set-key "\C-cce" 'cider-eval-buffer)
-(global-set-key "\C-ccf" 'cider-eval-last-sexp)
-(global-set-key "\C-ccnr" 'cider-ns-reload-all)
-
-;; comment
-(global-set-key "\C-ccc" 'comment-region)
-(global-set-key "\C-ccu" 'uncomment-region)
-
-;; format
-(global-set-key "\C-cci" 'indent-region)
+        cider-repl-display-help-banner nil)
+  :bind
+  (:map clojure-mode-map
+        ("C-c c s"   . cider-jack-in)
+        ("C-c c e"   . cider-eval-buffers)
+        ("C-c c f"   . cider-eval-last-sexp)
+        ("C-c c n r" . cider-ns-reload-all)
+        ("C-c c c"   . comment-region)
+        ("C-c c u"   . uncomment-region)
+        ("C-c c i"   . indent-region)))
 
 (use-package clj-refactor
   :after clojure-mode
@@ -259,11 +255,11 @@
                clojurec-mode
                clojurescript-mode
                clojurex-mode))
-    (add-to-list 'lsp-language-id-configuration `(,m . "clojure"))))
-
-;; lsp shortcuts configs
-(global-set-key "\C-clfr" 'lsp-find-references)
-(global-set-key "\C-clfd" 'lsp-find-definition)
+    (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
+  :bind
+  (:map lsp-mode-map
+        ("C-c c l f r" . lsp-find-references)
+        ("C-c c l f d" . lsp-find-definition)))
 
 (use-package lsp-ivy
   :ensure nil
