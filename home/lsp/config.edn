@@ -1,0 +1,23 @@
+{:cljfmt                        {:indents
+                                 {as-of              [[:block 1]]
+                                  assoc              [[:block 1]]
+                                  assoc-if           [[:block 1]]
+                                  assoc-some         [[:block 1]]
+                                  consume!           [[:block 0]]
+                                  fact               [[:block 1]]
+                                  facts              [[:block 1]]
+                                  flow               [[:block 1]]
+                                  fnk                [[:block 1]]
+                                  for-all            [[:block 1]]
+                                  quick-check        [[:block 1]]
+                                  provided           [[:inner 0]]
+                                  system-map         [[:block 0]]
+                                  tabular            [[:inner 0]]
+                                  try-type           [[:block 0]]
+                                  with-fn-validation [[:block 0]]}}
+ :source-paths                  #{"src" "test" "postman"}
+ :keep-require-at-start?        false
+ :show-docs-arity-on-same-line? true
+ :text-document-sync-kind       :full
+ :semantic-tokens?              true
+ :dependency-scheme             "jar"}

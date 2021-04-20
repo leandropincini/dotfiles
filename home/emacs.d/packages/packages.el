@@ -166,23 +166,7 @@
 (use-package clojure-mode
   :mode ("\\.clj\\'" . clojure-mode)
   :config
-  (setq default-fill-column 80)
-  (define-clojure-indent
-    (flow 1)
-    (facts 1)
-    (fact 1)
-    (as-of 1)
-    (assoc 0)
-    (assoc-if 1)
-    (provided 0)
-    (tabular 0)
-    (consume! 0)
-    (try-type 0)
-    (with-fn-validation 0)
-    (system-map 0)
-    (fnk 1)
-    (clojure.test.check/quick-check 2)
-    (clojure.test.check.properties/for-all 2)))
+  (setq default-fill-column 80))
 
 (use-package clojure-mode-extra-font-locking
   :after clojure-mode)
