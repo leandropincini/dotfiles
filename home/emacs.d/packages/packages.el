@@ -242,8 +242,8 @@
     (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
   :bind
   (:map lsp-mode-map
-        ("C-c c l f r" . lsp-find-references)
-        ("C-c c l f d" . lsp-find-definition)))
+        ("C-c l f r" . lsp-find-references)
+        ("C-c l f d" . lsp-find-definition)))
 
 (use-package lsp-ivy
   :ensure nil
