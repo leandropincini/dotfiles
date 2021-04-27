@@ -9,6 +9,8 @@
 ;; turn off scrollbar
 (scroll-bar-mode -1)
 
+(set-fringe-mode 10)
+
 ;; no blinking cursor
 (blink-cursor-mode -1)
 

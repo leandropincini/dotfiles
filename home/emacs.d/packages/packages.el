@@ -1,4 +1,4 @@
-;; packages.el - load emacs packages
+;;; packages.el --- load emacs packages
 
 (require 'package)
 
@@ -47,51 +47,55 @@
 (add-to-list 'package-archives gnu t)
 
 (package-initialize)
-(when (not package-archive-contents)
+(unless package-archive-contents
   (package-refresh-contents))
 
-(defvar _packages
-  '(auto-package-update
-    org
-    use-package
-    editorconfig
-    projectile
-    dracula-theme
-    which-key
-    move-text
-    magit
-    paredit
-    rainbow-delimiters
-    company
-    yasnippet
-    ivy
-    dockerfile-mode
-    docker-compose-mode
-    feature-mode
-    go-mode
-    clojure-mode
-    clojure-mode-extra-font-locking
-    flycheck-joker
-    clj-refactor
-    lsp-mode
-    lsp-treemacs
-    cider
-    markdown-mode
-    yaml-mode
-    web-mode))
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+(require 'use-package)
 
-(mapc #'(lambda (package)
-          (unless (package-installed-p package)
-            (package-install package)))
-      _packages)
-
-;; use-package configs
-(eval-when-compile (require 'use-package))
 (setq use-package-always-ensure t)
+
+(use-package auto-package-update
+  :config
+  (setq auto-package-update-delete-old-versions t
+        auto-package-update-hide-results t)
+  (auto-package-update-maybe))
 
 (use-package editorconfig
   :config
   (editorconfig-mode 1))
+
+(use-package ivy
+  :diminish
+  :bind (("C-s" . swiper)
+         ("C-c C-r" . ivy-resume)
+         :map ivy-minibuffer-map
+         ("C-j" . ivy-next-line)
+         ("C-k" . ivy-previous-line)
+         :map ivy-switch-buffer-map
+         ("C-j" . ivy-next-line)
+         ("C-k" . ivy-previous-line)
+         :map ivy-reverse-i-search-map
+         ("C-k" . ivy-previous-line))
+  :init
+  (ivy-mode 1)
+  :config
+  (setq ivy-use-virtual-buffers t
+        ivy-wrap t
+        ivy-count-format "(%d/%d) "
+        enable-recursive-minibuffers t))
+
+(use-package counsel
+  :demand t
+  :bind (("M-x" . counsel-M-x)
+         ("C-x b" . counsel-ibuffer)
+         ("C-x C-f" . counsel-find-file)
+         ("C-c C-c m" . counsel-imenu)
+         :map minibuffer-local-map
+         ("C-r" . 'counsel-minibuffer-history))
+  :config
+  (setq ivy-initial-inputs-alist nil))
 
 (use-package projectile
   :pin melpa-stable
@@ -101,13 +105,6 @@
   (setq projectile-project-search-path '("~/Projects/"))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode +1))
-
-(use-package ivy
-  :config
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
-  (setq enable-recursive-minibuffers t)
-  (global-set-key (kbd "C-c C-r") 'ivy-resume))
 
 (use-package which-key
   :config
@@ -140,16 +137,14 @@
 (use-package company
   :bind (("C-c /" . company-complete))
   :config
-  (setq company-idle-delay 0.2)
-  (setq company-show-numbers t)
-  (setq company-echo-delay 0)
-  (setq company-candidates-cache t)
-  (setq company-tooltip-limit 10)
-  (setq company-minimum-prefix-length 2)
-  (setq company-tooltip-align-annotations t)
-  ;; invert the navigation direction if the competion popup-isear-match
-  ;; is displayed on top (happens near the bottom of windows)
-  (setq company-tooltip-flip-when-above t)
+  (setq company-idle-delay 0.2
+        company-show-numbers t
+        company-echo-delay 0
+        company-candidates-cache t
+        company-tooltip-limit 10
+        company-minimum-prefix-length 2
+        company-tooltip-align-annotations t
+        company-tooltip-flip-when-above t)
   (global-company-mode))
 
 (use-package flyspell
@@ -288,18 +283,27 @@
   :mode ("\\.djhtml\\'" . web-mode)
   :mode ("\\.html?\\'" . web-mode))
 
-(use-package dockefile-mode
-  :ensure nil
+(use-package dockerfile-mode
   :mode ("\\Dockerfile\\'" . dockerfile-mode))
 
 (use-package docker-compose-mode)
 
-;; org-mode shortcuts configs
-(global-set-key "\C-col" 'org-store-link)
-(global-set-key "\C-coa" 'org-agenda)
-(global-set-key "\C-coc" 'org-capture)
-(global-set-key "\C-cob" 'org-switchb)
-(setq org-log-done 'time)
+(use-package feature-mode)
+
+(use-package go-mode)
+
+(use-package org
+  :bind (:map org-mode-map
+              ("C-c o l" . org-store-link)
+              ("C-c o a" . org-agenda)
+              ("C-c o c" . org-capture)
+              ("C-c o b" . org-switchb))
+  :config (setq org-log-done 'time))
+
+(use-package dracula-theme
+  :if window-system
+  :config
+  (load-theme 'dracula t))
 
 (provide 'packages)
 ;;; packages.el ends here
