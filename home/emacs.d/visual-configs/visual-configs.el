@@ -18,8 +18,7 @@
 (column-number-mode t)
 
 ;; enable line numbers globally
-(global-linum-mode t)
-(setq linum-format "%4d \u2502 ")
+(global-display-line-numbers-mode t)
 
 ;; show matching pairs
 (show-paren-mode 1)

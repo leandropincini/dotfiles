@@ -1,6 +1,6 @@
 ;;; init.el --- emacs configuration
 
-;; only runs on emacs >= 24
+;; only runs on emacs >= 26.1
 (let ((minver 26.1))
   (unless (>= emacs-major-version minver)
     (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
@@ -19,7 +19,6 @@
 (require 'system-configs)
 (require 'editor-configs)
 (require 'packages)
-;(require 'auto-package-update-configs)
 
 ;; are you running osx? load mac-configs
 (when (eq system-type 'darwin)

@@ -46,13 +46,12 @@
 (add-to-list 'package-archives melpa-stable t)
 (add-to-list 'package-archives gnu t)
 
-(package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
 
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
-(require 'use-package)
+(eval-when-compile (require 'use-package))
 
 (setq use-package-always-ensure t)
 
@@ -62,12 +61,30 @@
         auto-package-update-hide-results t)
   (auto-package-update-maybe))
 
+(use-package diminish)
+
+(use-package eldoc
+  :diminish eldoc-mode)
+
 (use-package editorconfig
+  :diminish editorconfig-mode
   :config
   (editorconfig-mode 1))
 
+(use-package counsel
+  :demand t
+  :bind (("M-x" . counsel-M-x)
+         ("C-x b" . counsel-ibuffer)
+         ("C-x C-f" . counsel-find-file)
+         ("C-c C-c m" . counsel-imenu)
+         :map minibuffer-local-map
+         ("C-r" . 'counsel-minibuffer-history))
+  :config
+  (setq ivy-initial-inputs-alist nil))
+
 (use-package ivy
-  :diminish
+  :after counsel
+  :diminish ivy-mode
   :bind (("C-s" . swiper)
          ("C-c C-r" . ivy-resume)
          :map ivy-minibuffer-map
@@ -86,29 +103,33 @@
         ivy-count-format "(%d/%d) "
         enable-recursive-minibuffers t))
 
-(use-package counsel
-  :demand t
-  :bind (("M-x" . counsel-M-x)
-         ("C-x b" . counsel-ibuffer)
-         ("C-x C-f" . counsel-find-file)
-         ("C-c C-c m" . counsel-imenu)
-         :map minibuffer-local-map
-         ("C-r" . 'counsel-minibuffer-history))
-  :config
-  (setq ivy-initial-inputs-alist nil))
+(use-package helpful
+  :after counsel
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . helpful-function)
+  ([remap describe-symbol] . helpful-symbol)
+  ([remap describe-variable] . helpful-variable)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-key] . helpful-key))
 
 (use-package projectile
   :pin melpa-stable
   :init
   (setq projectile-completion-system 'ivy)
   :config
+  (projectile-mode)
   (setq projectile-project-search-path '("~/Projects/"))
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (projectile-mode +1))
+  :bind-keymap
+  ("C-c p" . projectile-command-map))
 
 (use-package which-key
+  :init (which-key-mode)
+  :diminish which-key-mode
   :config
-  (which-key-mode +1))
+  (setq which-key-idle-delay 0.2))
 
 (use-package move-text
   :bind
@@ -132,6 +153,7 @@
          (lisp-mode . rainbow-delimiters-mode)))
 
 (use-package rainbow-mode
+  :diminish
   :hook ((prog-mode . rainbow-mode)))
 
 (use-package company
@@ -241,10 +263,12 @@
         ("C-c l f d" . lsp-find-definition)))
 
 (use-package lsp-ivy
+  :after ivy
   :ensure nil
   :commands lsp-ivy-workspace-symbol)
 
 (use-package yasnippet
+  :diminish yas-minor-mode
   :init
   (yas-global-mode 1))
 
