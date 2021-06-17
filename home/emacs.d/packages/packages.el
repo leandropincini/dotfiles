@@ -260,7 +260,8 @@
   :bind
   (:map lsp-mode-map
         ("C-c l f r" . lsp-find-references)
-        ("C-c l f d" . lsp-find-definition)))
+        ("C-c l f d" . lsp-find-definition)
+        ("C-c l f u" . pop-tag-mark)))
 
 (use-package lsp-ivy
   :after ivy
