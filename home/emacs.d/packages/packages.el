@@ -198,6 +198,7 @@
   :config
   (setq nrepl-log-messages t
         cider-repl-display-help-banner nil)
+  (setq cider-test-defining-forms '("deftest" "defspec" "defflow"))
   :bind
   (:map clojure-mode-map
         ("C-c c s"   . cider-jack-in)
