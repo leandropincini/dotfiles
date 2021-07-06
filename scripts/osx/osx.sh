@@ -179,6 +179,11 @@ if [ -f ./script/osx/clojure-environment.sh ]; then
     bash ./scripts/osx/clojure-environment.sh
 fi
 
+# install a rust environment
+if [ -f ./script/osx/rust-environment.sh ]; then
+    bash ./script/osx/rust-environment.sh
+fi
+
 # install a zsh environment
 if [ -f ./scripts/osx/zsh.sh ]; then
     echo "Installing a zsh enviroment..."

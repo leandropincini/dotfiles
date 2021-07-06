@@ -46,8 +46,8 @@ brew install terminal-notifier
 #brew install the_silver_searcher
 
 # install ripgrep with homebrew
-echo "Installing ripgrep with homebrew..."
-brew install ripgrep
+#echo "Installing ripgrep with homebrew..."
+#brew install ripgrep
 
 if [ -f ./brew-cask.sh ]; then
     bash ./brew-cask.sh
