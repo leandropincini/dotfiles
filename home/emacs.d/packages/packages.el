@@ -181,7 +181,8 @@
   :hook ((after-init . global-flycheck-mode)))
 
 (use-package clojure-mode
-  :mode ("\\.clj\\'" . clojure-mode)
+  :mode (("\\.clj\\'" . clojure-mode)
+         ("\\.edn\\'" . clj-mode))
   :config
   (setq default-fill-column 80))
 
@@ -197,7 +198,9 @@
          (cider-repl-mode . company-mode))
   :config
   (setq nrepl-log-messages t
-        cider-repl-display-help-banner nil)
+        cider-repl-display-help-banner nil
+        cider-repl-history-file "~/.emacs.d/cider-history"
+        cider-repl-wrap-history t)
   (setq cider-test-defining-forms '("deftest" "defspec" "defflow"))
   :bind
   (:map clojure-mode-map
