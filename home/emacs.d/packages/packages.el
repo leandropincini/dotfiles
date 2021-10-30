@@ -38,7 +38,7 @@
 ;;    (url-retrieve "https://badssl.com"
 ;;                  (lambda (retrieved) t))))
 
-(defvar melpa '("gnu" . "https://melpa.gnu.org/packages/"))
+(defvar melpa '("melpa" . "https://melpa.org/packages/"))
 (defvar gnu '("gnu" . "https://elpa.gnu.org/packages/"))
 (defvar melpa-stable '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
@@ -68,6 +68,10 @@
 
 (use-package eldoc
   :diminish eldoc-mode)
+
+(use-package subword
+  :diminish subword-mode
+  :hook ((clojure-mode . subword-mode)))
 
 (use-package editorconfig
   :diminish editorconfig-mode
@@ -124,7 +128,8 @@
   (setq projectile-completion-system 'ivy)
   :config
   (projectile-mode)
-  (setq projectile-project-search-path '("~/Projects/"))
+  (setq projectile-project-search-path '("~/Projects/")
+        projectile-enable-caching nil)
   :bind-keymap
   ("C-c p" . projectile-command-map))
 
@@ -168,6 +173,7 @@
         company-echo-delay 0
         company-candidates-cache t
         company-tooltip-limit 10
+        company-icon-size 20
         company-minimum-prefix-length 2
         company-tooltip-align-annotations t
         company-tooltip-flip-when-above t)
@@ -188,29 +194,36 @@
   :mode (("\\.clj\\'" . clojure-mode)
          ("\\.edn\\'" . clj-mode))
   :config
-  (setq default-fill-column 80))
+  (setq default-fill-column 80
+        clojure-indent-style 'align-arguments
+        clojure-thread-all-but-last t))
 
 (use-package clojure-mode-extra-font-locking
-  :after clojure-mode)
+  :after clojure-mode
+  :diminish clojure-mode-extra-font-locking)
 
 (use-package cider
   :after clojure-mode
   :hook ((cider-mode . eldoc-mode)
          (cider-repl-mode . eldoc-mode)
          (cider-repl-mode . paredit-mode)
+         (cider-repl-mode . rainbow-mode)
          (cider-repl-mode . rainbow-delimiters-mode)
          (cider-repl-mode . company-mode))
   :config
   (setq nrepl-log-messages t
         cider-repl-display-help-banner nil
+        cider-ns-refresh-show-logger-buffer t
+        cider-show-error-buffer t
+        cider-font-lock-dynamically nil
+        cider-eldoc-display-for-symbol-at-point nil
+        cider-prompt-for-symbol nil
         cider-repl-history-file "~/.emacs.d/cider-history"
         cider-repl-wrap-history t)
   (setq cider-test-defining-forms '("deftest" "defspec" "defflow"))
   :bind
   (:map clojure-mode-map
         ("C-c c s"   . cider-jack-in)
-        ("C-c c e"   . cider-eval-buffers)
-        ("C-c c f"   . cider-eval-last-sexp)
         ("C-c c n r" . cider-ns-reload-all)
         ("C-c c c"   . comment-region)
         ("C-c c u"   . uncomment-region)
@@ -225,17 +238,38 @@
         cljr-magic-require-namespaces
         '(("s" . "schema.core")
           ("d" . "datomic.api")
+          ("m" . "matcher-combinators.matchers")
           ("pp" . "clojure.pprint")))
   :config
-  (setq cljr-add-ns-to-blank-clj-files nil))
+  (setq cljr-add-ns-to-blank-clj-files nil
+        cljr-eagerly-build-asts-on-startup nil))
 
 (use-package flycheck-joker)
 
 (use-package flycheck-clojure)
 
+(use-package lsp-java
+  :after lsp
+  :config
+  (setq lsp-java-references-code-lens-enabled t
+        lsp-java-implementations-code-lens-enabled t
+        lsp-file-watch-ignored-directories
+        '(".idea" ".ensime_cache" ".eunit" "node_modules"
+          ".git" ".hg" ".fslckout" "_FOSSIL_"
+          ".bzr" "_darcs" ".tox" ".svn" ".stack-work"
+          "build")))
+
+(use-package treemacs)
+
+(use-package treemacs-all-the-icons
+  :after treemacs)
+
 (use-package lsp-treemacs
+  :after treemacs
   :init
   (setq treemacs-space-between-root-nodes nil)
+  :config
+  (setq lsp-treemacs-error-list-current-project-only t)
   :bind
   (:map lsp-mode-map
         ("C-c l t e" . lsp-treemacs-error-list)))
@@ -244,6 +278,7 @@
   :pin melpa
   :hook ((clojure-mode . lsp)
          (clojurec-mode . lsp)
+         (java-mode . lsp)
          (clojurescript-mode . lsp)
          ;(lsp-mode . lsp-enable-which-key-intergration)
          )
@@ -252,12 +287,23 @@
   (setq lsp-enable-indentation nil
         lsp-prefer-flymake nil
         lsp-log-io t
+        lsp-enable-file-watchers t
         lsp-enable-symbol-highlighting nil
         lsp-lens-enable t
         lsp-signature-auto-activate nil)
   :custom
   ((lsp-clojure-server-command '("bash" "-c" "clojure-lsp")))
   :config
+  (setq lsp-headerline-breadcrumb-enable nil
+        lsp-signature-render-documentation nil
+        lsp-signature-function 'lsp-signature-posframe
+        lsp-semantic-tokens-enable t
+        lsp-idle-delay 0.2
+        lsp-use-plist nil
+        lsp-completion-sort-initial-results t
+        lsp-completion-no-cache t
+        lsp-completion-use-last-result nil)
+  (advice-add #'lsp-rename :after (lambda (&rest _) (projectile-save-project-buffers)))
   (setenv "PATH" (concat
                   "/usr/local/bin" path-separator
                   (getenv "PATH")))
@@ -276,6 +322,16 @@
   :after ivy
   :ensure nil
   :commands lsp-ivy-workspace-symbol)
+
+(use-package lsp-ui
+  :after lsp-mode
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-peek-list-width 60
+        lsp-ui-doc-max-width 60
+        lsp-ui-doc-enable nil
+        lsp-ui-peek-fontify 'always
+        lsp-ui-sideline-show-code-actions nil))
 
 (use-package yasnippet
   :diminish yas-minor-mode
