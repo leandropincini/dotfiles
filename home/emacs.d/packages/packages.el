@@ -38,6 +38,7 @@
 ;;    (url-retrieve "https://badssl.com"
 ;;                  (lambda (retrieved) t))))
 
+(defvar melpa '("gnu" . "https://melpa.gnu.org/packages/"))
 (defvar gnu '("gnu" . "https://elpa.gnu.org/packages/"))
 (defvar melpa-stable '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
@@ -45,6 +46,7 @@
 (setq package-archives nil)
 (add-to-list 'package-archives melpa-stable t)
 (add-to-list 'package-archives gnu t)
+(add-to-list 'package-archives melpa t)
 
 (unless package-archive-contents
   (package-refresh-contents))
@@ -54,6 +56,7 @@
 (eval-when-compile (require 'use-package))
 
 (setq use-package-always-ensure t)
+(setq use-package-always-pin "melpa-stable")
 
 (use-package auto-package-update
   :config
@@ -153,6 +156,7 @@
          (lisp-mode . rainbow-delimiters-mode)))
 
 (use-package rainbow-mode
+  :pin gnu
   :diminish
   :hook ((prog-mode . rainbow-mode)))
 
@@ -237,6 +241,7 @@
         ("C-c l t e" . lsp-treemacs-error-list)))
 
 (use-package lsp-mode
+  :pin melpa
   :hook ((clojure-mode . lsp)
          (clojurec-mode . lsp)
          (clojurescript-mode . lsp)
