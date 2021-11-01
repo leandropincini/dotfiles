@@ -108,7 +108,60 @@
   (setq ivy-use-virtual-buffers t
         ivy-wrap t
         ivy-count-format "(%d/%d) "
-        enable-recursive-minibuffers t))
+        enable-recursive-minibuffers t)
+
+  (push '(completion-at-point . ivy--regex-fuzzy) ivy-re-builders-alist)
+  (push '(swiper . ivy--regex-ignore-order) ivy-re-builders-alist)
+  (push '(counsel-M-x . ivy--regex-ignore-order) ivy-re-builders-alist)
+
+  (setf (alist-get 'counsel-projectile-ag ivy-height-alist) 15)
+  (setf (alist-get 'counsel-projectile-rg ivy-height-alist) 15)
+  (setf (alist-get 'swiper ivy-height-alist) 15)
+  (setf (alist-get 'counsel-switch-buffer ivy-height-alist) 7))
+
+(use-package ivy-rich
+  :after ivy
+  :init
+  (setq ivy-format-function #'ivy-format-function-line
+        ivy-rich-path-style 'abbrev)
+  (setq ivy-rich-display-transformers-list
+        '(ivy-witch-buffer
+          (:columns ((ivy-rich-switch-buffer-icon (:width 2))
+                     (ivy-rich-candidate (:width 40))
+                     (ivy-rich-switch-buffer-size (:width 7))
+                     (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
+                     (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
+                     (ivy-rich-switch-buffer-project (:width 15 :face sucess))
+                     (ivy-rich-switch-buffer-path (:witdht (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
+                    :predicate (lambda (cand) (if-let ((buffer (get-buffer cand)))
+                                                  (with-current-buffer buffer
+                                                    (not (derived-mode-p 'exwm-mode))))))
+          counsel-find-file
+          (:columns ((ivy-read-file-transformer)
+                     (ivy-rich-counsel-find-file-truename (:face font-lock-doc-face))))
+          counsel-M-x
+          (:columns ((counsel-M-x-transformer (:width 35))
+                     (ivy-rich-counsel-function-docstring (:width 34 :face font-lock-doc-face))))
+          counsel-describe-function
+          (:columns ((counsel-describe-function-transformer (:width 35))
+                     (ivy-rich-counsel-function-docstring (:width 34 :face font-lock-doc-face))))
+          counsel-describe-variable
+          (:columns ((counsel-describe-variable-transformer (:width 35))
+                     (ivy-rich-counsel-variable-docstring (:width 34 :face font-lock-doc-face))))
+          package-install
+          (:columns ((ivy-rich-candidate (:width 25))
+                     (ivy-rich-package-version (:width 12 :face font-lock-comment-face))
+                     (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
+                     (ivy-rich-package-install-summary (:width 23 :face font-lock-doc-face))))
+          counsel-projectile-find-file
+          (:columns ((ivy-rich-switch-buffer-icon (:width 2))
+                     (ivy-rich-candidate (:width 30))
+                     (ivy-rich-switch-buffer-size (:width 7))
+                     (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
+                     (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
+                     (ivy-rich-switch-buffer-project (:width 15 :face success))
+                     (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
+           :predicate (lambda (cand) (get-buffer cand))))))
 
 (use-package helpful
   :after counsel
@@ -130,8 +183,20 @@
   (projectile-mode)
   (setq projectile-project-search-path '("~/Projects/")
         projectile-enable-caching nil)
+  :demand t
+  :custom ((projectile-completion-system 'ivy))
   :bind-keymap
   ("C-c p" . projectile-command-map))
+
+(use-package ripgrep)
+
+(use-package projectile-ripgrep
+  :after projectile ripgrep)
+
+(use-package counsel-projectile
+  :after projectile-ripgrep
+  :config
+  (counsel-projectile-mode))
 
 (use-package which-key
   :init (which-key-mode)
@@ -146,6 +211,10 @@
 
 (use-package magit
   :bind (("C-x g" . magit-status)))
+
+(use-package forge
+  :after magic
+  :disabled)
 
 (use-package paredit
   :hook ((clojure-mode . paredit-mode)
@@ -192,7 +261,7 @@
 
 (use-package clojure-mode
   :mode (("\\.clj\\'" . clojure-mode)
-         ("\\.edn\\'" . clj-mode))
+         ("\\.edn\\'" . cljure-mode))
   :config
   (setq default-fill-column 80
         clojure-indent-style 'align-arguments
@@ -244,9 +313,11 @@
   (setq cljr-add-ns-to-blank-clj-files nil
         cljr-eagerly-build-asts-on-startup nil))
 
-(use-package flycheck-joker)
+(use-package flycheck-joker
+  :after flycheck-mode)
 
-(use-package flycheck-clojure)
+(use-package flycheck-clojure
+  :after flycheck-mode)
 
 (use-package lsp-java
   :after lsp
@@ -290,6 +361,8 @@
         lsp-enable-file-watchers t
         lsp-enable-symbol-highlighting nil
         lsp-lens-enable t
+        lsp-semantic-tokens-enable t
+        lsp-file-watch-threshold 15000
         lsp-signature-auto-activate nil)
   :custom
   ((lsp-clojure-server-command '("bash" "-c" "clojure-lsp")))
