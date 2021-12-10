@@ -1,6 +1,14 @@
-Hello,
+dotfiles
+===================
+These are my dotfiles and some post-installation scripts.
 
-This is a post install script for Mac OSX 10.12 or Fedora 29.
+I'm using [RCM](https://github.com/thoughtbot/rcm) to manage it.
+
+## Instalation
+- [Arch Setup Guide](docs/arch.md)
+
+## License
+This is free and unencumbered software released into the public domain.
+For more information, please refer to <http://unlicense.org>
 
 Hope you enjoy!
-

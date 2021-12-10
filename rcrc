@@ -1,0 +1,3 @@
+EXCLUDES="README.md docs home install.sh scripts toolbox .git .gitconfig .gitignore .editorconfig rcstart-archlinux rcstart-macos"
+HOSTNAME="valholl"
+TAGS="global archlinux"
