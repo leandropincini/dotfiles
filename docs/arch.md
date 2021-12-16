@@ -57,7 +57,7 @@ for verify that we already have an internet connection configurated.
 ## Firewall
 We can follow [this](https://wiki.archlinux.org/title/simple_stateful_firewall#Firewall_for_a_single_machine) article from arch's wiki.
 
-### Single Machine
+<h3 id=single-machine>Single Machine</h3>
 TLDR:
 
 Clean everything:
@@ -185,7 +185,7 @@ iptables-save -f /etc/iptables/iptables.rules
 ```
 
 ### Server machine
-Before start this section, please, follow the [Single Machine](### Single Machine) section.
+Before start this section, please, follow the [### Single Machine](#single-machine) section.
 
 Accept incoming TCP connections on port 80 (HTTP):
 
