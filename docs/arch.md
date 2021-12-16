@@ -66,7 +66,7 @@ Clean everything:
 iptables-restore < /etc/iptables/empty.rules
 ```
 
-Create necessary chains
+Create necessary chains:
 
 ```bash
 iptables -N TCP
@@ -115,7 +115,7 @@ Drop all packets with invalid headers or checksums, invalid TCP flags, invalid I
 iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
 ```
 
-Accept all new incoming ICMP echo requests (pings). Only the first packet will count as NEW, the others will be handled by the REALTED,ESTABLISHED rule.
+Accept all new incoming ICMP echo requests (pings). Only the first packet will count as NEW, the others will be handled by the RELATED,ESTABLISHED rule.
 
 ```bash
 iptables -A INPUT -p icmp --icmp-type 8 -m conntrack --ctstate NEW -j ACCEPT
@@ -141,17 +141,17 @@ Accept SSH connects (adjust port as required):
 iptables -A TCP -p tcp --dport 22 -j ACCEPT
 ```
 
-Add TCP SYN scans to denylist for 60 seconds:
+Add TCP SYN scans to denylist for 1800 seconds:
 
 ```bash
-iptables -I TCP -p tcp -m recent --update --rsource --seconds 60 --name TCP-PORTSCAN -j REJECT --reject-with tcp-reset
+iptables -I TCP -p tcp -m recent --update --rsource --seconds 1800 --name TCP-PORTSCAN -j REJECT --reject-with tcp-reset
 iptables -A INPUT -p tcp -m recent --set --rsource --name TCP-PORTSCAN -j REJECT --reject-with tcp-reset
 ```
 
-Add UDP SYN scans to denylist for 60 seconds:
+Add UDP SYN scans to denylist for 1800 seconds:
 
 ```bash
-iptables -I UDP -p udp -m recent --update --rsource --seconds 60 --name UDP-PORTSCAN -j REJECT --reject-with icmp-port-unreachable
+iptables -I UDP -p udp -m recent --update --rsource --seconds 1800 --name UDP-PORTSCAN -j REJECT --reject-with icmp-port-unreachable
 iptables -A INPUT -p udp -m recent --set --rsource --name UDP-PORTSCAN -j REJECT --reject-with icmp-port-unreachable
 ```
 
@@ -165,14 +165,14 @@ Mitigate SSH bruteforce:
 
 ```bash
 iptables -N LOG_AND_DROP
-iptables -A IN_SSH -m recent --name sshbf --rttl --rcheck --hitcount 3 --seconds 10 -j LOG_AND_DROP
+iptables -A IN_SSH -m recent --name sshbf --rttl --rcheck --hitcount 3 --seconds 60 -j LOG_AND_DROP
 iptables -A IN_SSH -m recent --name sshbf --rttl --rcheck --hitcount 4 --secounds 1800 -j LOG_AND_DROP
 iptables -A IN_SSH -m recent --name sshbf --set -j ACCEPT
 iptables -A LOG_AND_DROP -j LOG --log-prefix "iptables deny: " --log-level 7
 iptables -A LOG_AND_DROP -j DROP
 ```
 
-Before save all the configurations, let's backup the old iptables rule's file:
+Before save all the configurations, lets backup the old iptables rule's file:
 
 ```bash
 cp /etc/iptables/iptables.rules /etc/iptables/iptables.rules.bak
@@ -209,3 +209,144 @@ iptables -A UDP -p udp --dport 53 -j ACCEPT
 ### Protection against spoofing attacks
 
 Since the `rp_filter` is currently set to `2` by default in `/usr/lib/sysctl.d/50-default.conf` there is no action needed.
+
+### IPv6
+
+TLDR:
+
+Clean everything:
+
+```bash
+ip6tables-restore < /etc/iptables/empty.rules
+```
+
+Create necessary chains:
+
+```bash
+ip6tables -N TCP
+ip6tables -N UDP
+```
+
+Drop the FORWARD chain:
+
+```bash
+ip6tables -P FORWARD DROP
+```
+
+Accept the OUTPUT chain:
+
+```bash
+ip6tables -P OUTPUT ACCEPT
+```
+
+Drop the INPUT chain:
+
+```bash
+ip6tables -P INPUT DROP
+```
+
+Accept all "loopback" traffic:
+
+```bash
+ip6tables -A INPUT -i lo -j ACCEPT
+```
+
+Accept ICMPv6 neighbor discovery packets:
+
+```bash
+ip6tables -A INPUT -p 41 -j ACCEPT
+```
+
+Drop all packets with invalid headers or checksums, invalid TCP flags, invalid ICMP messges, and out of sequence packets which can be caused by sequence prediction or other similar attacks:
+
+```bash
+ip6tables -A INPUT -m conntrack --ctstate INVALID -j DROP
+```
+
+Accept ICMPv6 traffic regardless of state for all directly attached subnets:
+
+```bash
+ip6tables -A INPUT -s fe80::/10 -p ipv6-icmp -j ACCEPT
+```
+
+Enable DHCPv6 accepting incoming connections on UDP port 546:
+
+```bash
+ip6tables -A INPUT -p udp --sport 547 --dport 546 -j ACCEPT
+```
+
+Accept all new incoming ICMP echo requests (pings). Oly the first packat will count as NEW, the others will be handled by the RELATED,ESTABLISHED rule.
+
+```bash
+ip6tables -A INPUT -p ipv6-icmp --icmpv6-type 128 -m conntrack --ctstate NEW -j ACCEPT
+```
+
+Prepare SSH bruteforce mitigation:
+
+```bash
+ip6tables -N IN_SSH
+ip6tables -A INPUT -p tcp --dport ssh -m conntrack --ctstate NEW -j IN_SSH
+```
+
+Attach the TCP and UDP chains to the INPUT chain to handle all new incoming connects:
+
+```bash
+ip6tables -A INPUT -p udp -m conntrack --ctstate NEW -j UDP
+ip6tables -A INPUT -p tcp --syn -m conntrack --ctstate NEW -j TCP
+```
+
+Accept SSH connects (adjust port as required):
+
+```bash
+ip6tables -A TCP -p tcp --dport 22 -j ACCEPT
+```
+
+Add TCP SYN scans to denylist for 1800 seconds:
+
+```bash
+ip6tables -I TCP -p tcp -m recent --update --rsource --seconds 1800 --name TCP-PORTSCAN -j REJECT --reject-with tcp-reset
+ip6tables -A INPUT -p tcp -m recent --set --rsource --name TCP-PORTSCAN -j REJECT --reject-with tcp-reset
+```
+
+ADD UDP SYN scans to denylist for 1800 seconds:
+
+```bash
+ip6tables -I UDP -p udp -m recent --update --rsource --seconds 60 --name UDP-PORTSCAN -j REJECT
+ip6tables -A INPUT -p udp -m recent --set --rsource --name UDP-PORTSCAN -j REJECT
+```
+
+Reject all remaining incoming traffic with icmp protocol unreachable messages:
+
+```bash
+ip6tables -A INPUT -j REJECT
+```
+
+Mitigate SSH bruteforce:
+
+```bash
+ip6tables -N LOG_AND_DROP
+ip6tables -A IN_SSH -m recent --name sshbf --rttl --rcheck --hitcount 3 --secounds 60 -j LOG_AND_DROP
+ip6tables -A IN_SSH -m recent --name sshbf --rttl --rcheck --hitcount 4 --seconds 1800 -j LOG_AND_DROP
+ip6tables -A IN_SSH -m recent --name sshbf --set -j ACCEPT
+ip6tables -A LOG_AND_DROP -j LOG --log-prefix "ip6tables deny: " --log-level 7
+ip6tables -A LOG_AND_DROP -j DROP
+```
+
+Enable reverse path filter for IPv6:
+
+```bash
+ip6tables -t raw -A PREROUTING -m rpfilter -j ACCEPT
+ip6tables -t raw -A PREROUTING -j DROP
+```
+
+Before save, lets backup the old ip6tables default's file:
+
+```bash
+cp /etc/iptables/ip6tables.rules /etc/iptables/ip6tables.rules.back
+```
+
+Save the ip6table's configuration into the default's file:
+
+```bash
+ip6tables-save -f /etc/iptables/ip6tables.rules
+```

@@ -4,7 +4,7 @@ These are my dotfiles and some post-installation scripts.
 
 I'm using [RCM](https://github.com/thoughtbot/rcm) to manage it.
 
-## Instalation
+## Installation
 - [Arch Setup Guide](docs/arch.md)
 
 ## License
