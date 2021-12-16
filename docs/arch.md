@@ -1,7 +1,6 @@
 # Arch Linux Setup
 
-## Installation
-### Download
+## Download
 Download the most recent ISO from archlinux official [dowload page](https://archlinux.org/download/).
 
 ```bash
@@ -10,7 +9,7 @@ dd if=~/Downloads/my-new-arch-iso.iso of=/media/my-usb
 
 reboot.
 
-### Internet
+## Internet
 First, call the `iwctl` command:
 
 ```bash
@@ -19,21 +18,21 @@ iwctl
 Then you can search for your device with:
 
 ```bash
-device list
+[iwd]# device list
 ```
 
-P.e `wlan 0` will be returned.
+P.e `wlan0` will be returned.
 After this we can search for available networks with:
 
 ```bash
-station wlan0 scan
-station wlan0 get-networks
+[iwd]# station wlan0 scan
+[iwd]# station wlan0 get-networks
 ```
 
 Since the network was discovered by the iwctl we can finally connect to the network:
 
 ```bash
-station wlan0 connect "my-wireless-network-name"
+[iwd]# station wlan0 connect "my-wireless-network-name"
 ```
 
 We will be ask for the passphrase, input it and then call `Ctrl-D` for exit the iwtcl prompt.
@@ -52,7 +51,222 @@ ping www.google.com
 
 for verify that we already have an internet connection configurated.
 
-### Partitioning
+## Partition the disks
+
+First of all, we need to find out what the device name is for the hard disk that we intend to be working with.
+
+```bash
+fdisk -l
+```
+
+In my case `/dev/sda`, then:
+
+```bash
+fdisk /dev/sda
+```
+
+Create the new partition table:
+
+```bash
+Command (m for help): g
+```
+
+Create the first UEFI new partition:
+
+```bash
+Command (m for help): n
+Partition number (1-128, default 1):
+First sector (2048-1048575966, default 2048):
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-1048575966, default 1048575966): +500M
+```
+
+Setting the type for the new partition:
+
+```bash
+Command (m for help): t
+Selected partition 1
+Partition type or alias (type L to list all): 1
+```
+
+Lets create the second partition, for boot:
+
+```bash
+Command (m for help): n
+Partition number (2-128, default 2):
+First sector (1026048-1048575966, default 1026048):
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (1026048-1048575966, default 1048575966): +500M
+```
+
+Create the third partition for the LVM:
+
+```bash
+Command (m for help): n
+Partition number (3-128, default 3):
+First sector (2040048-104875966, default 2050058):
+Last sector, +/-secotrs or +/-size{K,M,G,T,P} (2050048-1048575966, default 1048575966):
+```
+
+Setting the type for the third partition:
+
+```bash
+Command (m for help): t
+Partition number (1-3, default 3):
+Partition type or alias (type L to list all): 30
+```
+
+Now, lets verify the partitions created:
+
+```bash
+Command (m for help): p
+```
+
+| Name      | Size | Type             |
+| --------- |:----:|:----------------:|
+| /dev/sda1 | 500M | EFI System       |
+| /dev/sda2 | 500M | Linux filesystem |
+| /dev/sda3 | 499G | Linux LVM        |
+
+Last but not least, we need to write the partition table into the disk:
+
+```bash
+Command (m for help): w
+```
+
+Now if we run the `fdisk -l` again we should have the same output that we had at the `p` command in the fdisk prompt.
+
+## Formatting
+
+Setup a FAT32 partition for the UEFI partition:
+
+```bsah
+mkfs.fat -F32 /dev/sda1
+```
+
+Setup a EXT4 partition for the /boot partition:
+
+```bash
+mkfs.ext4 /dev/sda2
+```
+
+### Encpypt the LVM partition
+
+Since we will use the third partition for the LVM, we need to setup it before formating it... just encrypt and setup the LVM. Then:
+
+```bash
+cryptsetup luksFormat /dev/sda3
+
+WARNING!
+========
+This will overwrite data on /dev/sda3 irrevocably.
+
+Are you sure? (Type 'yes' in capital letters): YES
+Enter passphrase for /dev/sda3: <choose your passphrase that you will remember>
+Verify passphrase: <type the passphrase again>
+```
+
+Since the partition was encrypted we need to unlock it:
+
+```bash
+cryptsetup open --type luks /dev/sda3 lvm
+Enter the passphrase for /dev/sda3: <see... you'll need to remember it>
+```
+
+### Setup the LVM
+
+Create the physical volume:
+
+```bash
+pvcreate --dataalignment 1m /dev/mapper/lvm
+```
+
+Next, lets create the volume group:
+
+```bash
+vgcreate volgroup0 /dev/mapper/lvm
+```
+
+Now, lets create two logical volumes, one for the root filesystem and other for our home partition:
+
+```bash
+lvcreate -L 30GB volgroup0 -n lv_root
+lvcreate -l 100%FREE volgroup0 -n lv_home
+```
+
+### Activate the LVM
+
+First we need to enable the kernel module:
+
+```bash
+modprobe dm_mod
+```
+
+Now, we can scan for the volume groups:
+
+```bash
+vgscan
+```
+
+And finally to active the volume group:
+
+```bash
+vgchange -ay
+```
+
+Now, finally we can format our new LVM volumes, first we will format the root LVM volume:
+
+```bash
+mkfs.ext4 /dev/volgroup0/lv_root
+mount /dev/volgroup0/lv_root /mnt
+```
+
+Lets create then, a directory for our boot partition:
+
+```bash
+mkdir /mnt/boot
+```
+
+Let's now mount our second partition (boot) into the new folder that we created:
+
+```bash
+mount /dev/sda2 /mnt/boot
+```
+
+And then, we can format our home LVM volume:
+
+```bash
+mkfs.ext /dev/volgroup0/lv_home
+mkdir /mnt/home
+mount /dev/volgroup0/lv_home /mnt/home
+```
+
+### Creating the fstab file
+
+First we need to create our /etc directory:
+
+```bash
+mkdir /mnt/etc
+```
+
+Then we can use the genfstab for create our file:
+
+```bash
+genfstab -U -p /mnt >> /mnt/etc/fstab
+```
+
+The fstab file should be like:
+
+```
+# /dev/mapper/volgropup0-lv_root
+UUID=1140bb76-da34-4868-aec7-6cd0a17b1b57	/	ext4	rw,relatime	0 1
+
+#/dev/sda2
+UUID=1545cc07-cfb2-4008-846b-cd41f75d4319	/boot	ext4	rw,relatime	0 2
+
+#/dev/mapper/volgroup0-lv_home
+UUID=1b663a7a-d5a3-493d-b807-a22cd705fe4e	/home	ext4	rw,relatime	0 2
+```
+
+## Installing
 
 ## Firewall
 We can follow [this](https://wiki.archlinux.org/title/simple_stateful_firewall#Firewall_for_a_single_machine) article from arch's wiki.
