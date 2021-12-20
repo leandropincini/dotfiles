@@ -152,7 +152,7 @@ mkfs.ext4 /dev/sda2
 
 Since we will use the third partition for the LVM, we need to setup it before formating it... just encrypt and setup the LVM. Then:
 
-```bash
+```
 cryptsetup luksFormat /dev/sda3
 
 WARNING!
@@ -166,7 +166,7 @@ Verify passphrase: <type the passphrase again>
 
 Since the partition was encrypted we need to unlock it:
 
-```bash
+```
 cryptsetup open --type luks /dev/sda3 lvm
 Enter the passphrase for /dev/sda3: <see... you'll need to remember it>
 ```
@@ -402,7 +402,7 @@ pacman -Sy openssh
 Edit the `/etc/ssh/sshd_config` file and uncomment the following lines:
 
 ```
-Port 22 (change for another port)
+Port 22 (change to another port)
 LoginGraceTime 1m
 PermitRootLogin no
 StrictModes yes
