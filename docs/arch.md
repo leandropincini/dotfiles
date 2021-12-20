@@ -17,21 +17,21 @@ iwctl
 ```
 Then you can search for your device with:
 
-```bash
+```
 [iwd]# device list
 ```
 
 P.e `wlan0` will be returned.
 After this we can search for available networks with:
 
-```bash
+```
 [iwd]# station wlan0 scan
 [iwd]# station wlan0 get-networks
 ```
 
 Since the network was discovered by the iwctl we can finally connect to the network:
 
-```bash
+```
 [iwd]# station wlan0 connect "my-wireless-network-name"
 ```
 
@@ -67,13 +67,13 @@ fdisk /dev/sda
 
 Create the new partition table:
 
-```bash
+```
 Command (m for help): g
 ```
 
 Create the first UEFI new partition:
 
-```bash
+```
 Command (m for help): n
 Partition number (1-128, default 1):
 First sector (2048-1048575966, default 2048):
@@ -82,7 +82,7 @@ Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-1048575966, default 10485759
 
 Setting the type for the new partition:
 
-```bash
+```
 Command (m for help): t
 Selected partition 1
 Partition type or alias (type L to list all): 1
@@ -90,7 +90,7 @@ Partition type or alias (type L to list all): 1
 
 Lets create the second partition, for boot:
 
-```bash
+```
 Command (m for help): n
 Partition number (2-128, default 2):
 First sector (1026048-1048575966, default 1026048):
@@ -99,7 +99,7 @@ Last sector, +/-sectors or +/-size{K,M,G,T,P} (1026048-1048575966, default 10485
 
 Create the third partition for the LVM:
 
-```bash
+```
 Command (m for help): n
 Partition number (3-128, default 3):
 First sector (2040048-104875966, default 2050058):
@@ -108,7 +108,7 @@ Last sector, +/-secotrs or +/-size{K,M,G,T,P} (2050048-1048575966, default 10485
 
 Setting the type for the third partition:
 
-```bash
+```
 Command (m for help): t
 Partition number (1-3, default 3):
 Partition type or alias (type L to list all): 30
@@ -116,7 +116,7 @@ Partition type or alias (type L to list all): 30
 
 Now, lets verify the partitions created:
 
-```bash
+```
 Command (m for help): p
 ```
 
@@ -128,7 +128,7 @@ Command (m for help): p
 
 Last but not least, we need to write the partition table into the disk:
 
-```bash
+```
 Command (m for help): w
 ```
 
@@ -267,6 +267,159 @@ UUID=1b663a7a-d5a3-493d-b807-a22cd705fe4e	/home	ext4	rw,relatime	0 2
 ```
 
 ## Installing
+
+After setup our disks, we need to install the base package group:
+
+```bash
+pacstrap -i /mnt base
+```
+
+Next, lets start to configure our installation:
+
+### Kernel and tools
+
+```bash
+arch-chroot /mnt
+pacman -Sy linux-lts linux-lts-headers base-devel zsh vim
+```
+
+### Network
+```bash
+pacman -Sy networkmanager wpa_suplicant wireless_tools netctl dialog
+systemctl enable NetworkManager
+```
+
+To connect to network use `nmtui-connect`.
+
+### Enable LVM and crypto support
+```bash
+pacman -Sy lvm2
+```
+
+Then edit the `/etc/mkinitcpio.conf` file. We need to add `encrypt` and `lvm2` at the first `HOOK` session between `block` and `filesystems`:
+
+```
+HOOKS=(base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck)
+```
+
+After it we need to recompile the kernel with:
+
+```bash
+mkintcpio -p linux-lts
+```
+
+### Locale
+Edit the `/etc/locale.gen` file and remove:
+
+```
+en_US.UTF-8 UTF-8
+pt_BR.UTF-8 UTF-8
+```
+
+Then call the `locale-gen` command:
+
+```bash
+locale-gen
+```
+
+and finally add the following at the `/etc/locale.conf` file:
+
+```
+LANG=en_US.UTF-8
+```
+
+### Users
+First, setup the root password, just call:
+
+```bash
+passwd
+```
+
+Then create a regular user:
+
+```bash
+useradd -m -g users -G wheel,storage,power,audio,video -s /usr/bin/zsh leandro
+passwd leandro
+```
+
+Then lets point the sudo command to wheel group:
+
+```bash
+EDITOR=vim visudo
+```
+
+Then uncomment the line:
+
+```
+%whell ALL=(ALL) ALL
+```
+
+### Bootloader - GRUB
+
+Lets install the needed packages:
+
+```bash
+pacman -Sy grub efibootmgr dosfstools os-prober mtools
+```
+
+Setup our EFI partition and install grub:
+
+```bash
+mkdir /boot/EFI
+mount /dev/sda1 /boot/EFI
+grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+```
+
+Then we need to edit the `/etc/default/grub` file and:
+
+- uncomment the `GRUB_ENABLE_CRYPTODISK=y` line.
+- add `cryptdevice=/dev/sda3:volgroup0:allow-discards` option to the `GRUB-CMDLINE_LINUX_DEFAULT` line.
+
+```
+GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/sda3:volgroup0:allow-discards loglevel=3 quiet"
+```
+
+Then finally, generate the grub configuration file:
+
+```bash
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+### Finishing and rebooting
+
+```bash
+exit
+umount -a
+reboot
+```
+
+## SSH
+```bash
+pacman -Sy openssh
+```
+
+Edit the `/etc/ssh/sshd_config` file and uncomment the following lines:
+
+```
+Port 22 (change for another port)
+LoginGraceTime 1m
+PermitRootLogin no
+StrictModes yes
+MaxAuthTries 2
+MaxStartups 5:80:10
+PermitTunnel no
+```
+
+Edit the `/etc/hosts.deny` file and comment the following line:
+
+```
+ALL:ALL:DENY
+```
+
+```bash
+systemctl enable sshd
+```
 
 ## Firewall
 We can follow [this](https://wiki.archlinux.org/title/simple_stateful_firewall#Firewall_for_a_single_machine) article from arch's wiki.
