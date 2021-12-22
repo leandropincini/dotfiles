@@ -138,7 +138,7 @@ Now if we run the `fdisk -l` again we should have the same output that we had at
 
 Setup a FAT32 partition for the UEFI partition:
 
-```bsah
+```bash
 mkfs.fat -F32 /dev/sda1
 ```
 
@@ -280,7 +280,7 @@ Next, lets start to configure our installation:
 
 ```bash
 arch-chroot /mnt
-pacman -Sy linux-lts linux-lts-headers base-devel zsh vim
+pacman -Sy linux-lts linux-lts-headers base-devel zsh vim git yay
 ```
 
 ### Network
@@ -394,6 +394,67 @@ umount -a
 reboot
 ```
 
+## SWAP File
+Create the swap file:
+
+```bash
+cd /root
+dd if=/dev/zero of=/swapfile bs=1M count=4096 status=progress
+chmod 600 /swapfile
+mkswap /swapfile
+```
+
+Backup the fstab file:
+
+```bash
+cp /etc/fstab /etc/fstab.bak
+```
+
+Add the new swapfile at the `/etc/fstab` file:
+
+```bash
+echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
+```
+
+And finally mount the new swap partition:
+
+```bash
+swapon -a
+```
+
+## Timezone
+
+```bash
+timedatectl set-timezone America/Sao_Paulo
+systemctl enable systemd-timesyncd
+```
+
+## Hostname
+
+```bash
+hostnamectl set-hostname <your-hostname>
+```
+
+Edit the `/etc/hosts` file:
+
+```
+127.0.0.1 localhost
+::1       localhost
+127.0.1.1 <your-hostname>
+```
+
+## Install processor microcode
+
+```bash
+pacman -Sy intel-ucode
+```
+
+or
+
+```bash
+pacman -Sy amd-ucode
+```
+
 ## SSH
 ```bash
 pacman -Sy openssh
@@ -416,6 +477,8 @@ Edit the `/etc/hosts.deny` file and comment the following line:
 ```
 ALL:ALL:DENY
 ```
+
+Enable the service at system's boot:
 
 ```bash
 systemctl enable sshd
@@ -581,6 +644,12 @@ Since the `rp_filter` is currently set to `2` by default in `/usr/lib/sysctl.d/5
 
 TLDR:
 
+Install iptables:
+
+```bash
+pacman -Sy iptables
+```
+
 Clean everything:
 
 ```bash
@@ -716,4 +785,85 @@ Save the ip6table's configuration into the default's file:
 
 ```bash
 ip6tables-save -f /etc/iptables/ip6tables.rules
+```
+
+## Audio & Video
+Start with audio:
+
+```bash
+pacman -Sy alsa-firmware alsa-utils alsa-plugins pulseaudio-alsa pulseaudio
+```
+
+We can set the volume with:
+
+```bash
+alsa-mixer
+```
+
+Then the video:
+
+```bash
+pacman -Sy xorg-server xorg-init xorg-apps xf86-input-evdev
+yay -Sy nvidia-340xx
+```
+
+Generate the xorg-file with nvidia-xconfig:
+
+```bash
+nvidia-xconfig
+```
+
+Edit the `/etc/X11/xorg.conf` generated file:
+
+- Add the `ServerFlags` section:
+
+```
+Section "ServerFlags"
+    Option "IgnoreABI" "1"
+EndSection
+```
+
+- Add the `NoLogo` Option:
+
+```
+Section "Device"
+    Option "NoLogo" "1"
+EndSection
+```
+
+- Add the "1280x800" mode:
+
+```
+Section "Screen"
+    SubSection "Display"
+        Modes "1280x800"
+    EndSubSection
+EndSection
+```
+
+Copy the `20-nvidia.conf` file:
+
+```bash
+cp /usr/share/X11/xorg.conf.d/20-nvidia.conf /etc/X11/xorg.conf.d/20-nvidia.conf
+```
+
+Edit the `/etc/X11/xorg.conf.d/20-nvidia.conf`:
+
+```
+Section "Files"
+  ModulePath   "/usr/lib64/nvidia/xorg"
+  ModulePath   "/usr/lib64/xorg/modules"
+EndSection
+
+Section "Device"
+  Identifier "Nvidia Card"
+  Driver "nvidia"
+  VendorName "NVIDIA Corporation"
+  BoardName "GeForce 9400M"
+  Option "NoLogo" "1"
+EndSection
+
+Section "ServerFlags"
+  Option "IgnoreABI" "1"
+EndSection
 ```
