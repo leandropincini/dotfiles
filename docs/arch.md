@@ -787,9 +787,7 @@ Save the ip6table's configuration into the default's file:
 ip6tables-save -f /etc/iptables/ip6tables.rules
 ```
 
-## Audio & Video
-Start with audio:
-
+## Audio
 ```bash
 pacman -Sy alsa-firmware alsa-utils alsa-plugins pulseaudio-alsa pulseaudio
 ```
@@ -800,8 +798,7 @@ We can set the volume with:
 alsa-mixer
 ```
 
-Then the video:
-
+## Video
 ```bash
 pacman -Sy xorg-server xorg-init xorg-apps xf86-input-evdev
 yay -Sy nvidia-340xx
@@ -866,4 +863,12 @@ EndSection
 Section "ServerFlags"
   Option "IgnoreABI" "1"
 EndSection
+```
+
+## Dotfiles
+```bash
+cd ~
+git clone git@github.com:leandropincini/dotfiles.git .dotfiles --depth=1
+cd .dotfiles
+./install-archlinux.sh
 ```
