@@ -1,0 +1,22 @@
+[apply]
+    whitespace = fix
+[user]
+    email = leandropincini@gmail.com
+    name = Leandro Pincini
+[alias]
+    a = add
+    pl = pull
+    ci = commit
+    ps = push
+    st = status
+    br = branch
+    co = checkout
+    cl = clone
+    clnd = clone --depth 1
+    df = diff
+    lo = log --oneline
+[core]
+    editor = /usr/bin/vim
+    whitespace = space-before-tab,ident-with-non-tab,trailing-space
+[merge]
+    log = true

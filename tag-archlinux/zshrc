@@ -1,0 +1,22 @@
+# PATH
+export PATH="$HOME/.local/bin:/usr/local/bin":$PATH
+
+# Defaults
+export TERMINAL="st"
+
+# History
+HISTSIZE=10000000
+SAVEHIST=10000000
+HISTFILE=~/.cache/zsh/history
+export HISTCONTROL=ignoredups
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+
+# Alias
+alias e="exit"
+alias ls="ls --color=auto"
+alias ll="ls -lh"
+alias la="ls -a"
+alias lla="ls -lah"
+alias lsd='ls -lh | grep "^d"'
+alias g="git"
+alias gpu-temperature="nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits"
