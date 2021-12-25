@@ -1,0 +1,12 @@
+nvidia-settings --load-config-only & 
+xset s off
+xset -dpms
+xset s noblank
+xset r rate 210 40
+xset m 5 2 & 
+setxkbmap -option ctrl:nocaps
+xrandr --setprovideroutputsource modesetting NVIDIA-0 
+xrandr --auto 
+#xrandr -s 1280x800
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+exec dwm
