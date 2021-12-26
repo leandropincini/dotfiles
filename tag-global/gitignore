@@ -1,0 +1,45 @@
+# gitignore collection : https://github.com/github/gitignore
+.DS\_Store
+.AppleDouble
+.LSOverride
+Icon
+Destkop.ini
+._*
+Thumbs.db
+.Trashes
+.Spotlight-V100
+.svn
+*.sqlite3
+XX106-5TY6
+\#*#
+.todo
+.bundle
+*.ser
+
+# IDE and editors
+*.swp
+*.~
+*~
+.idea
+nbproject
+eclipse
+.amateras
+.settings
+.classpath
+.project
+*.iml
+*.ipr
+*.iws
+atlassian-ide-plugin.xml
+*.bak
+.settings
+
+# Python
+*.pyc
+
+# Scala / Java
+*.class
+*.log
+# sbt
+dist/*
+target/*

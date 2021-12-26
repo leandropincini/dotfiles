@@ -1,0 +1,35 @@
+# automatically normalize line endings for all text-based files
+#* text=auto
+
+*.gitattributes	text
+
+# text files must be normalized (convert crlf => lf)
+*.c		text
+*.check		text
+*.css		text
+*.flags		text
+*.html		text
+*.java		text
+*.js		text
+*.policy	text
+*.sbt		text
+*.scala		text
+*.sh		text
+*.txt		text
+*.xml		text
+#*.rb		text
+
+# windows specific files (crlf)
+*.bat		eol=crlf
+*.cmd		eol=crlf
+*~windows.tmpl	eol=crlf
+
+# some binary file types for completeness
+# (binary is a macro for -text -diff)
+*.so		binary
+*.dll		binary
+*.gif		binary
+*.jpg		binary
+*.png		binary
+*.class		-text	diff=class
+*.jar		-text	diff=jar

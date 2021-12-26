@@ -3,8 +3,8 @@ export PATH="$HOME/.local/bin:/usr/local/bin":$PATH
 
 # Defaults
 export TERMINAL="st"
-export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -t"         
+export ALTERNATE_EDITOR="vim"
+export EDITOR="vim"
 export VISUAL="emacsclient -c -a emacs"
 
 # History
