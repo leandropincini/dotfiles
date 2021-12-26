@@ -3,13 +3,21 @@ export PATH="$HOME/.local/bin:/usr/local/bin":$PATH
 
 # Defaults
 export TERMINAL="st"
+export ALTERNATE_EDITOR=""
+export EDITOR="emacsclient -t"         
+export VISUAL="emacsclient -c -a emacs"
 
 # History
 HISTSIZE=10000000
 SAVEHIST=10000000
 HISTFILE=~/.cache/zsh/history
+setopt appendhistory
 export HISTCONTROL=ignoredups
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+
+# options (man zshoptions)
+stty stop undef
+unsetopt BEEP
 
 # Alias
 alias e="exit"
@@ -19,4 +27,5 @@ alias la="ls -a"
 alias lla="ls -lah"
 alias lsd='ls -lh | grep "^d"'
 alias g="git"
+alias em="emacs -c -a emacs"
 alias gpu-temperature="nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits"
