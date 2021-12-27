@@ -4,6 +4,7 @@ xset -dpms
 xset s noblank
 xset r rate 210 40
 xset m 5 2 & 
+setxkbmap -model abnt -layout us -variant intl
 setxkbmap -option ctrl:nocaps
 xrandr --setprovideroutputsource modesetting NVIDIA-0 
 xrandr --auto 
