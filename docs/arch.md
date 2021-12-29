@@ -813,7 +813,7 @@ alsa-mixer
 
 ## Video
 ```bash
-pacman -Sy xorg-server xorg-init xorg-apps xf86-input-evdev
+pacman -Sy xorg-server xorg-xinit xorg-apps xf86-input-evdev libx11 libxinerama libxft webkit2gtk
 yay -Sy nvidia-340xx
 ```
 
@@ -878,10 +878,38 @@ Section "ServerFlags"
 EndSection
 ```
 
+## Programs
+```bash
+pacman -Sy p7zip emacs firefox bat ripgrep ttf-fira-code
+```
+
 ## Dotfiles
 ```bash
 cd ~
 git clone git@github.com:leandropincini/dotfiles.git .dotfiles --depth=1
 cd .dotfiles
 ./install-archlinux.sh
+```
+
+## Java
+[SDKMAN](https://sdkman.io/) dependencies:
+
+```bash
+pacman -Sy unzip zip
+```
+
+Run as your regular user:
+
+```bash
+curl -s "https://get.sdkman.io" | bash
+sdk install java 17.0.1-tem
+sdk install maven 3.8.4
+sdk install gradle 7.3.3
+```
+
+## Clojure
+```bash
+sdk install java 11.0.13-tem
+pacman -Sy clojure leiningen aspell aspell-en aspell-pt
+yay -Sy clojure-lsp
 ```

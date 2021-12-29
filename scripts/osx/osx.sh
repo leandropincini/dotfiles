@@ -107,7 +107,7 @@ echo "Screen Shots will be saved at ~/Pictures..."
 defaults write com.apple.screencapture location ~/Pictures
 
 # enable subpixel font rendering on non-Apple LCDs
-echo "Better fonts for non-Appel LCDs..."
+echo "Better fonts for non-Apple LCDs..."
 defaults write NSGlobalDomain AppleFontSmoothing -int 2
 
 # enable HiDPI display modes (requires restart)

@@ -5,7 +5,7 @@ export PATH="$HOME/.local/bin:/usr/local/bin":$PATH
 export TERMINAL="st"
 export ALTERNATE_EDITOR="vim"
 export EDITOR="vim"
-export VISUAL="emacsclient -c -a emacs"
+export VISUAL="emacsclient -c"
 
 # History
 HISTSIZE=10000000
@@ -27,5 +27,15 @@ alias la="ls -a"
 alias lla="ls -lah"
 alias lsd='ls -lh | grep "^d"'
 alias g="git"
-alias em="emacs -c -a emacs"
+alias em="emacsclient -c"
+alias emacs="em"
+alias p="cd ~/projects"
+alias emacs-daemon-enable="systemctl --user enable --now emacs"
+alias emacs-daemon-disable="systemctl --user disable --now emacs"
+alias emacs-daemon-stop="systemctl --user stop --now emacs"
+alias emacs-daemon-restart="systemctl --user restart --now emacs"
 alias gpu-temperature="nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
