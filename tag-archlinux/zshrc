@@ -28,7 +28,6 @@ alias lla="ls -lah"
 alias lsd='ls -lh | grep "^d"'
 alias g="git"
 alias em="emacsclient -c"
-alias emacs="em"
 alias p="cd ~/projects"
 alias emacs-daemon-enable="systemctl --user enable --now emacs"
 alias emacs-daemon-disable="systemctl --user disable --now emacs"

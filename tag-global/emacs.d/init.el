@@ -13,7 +13,7 @@
 (add-to-list 'exec-path "/usr/local/bin")
 
 ;; run the server if gnu/linux
-(when (eq system-type 'gnu-linux)
+(when (eq system-type 'gnu/linux)
   (require 'server)
   (unless (server-running-p)
     (server-start)))
@@ -665,7 +665,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
 
 (when (eq system-type 'darwin)
   (set-face-attribute 'default nil
-                      :family "Fira Code"
+                      :family "Fira Code Retina"
                       :height 140
                       :weight 'regular
                       :width 'regular))
