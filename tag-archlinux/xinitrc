@@ -10,4 +10,14 @@ xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --auto 
 #xrandr -s 1280x800
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+
+while true
+do
+    TEMP="$(($(cat /sys/class/thermal/thermal_zone0/temp) / 1000))C"
+    GPUTEMP="$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)C"
+    LOCALTIME="$(date '+%d/%m/%y - %R')"
+    xsetroot -name "$TEMP $GPUTEMP $LOCALTIME"
+    sleep 30s
+done &
+
 exec dwm

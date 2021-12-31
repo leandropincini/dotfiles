@@ -880,7 +880,7 @@ EndSection
 
 ## Programs
 ```bash
-pacman -Sy p7zip emacs firefox bat ripgrep ttf-fira-code
+pacman -Sy p7zip emacs firefox bat ripgrep zsh-completions ttf-fira-code
 ```
 
 ## Dotfiles
