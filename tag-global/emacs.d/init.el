@@ -507,6 +507,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
 (use-package treemacs)
 
 (use-package treemacs-all-the-icons
+  :if (display-graphic-p)
   :after treemacs)
 
 (use-package lsp-treemacs
