@@ -642,19 +642,19 @@ If neither, we use the current indent-tabs-mode (spaces)."
   (defun lp/set-terminal-font-faces ()
     (set-face-attribute 'default nil
                         :family "monospace"
-                        :height 100
+                        :height 120
                         :weight 'normal
                         :width 'normal))
   (defun lp/set-ui-font-faces ()
     (set-face-attribute 'default nil
                         :family "Fira Code Retina"
-                        :height 90)
+                        :height 120)
     (set-face-attribute 'fixed-pitch nil
                         :family "Fira Code Retina"
-                        :height 90)
+                        :height 120)
     (set-face-attribute 'variable-pitch nil
                         :family "Fira Code Retina "
-                        :height 90))
+                        :height 120))
   (if (daemonp)
       (and (add-hook 'after-make-frame-functions
                      (lambda (frame)
@@ -667,9 +667,9 @@ If neither, we use the current indent-tabs-mode (spaces)."
 (when (eq system-type 'darwin)
   (set-face-attribute 'default nil
                       :family "Fira Code Retina"
-                      :height 140
-                      :weight 'regular
-                      :width 'regular))
+                      :height 160
+                      :weight 'Regular
+                      :width 'Regular))
 
 (use-package dracula-theme
   :if window-system

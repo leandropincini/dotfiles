@@ -1,4 +1,4 @@
-*.font: monospace:size=12
+*.font: Fira Code Retina:size=12
 
 ! Dracula Xresources palette
 *.foreground: #F8F8F2

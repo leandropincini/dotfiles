@@ -814,7 +814,7 @@ alsa-mixer
 ## Video
 ```bash
 pacman -Sy xorg-server xorg-xinit xorg-apps xf86-input-evdev libx11 libxinerama libxft webkit2gtk
-yay -Sy nvidia-340xx
+yay -Sy nvidia-340xx-lts-dkms nvidia-340xx-settings
 ```
 
 Generate the xorg-file with nvidia-xconfig:
