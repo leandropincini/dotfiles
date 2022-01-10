@@ -305,7 +305,7 @@ HOOKS=(base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck
 After it we need to recompile the kernel with:
 
 ```bash
-mkintcpio -p linux-lts
+mkinitcpio -p linux-lts
 ```
 
 ### Locale
