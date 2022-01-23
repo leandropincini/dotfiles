@@ -878,6 +878,18 @@ Section "ServerFlags"
 EndSection
 ```
 
+Edit the `/etc/mkinitcpio.conf` file and add the MODULES:
+
+```
+MODULES=(nvidia nvidia_uvm)
+```
+
+And recompile the kernel:
+
+```bash
+sudo mkinitcpio -p linux-lts
+```
+
 ## Programs
 ```bash
 pacman -Sy p7zip emacs firefox bat ripgrep zsh-completions ttf-fira-code
