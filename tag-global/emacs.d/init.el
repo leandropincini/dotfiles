@@ -434,8 +434,8 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :hook ((after-init . global-flycheck-mode)))
 
 (use-package clojure-mode
-  :mode (("\\.clj\\'" . clojure-mode)
-         ("\\.edn\\'" . cljure-mode))
+  :mode "\\.clj\\'"
+  :mode "\\.edn\\'"
   :config
   (setq default-fill-column 80
         clojure-indent-style 'align-arguments
@@ -595,8 +595,8 @@ If neither, we use the current indent-tabs-mode (spaces)."
   (yas-global-mode 1))
 
 (use-package markdown-mode
-  :mode (("\\.md'" . gfm-mode)
-         ("\\.markdown\\'" . gfm-mode))
+  :mode ("\\.md'" . gfm-mode)
+  :mode ("\\.markdown\\'" . gfm-mode)
   :config
   (setq markdown-fontify-code-blocks-natively t)
   :preface
@@ -614,23 +614,23 @@ If neither, we use the current indent-tabs-mode (spaces)."
 (use-package yaml-mode)
 
 (use-package json-mode
-  :mode ("\\.json\\'" . json-mode))
+  :mode "\\.json\\'")
 
 (use-package xml-mode
   :ensure nil
-  :mode ("\\.wsdl\\'" . xml-mode))
+  :mode "\\.wsdl\\'")
 
 (use-package web-mode
-  :mode ("\\.phtml\\'" . web-mode)
-  :mode ("\\.tpl\\.php\\'" . web-mode)
-  :mode ("\\.[agj]sp\\'" . web-mode)
-  :mode ("\\.erbl\\'" . web-mode)
-  :mode ("\\.mustache\\'" . web-mode)
-  :mode ("\\.djhtml\\'" . web-mode)
-  :mode ("\\.html?\\'" . web-mode))
+  :mode "\\.phtml\\'"
+  :mode "\\.tpl\\.php\\'"
+  :mode "\\.[agj]sp\\'"
+  :mode "\\.erbl\\'"
+  :mode "\\.mustache\\'"
+  :mode "\\.djhtml\\'"
+  :mode "\\.html?\\'")
 
 (use-package dockerfile-mode
-  :mode ("\\Dockerfile\\'" . dockerfile-mode))
+  :mode "\\Dockerfile\\'")
 
 (use-package docker-compose-mode)
 
