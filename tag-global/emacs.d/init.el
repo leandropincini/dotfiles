@@ -504,7 +504,16 @@ If neither, we use the current indent-tabs-mode (spaces)."
           ".bzr" "_darcs" ".tox" ".svn" ".stack-work"
           "build")))
 
-(use-package treemacs)
+(use-package dap-mode
+  :defer
+  :custom
+  (dap-auto-configure-mode t)
+  :config
+  (require 'dap-java))
+
+(use-package treemacs
+  :config
+  (setq treemacs-persist-file (expand-file-name ".cache/treemacs-persist" user-emacs-directory)))
 
 (use-package treemacs-all-the-icons
   :if (display-graphic-p)
