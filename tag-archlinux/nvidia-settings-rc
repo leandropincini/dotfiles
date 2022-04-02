@@ -2,17 +2,17 @@
 # /home/leandro/.nvidia-settings-rc
 #
 # Configuration file for nvidia-settings - the NVIDIA X Server Settings utility
-# Generated on Thu Jan 13 19:38:47 2022
+# Generated on Sat Apr  2 19:00:13 2022
 #
 
 # ConfigProperties:
 
 RcFileLocale = C
-ToolTips = Yes
+ToolTips = No
 DisplayStatusBar = Yes
 SliderTextEntries = Yes
 IncludeDisplayNameInConfigFile = No
-ShowQuitDialog = Yes
+ShowQuitDialog = No
 UpdateRulesOnProfileNameChange = Yes
 Timer = PowerMizer_Monitor_(GPU_0),Yes,1000
 Timer = Thermal_Monitor_(GPU_0),Yes,1000
@@ -32,9 +32,9 @@ Timer = Memory_Used_(GPU_0),Yes,3000
 0/OpenGLImageSettings=0
 0/FSAAAppEnhanced=0
 0/XVideoSyncToDisplayID=LVDS-0
-[DPY:LVDS-0]/RedBrightness=0.000000
-[DPY:LVDS-0]/GreenBrightness=0.000000
-[DPY:LVDS-0]/BlueBrightness=0.000000
+[DPY:LVDS-0]/RedBrightness=-0.401235
+[DPY:LVDS-0]/GreenBrightness=-0.401235
+[DPY:LVDS-0]/BlueBrightness=-0.401235
 [DPY:LVDS-0]/RedContrast=0.000000
 [DPY:LVDS-0]/GreenContrast=0.000000
 [DPY:LVDS-0]/BlueContrast=0.000000
