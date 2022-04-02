@@ -412,7 +412,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :bind (("C-c /" . company-complete))
   :config
   (setq company-idle-delay 0.2
-        company-show-numbers t
+        company-show-quick-access t
         company-echo-delay 0
         company-candidates-cache t
         company-tooltip-limit 10
