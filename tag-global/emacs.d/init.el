@@ -650,20 +650,20 @@ If neither, we use the current indent-tabs-mode (spaces)."
 (when (eq system-type 'gnu/linux)
   (defun lp/set-terminal-font-faces ()
     (set-face-attribute 'default nil
-                        :family "monospace"
-                        :height 120
+                        :family "Fira Code Retina"
+                        :height 130
                         :weight 'normal
                         :width 'normal))
   (defun lp/set-ui-font-faces ()
     (set-face-attribute 'default nil
                         :family "Fira Code Retina"
-                        :height 120)
+                        :height 130)
     (set-face-attribute 'fixed-pitch nil
                         :family "Fira Code Retina"
-                        :height 120)
+                        :height 130)
     (set-face-attribute 'variable-pitch nil
-                        :family "Fira Code Retina "
-                        :height 120))
+                        :family "Fira Code Retina"
+                        :height 130))
   (if (daemonp)
       (and (add-hook 'after-make-frame-functions
                      (lambda (frame)
