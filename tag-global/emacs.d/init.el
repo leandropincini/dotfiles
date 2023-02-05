@@ -685,4 +685,4 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :config
   (load-theme 'dracula t))
 ;; end of packages - load emacs packages
-;; end of init.el
+;;; init.el ends here

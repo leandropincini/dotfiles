@@ -69,6 +69,8 @@ alias p="cd ~/projects"
 alias cpu-temperature="echo $(($(cat /sys/class/thermal/thermal_zone0/temp) / 1000))C"
 alias gpu-temperature="echo $(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)C"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# asdf
+. /opt/asdf-vm/asdf.sh
+
+# JAVA_HOME with asdf
+. ~/.asdf/plugins/java/set-java-home.zsh

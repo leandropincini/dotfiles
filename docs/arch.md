@@ -903,25 +903,49 @@ cd .dotfiles
 ./install-archlinux.sh
 ```
 
-## Java
-[SDKMAN](https://sdkman.io/) dependencies:
+## ASDF
+[adsf](https://asdf-vm.com/):
+
+Install with yay:
 
 ```bash
-pacman -Sy unzip zip
+yay -Sy asdf-vm
 ```
 
-Run as your regular user:
+Add the following in the end of `~/.zshrc`:
 
 ```bash
-curl -s "https://get.sdkman.io" | bash
-sdk install java 17.0.1-tem
-sdk install maven 3.8.4
-sdk install gradle 7.3.3
+# asdf
+. /opt/asdf-vm/asdf.sh
+```
+
+## Java
+
+Install the asdf plugin:
+
+```bash
+asdf plugin-add java https://github.com/halcyon/asdf-java.git
+asdf list-all java
+asdf install java openjdk-19.0.2
+asdf global java openjdk-19.0.2
+```
+
+Add the following in the `~/.zshrc`:
+
+```bash
+# JAVA_HOME with asdf
+. ~/.asdf/plugins/java/set-java-home.zsh
 ```
 
 ## Clojure
 ```bash
-sdk install java 11.0.13-tem
+asdf install java adoptopenjdk-11.0.18+10
 pacman -Sy clojure leiningen aspell aspell-en aspell-pt
-yay -Sy clojure-lsp
+yay -Sy clojure-lsp-bin
+```
+
+And from inside your clojure projects directory:
+
+```bash
+asdf local java adoptopenjdk-11.0.18+10
 ```
