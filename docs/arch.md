@@ -925,6 +925,7 @@ Install the asdf plugin:
 
 ```bash
 asdf plugin-add java https://github.com/halcyon/asdf-java.git
+asdf plugin update java
 asdf list-all java
 asdf install java openjdk-19.0.2
 asdf global java openjdk-19.0.2
