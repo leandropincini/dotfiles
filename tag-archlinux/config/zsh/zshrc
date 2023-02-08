@@ -51,6 +51,11 @@ zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "dracula/zsh-syntax-highlighting"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 #zsh_add_plugin "dracula/zsh"
+zsh_add_plugin "zsh-users/zsh-history-substring-search"
+
+# zsh-history-substring-search configuration
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
 # Aliases
 alias e="exit"
