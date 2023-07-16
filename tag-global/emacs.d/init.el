@@ -455,6 +455,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
          (cider-repl-mode . company-mode))
   :config
   (setq nrepl-log-messages t
+        cider-lein-command "lein"
         cider-repl-display-help-banner nil
         cider-ns-refresh-show-logger-buffer t
         cider-show-error-buffer t
