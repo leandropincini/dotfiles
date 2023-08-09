@@ -462,9 +462,11 @@ If neither, we use the current indent-tabs-mode (spaces)."
         cider-font-lock-dynamically nil
         cider-eldoc-display-for-symbol-at-point nil
         cider-prompt-for-symbol nil
+        cider-use-xref nil
         cider-repl-history-file "~/.emacs.d/cider-history"
         cider-repl-wrap-history t)
   (setq cider-test-defining-forms '("deftest" "defspec" "defflow"))
+  (add-hook 'cider-mode-hook (lambda () (remove-hook 'completion-at-point-functions #'cider-copmlete-at-point)))
   :bind
   (:map clojure-mode-map
         ("C-c c s"   . cider-jack-in)

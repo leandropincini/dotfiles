@@ -67,6 +67,7 @@ alias lsd='ls -lh | grep "^d"'
 alias g="git"
 alias em="emacsclient -c"
 alias p="cd ~/projects"
+alias git-cleanup-local-branches="git branch | grep -v "main" | xargs git branch -D"
 #alias emacs-daemon-enable="systemctl --user enable --now emacs"
 #alias emacs-daemon-disable="systemctl --user disable --now emacs"
 #alias emacs-daemon-stop="systemctl --user stop --now emacs"
