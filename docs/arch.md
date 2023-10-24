@@ -892,7 +892,7 @@ sudo mkinitcpio -p linux-lts
 
 ## Programs
 ```bash
-pacman -Sy p7zip emacs firefox bat ripgrep zsh-completions ttf-fira-code
+pacman -Sy p7zip emacs firefox gnucash perl-finance-quote bat ripgrep zsh-completions ttf-fira-code
 ```
 
 ## Dotfiles
@@ -926,9 +926,9 @@ Install the asdf plugin:
 ```bash
 asdf plugin-add java https://github.com/halcyon/asdf-java.git
 asdf plugin update java
-asdf list-all java
-asdf install java openjdk-19.0.2
-asdf global java openjdk-19.0.2
+asdf list-all java | grep openjdk-21
+asdf install java openjdk-21.0.1
+asdf global java openjdk-21.0.1
 ```
 
 Add the following in the `~/.zshrc`:
@@ -940,7 +940,8 @@ Add the following in the `~/.zshrc`:
 
 ## Clojure
 ```bash
-asdf install java adoptopenjdk-11.0.18+10
+asdf list-all java | grep adoptopenjdk-11
+asdf install java adoptopenjdk-11.0.21+9
 pacman -Sy clojure leiningen aspell aspell-en aspell-pt
 yay -Sy clojure-lsp-bin
 ```
@@ -948,5 +949,5 @@ yay -Sy clojure-lsp-bin
 And from inside your clojure projects directory:
 
 ```bash
-asdf local java adoptopenjdk-11.0.18+10
+asdf local java adoptopenjdk-11.0.21+9
 ```
