@@ -5,9 +5,9 @@
     name = Leandro Pincini
 [alias]
     a = add
-    pl = pull
+    pl = pull -p
     ci = commit
-    ps = push
+    ps = push -u
     st = status
     br = branch
     co = checkout

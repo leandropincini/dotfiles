@@ -433,6 +433,8 @@ If neither, we use the current indent-tabs-mode (spaces)."
 (use-package flycheck
   :hook ((after-init . global-flycheck-mode)))
 
+(use-package graphql-mode)
+
 (use-package clojure-mode
   :mode "\\.clj\\'"
   :mode "\\.edn\\'"
