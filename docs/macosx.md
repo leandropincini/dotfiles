@@ -105,14 +105,6 @@ brew install rcm golang gnucash keepingyouawake ripgrep bat
 go install github.com/swaggo/swag/cmd/swag@latest 
 ```
 
-Add the following in the `~/.zshrc`:
-
-```bash
-# Go lang
-export PATH=$PATH:$(go env GOPATH)/bin
-export PATH=$PATH:$(go env GOROOT)/bin
-```
-
 ## Dotfiles
 ```bash
 cd ~
@@ -120,4 +112,3 @@ git clone git@github.com:leandropincini/dotfiles.git .dotfiles --depth=1
 cd .dotfiles
 ./install-macos.sh
 ```
-
