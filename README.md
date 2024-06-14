@@ -6,6 +6,7 @@ I'm using [RCM](https://github.com/thoughtbot/rcm) to manage it.
 
 ## Installation
 - [Arch Setup Guide](docs/arch.md)
+- [Mac OSX Setup Guide](docs/macosx.md)
 
 ## License
 This is free and unencumbered software released into the public domain.
