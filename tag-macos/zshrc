@@ -1,6 +1,2 @@
-export PATH=$PATH:$(go env GOPATH)/bin
-export PATH=$PATH:$(go env GOROOT)/bin
-
-#JAVA_HOME with asdf
-. ~/.asdf/plugins/java/set-java-home.zsh
-
+export ZDOTDIR=$HOME/.config/zsh
+source $ZDOTDIR/zshrc
