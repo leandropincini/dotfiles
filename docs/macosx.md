@@ -96,9 +96,10 @@ brew install rcm visual-studio-code gnucash keepingyouawake ripgrep bat
 brew install golang protobuf &&
 cd ~ &&
 go install github.com/swaggo/swag/cmd/swag@latest &&
+go install github.com/google/wire/cmd/wire@latest &&
 go install golang.org/x/perf/cmd/benchstat@latest &&
-go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28 &&
-go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+go install google.golang.org/protobuf/cmd/protoc-gen-go &&
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc
 ```
 
 Open your vscode and type Cmd + Shift + P
@@ -107,6 +108,59 @@ Open your vscode and type Cmd + Shift + P
 ```
 
 Select and install everything.
+
+### Github setup
+#### ssh key
+Create a new ssh-key
+```bash
+ssh-keygen -t ed25519 -C "leandropincini@gmail.com"
+```
+
+Enable your ssh-agent
+```bash
+eval "$(ssh-agent -s)"
+```
+
+Setup your `~/.ssh/config`
+```
+Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+```
+
+Register your ssh key into apple-key-chain
+```bash
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+```
+
+Paste the result into github session
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+#### gpg key
+```bash
+brew install gnupg &&
+gpg --full-generate-key
+```
+
+Export the pub key and use it (change it to your id)
+```bash
+gpg --list-secret-keys --keyid-format=long &&
+gpg --armor --export 3AA5C34371567BD2 &&
+git config --global user.signingkey 3AA5C34371567BD2 &&
+git config --global commit.gpgsign true &&
+if [ -r ~/.zshrc ]; then echo -e '\nexport GPG_TTY=$(tty)' >> ~/.zshrc; \
+  else echo -e '\nexport GPG_TTY=$(tty)' >> ~/.zprofile; fi
+```
+
+Optionally, install a graphical prompt with save in keychain option
+```bash
+brew install pinentry-mac &&
+echo "pinentry-program $(which pinentry-mac)" >> ~/.gnupg/gpg-agent.conf &&
+killall gpg-agent
+```
 
 ## Dotfiles
 ```bash
