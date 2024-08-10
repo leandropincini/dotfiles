@@ -36,10 +36,90 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true &&
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 ```
+## Finder
 
 ### Setting finder to show all filename extensios
 ```bash
 defaults write com.apple.finder AppleShowAllExtensions -bool true
+```
+
+### Setting finder to show status bar
+```bash
+defaults write com.apple.finder ShowStatusBar -bool true
+```
+
+### Seeting finder to show path bar
+```bash
+defaults write com.apple.finder ShowPathBar -bool true
+```
+
+### Setting finder to search the current folder by default
+```bash
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+```
+
+### Show Library folder
+```bash
+chflags nohidden ~/Library
+```
+
+## Time Machine
+
+### No more Time Machine prompting to use new HDs as backup volumes
+```bash
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+```
+
+### Turn off local Time Machine backpus
+```bash
+hash tmutil &> /dev/null && sudo tmutil disablelocal
+```
+
+### Require password immediataly after sleep or screen saver begins
+```bash
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
+```
+
+## Display
+
+### Enable subpixel font rendering on non-Apple LCDs
+```bash
+defaults write NSGlobalDomain AppleFontSmoothing -int 2
+```
+
+### Enable HiDPI display modes (requires restart)
+```bash
+sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+```
+
+## Sound
+
+### Increase sound quality for bluetooth headphones/headsets
+```bash
+defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+```
+
+## Utils
+
+### Do not create .DS_Store files on network volumes
+```bash
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+```
+
+### Using only UTF-8 on Terminal.app
+```bash
+defaults write com.apple.terminal StringEncodings -array 4
+```
+
+### Save screen shots at ~/Pictures
+```bash
+defaults write com.apple.screencapture location ~/Pictures
+```
+
+### Enable Auto Correct
+```bash
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
 ```
 
 ## Homebrew
