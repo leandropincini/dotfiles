@@ -1,19 +1,25 @@
-# GO lang
-export PATH=$PATH:$(go env GOPATH)/bin
-export PATH=$PATH:$(go env GOROOT)/bin
-
-# Nods js
-export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
-export LDFLAGS="-L/opt/homebrew/opt/node@20/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/node@20/include"
-
 # History
+# setopt inc_append_history share_history
 HISTSIZE=10000000
 SAVEHIST=10000000
 HISTFILE=$HOME/.cache/zsh/history
 setopt appendhistory
 export HISTCONTROL=ignoredups
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+
+# FZF
+source <(fzf --zsh)
+
+# asdf
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+# Node js
+export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/node@20/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/node@20/include"
+
+# Git
+export GPG_TTY=$(tty)
 
 # Options (man zshoptions)
 stty stop undef
@@ -35,8 +41,13 @@ alias g="git"
 alias em="emacs &"
 alias p="cd ~/projects"
 alias git-cleanup-local-branches="git branch | grep -v "main" | xargs git branch -D"
-# alias docker="podman"
-# alias docker-compose="podman-compose"
+alias d="docker"
+alias docker="podman"
+alias docker-compose="podman-compose"
+
+# GO lang with asdf
+export ASDF_GOLANG_MOD_VERSION_ENABLED=true
+. ~/.asdf/plugins/golang/set-env.zsh
 
 #JAVA_HOME with asdf
 . ~/.asdf/plugins/java/set-java-home.zsh
