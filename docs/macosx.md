@@ -77,7 +77,7 @@ hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 ### Require password immediataly after sleep or screen saver begins
 ```bash
-defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPassword -int 1 &&
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 ```
 

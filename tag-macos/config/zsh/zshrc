@@ -7,6 +7,11 @@ setopt appendhistory
 export HISTCONTROL=ignoredups
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 
+# grep
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
+
 # FZF
 source <(fzf --zsh)
 
@@ -37,13 +42,15 @@ alias ll="ls -lh"
 alias la="ls -a"
 alias lla="ls -lah"
 alias lsd='ls -lh | grep "^d"'
+alias cleanup="find . -type f -name '*DS_Store' -ls -delete"
 alias g="git"
-alias em="emacs &"
-alias p="cd ~/projects"
 alias git-cleanup-local-branches="git branch | grep -v "main" | xargs git branch -D"
+alias bua="brew update && brew upgrade && brew cleanup"
 alias d="docker"
 alias docker="podman"
 alias docker-compose="podman-compose"
+alias em="emacs &"
+alias p="cd ~/projects"
 
 # GO lang with asdf
 export ASDF_GOLANG_MOD_VERSION_ENABLED=true
