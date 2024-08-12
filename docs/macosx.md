@@ -174,7 +174,7 @@ brew install rcm visual-studio-code gnucash keepingyouawake ripgrep bat fzf
 ### Go lang
 ```bash
 asdf plugin add golang https://github.com/asdf-community/asdf-golang.git &&
-asdf golang install 1.22.6 &&
+asdf install golang 1.22.6 &&
 asdf global golang 1.22.6 &&
 brew install protobuf &&
 cd ~ &&
@@ -188,7 +188,7 @@ asdf reshim golang
 
 Open your vscode and type Cmd + Shift + P
 ```bash
->go
+>go install/update tools
 ```
 
 Select and install everything.
