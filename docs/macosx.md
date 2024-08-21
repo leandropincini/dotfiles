@@ -174,8 +174,8 @@ brew install rcm visual-studio-code gnucash keepingyouawake ripgrep bat fzf
 ### Go lang
 ```bash
 asdf plugin add golang https://github.com/asdf-community/asdf-golang.git &&
-asdf install golang 1.22.6 &&
-asdf global golang 1.22.6 &&
+asdf install golang 1.23.0 &&
+asdf global golang 1.23.0 &&
 brew install protobuf &&
 cd ~ &&
 go install github.com/swaggo/swag/cmd/swag@latest &&
