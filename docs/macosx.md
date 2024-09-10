@@ -178,6 +178,7 @@ asdf install golang 1.23.1 &&
 asdf global golang 1.23.1 &&
 brew install protobuf &&
 cd ~ &&
+go install golang.org/x/tools/gopls@latest &&
 go install github.com/swaggo/swag/cmd/swag@latest &&
 go install github.com/google/wire/cmd/wire@latest &&
 go install golang.org/x/perf/cmd/benchstat@latest &&

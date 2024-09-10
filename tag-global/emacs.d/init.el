@@ -535,7 +535,8 @@ If neither, we use the current indent-tabs-mode (spaces)."
         ("C-c l t e" . lsp-treemacs-error-list)))
 
 (use-package lsp-mode
-  :hook ((clojure-mode . lsp)
+  :hook ((go-mode . lsp)
+         (clojure-mode . lsp)
          (clojurec-mode . lsp)
          (java-mode . lsp)
          (clojurescript-mode . lsp)
@@ -641,7 +642,14 @@ If neither, we use the current indent-tabs-mode (spaces)."
 
 (use-package feature-mode)
 
-(use-package go-mode)
+(use-package go-mode
+  :mode "'\\.go\\'"
+  :hook ((go-mode . lsp-deferred)
+         (before-save . lsp-format-buffer)
+         (before-save . lsp-organize-imports)))
+
+(use-package protobuf-mode
+  :mode "'\\.proto\\'")
 
 (use-package org
   :bind (:map org-mode-map
@@ -681,7 +689,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
 (when (eq system-type 'darwin)
   (set-face-attribute 'default nil
                       :family "FiraCode Nerd Font Mono"
-                      :height 160
+                      :height 140
                       :weight 'Regular
                       :width 'Regular))
 
@@ -690,16 +698,3 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :config
   (load-theme 'dracula t))
 ;; end of packages - load emacs packages
-;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
