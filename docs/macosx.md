@@ -164,7 +164,7 @@ Add the following in the `~/.zshrc`:
 Add the following in the `~/.asdfrc`:
 ```bash
 java_macos_integration_enable=yes
-``` 
+```
 
 ## Programs
 ```bash
@@ -174,8 +174,8 @@ brew install rcm visual-studio-code gnucash keepingyouawake ripgrep bat fzf
 ### Go lang
 ```bash
 asdf plugin add golang https://github.com/asdf-community/asdf-golang.git &&
-asdf install golang 1.23.0 &&
-asdf global golang 1.23.0 &&
+asdf install golang 1.23.1 &&
+asdf global golang 1.23.1 &&
 brew install protobuf &&
 cd ~ &&
 go install github.com/swaggo/swag/cmd/swag@latest &&
@@ -192,6 +192,13 @@ Open your vscode and type Cmd + Shift + P
 ```
 
 Select and install everything.
+
+### Emacs
+
+```bash
+brew tap d12frosted/emacs-plus &&
+brew install aspell font-fira-code-nerd-font d12frosted/emacs-plus/emacs-plus@30
+```
 
 ### Github setup
 #### ssh key
