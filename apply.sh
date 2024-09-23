@@ -10,16 +10,16 @@ ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
 . "${ROOT}/scripts/bash-lib.sh"
 
-setup_darwin_xcode_license() {
-        softwareupdate --install -a
+setup_darwin_cmd_line_tools_license() {
+        softwareupdate -i -a --agree-to-license
         sudo xcode-select --switch /Library/Developer/CommandLineTools
 
-        _info "CommandLineTools installed"
+        _info "CommandLineTools installed."
 	return 0
 }
 
 setup_darwin() {
-	setup_darwin_xcode_license
+	setup_darwin_cmd_line_tools_license
 
 	NIX_ROOT="/run/current-system/sw"
 
