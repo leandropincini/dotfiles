@@ -259,5 +259,7 @@ killall gpg-agent
 cd ~ &&
 git clone git@github.com:leandropincini/dotfiles.git .dotfiles --depth=1 &&
 cd .dotfiles &&
-./install-macos.sh
+./install-macos.sh &&
+mkdir ~/projects &&
+ln -s ~/.dotfiles ~/projects/dotfiles
 ```

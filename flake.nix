@@ -21,6 +21,7 @@
         fzf
         gnupg
         pinentry_mac
+        rcm
         ripgrep
       ];
 
