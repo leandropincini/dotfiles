@@ -13,3 +13,6 @@ insert_final_newline = true
 
 [*.el]
 indent_size = none
+
+[*.nix]
+indent_size = 2

@@ -3,8 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nix-darwin.url = "github:LnL7/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nix-darwin, nixpkgs }:
@@ -13,18 +16,27 @@
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages = with pkgs; [
+        aspell
         bat
         fzf
+        gnupg
+        pinentry_mac
         ripgrep
       ];
 
       homebrew = {
         enable = true;
 
+        taps = [
+          "d12frosted/emacs-plus"
+        ];
+
         brews = [
+          "d12frosted/emacs-plus/emacs-plus@29"
         ];
 
         casks = [
+          "font-fira-code-nerd-font"
           "keepingyouawake"
           "slack"
         ];
@@ -80,7 +92,7 @@
           };
         };
       };
-         
+
       # Auto upgrade nix package and the daemon service.
       services.nix-daemon.enable = true;
       # nix.package = pkgs.nix;

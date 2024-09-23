@@ -10,16 +10,24 @@ ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
 . "${ROOT}/scripts/bash-lib.sh"
 
-setup_darwin_cmd_line_tools_license() {
-        softwareupdate -i -a --agree-to-license
-        sudo xcode-select --switch /Library/Developer/CommandLineTools
+setup_darwin_cli_tools() {
 
-        _info "CommandLineTools installed."
+    if xcode-select -p &>/dev/null; then
+        _info "Found command-line tools at $(xcode-select -p)"
+        return 0
+    fi
+
+    _info "XCode Command Line Tools are not installed, installing..."
+
+    softwareupdate -i -a --agree-to-license
+    sudo xcode-select --switch /Library/Developer/CommandLineTools
+
+    _info "XCode Command Line Tools installed."
 	return 0
 }
 
 setup_darwin() {
-	setup_darwin_cmd_line_tools_license
+	setup_darwin_cli_tools
 
 	NIX_ROOT="/run/current-system/sw"
 
@@ -41,11 +49,19 @@ setup_darwin() {
 	if [ ! -f /opt/homebrew/bin/brew ]; then
 		_info "Homebrew not found, installing..."
 		NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-                (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/.zprofile
-                eval "$(/opt/homebrew/bin/brew shellenv)"
+        (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/.zprofile
+        eval "$(/opt/homebrew/bin/brew shellenv)"
 
 		_info "Homebrew installed."
 	fi
+}
+
+dotfiles_macos() {
+    _info "Installing dotfiles..."
+
+    /bin/bash ./instal-macos.sh
+
+    _info "Dotfiles installed."
 }
 
 case "$(uname -s)" in
@@ -55,10 +71,17 @@ case "$(uname -s)" in
     fi
 
     setup_darwin
+    dotfiles_macos
+
+    CMD="${NIX} run nix-darwin -- $CMD --flake #.macos"
     ;;
 *)
     _fatal "Invalid system"
     ;;
 esac
+
+_info "Running command $(_blue "${CMD}")"
+
+${CMD}
 
 _info "Done!"
