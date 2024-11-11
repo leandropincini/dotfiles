@@ -392,6 +392,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
 
 (use-package paredit
   :hook ((clojure-mode . paredit-mode)
+         (go-mode . paredit-mode)
          (emacs-lisp-mode . paredit-mode)
          (lisp-interaction-mode . paredit-mode)
          (ielm-mode . paredit-mode)
@@ -400,6 +401,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
 
 (use-package rainbow-delimiters
   :hook ((clojure-mode . rainbow-delimiters-mode)
+         (go-mode . rainbow-delimiters-mode)
          (emacs-lisp-mode . rainbow-delimiters-mode)
          (lisp-mode . rainbow-delimiters-mode)))
 
@@ -510,11 +512,14 @@ If neither, we use the current indent-tabs-mode (spaces)."
           "build")))
 
 (use-package dap-mode
-  :defer
-  :custom
-  (dap-auto-configure-mode t)
+  ;; :defer
+  ;; :custom
+  ;; (dap-auto-configure-mode t)
   :config
-  (require 'dap-java))
+  (dap-ui-mode)
+  (dap-ui-controls-mode 1)
+;;  (require 'dap-java)
+  (require 'dap-dlv-go))
 
 (use-package treemacs
   :config
@@ -617,7 +622,9 @@ If neither, we use the current indent-tabs-mode (spaces)."
            (selected-file (completing-read "Select article: " files nil t)))
       (insert (format "{%% post_url %s %%}" selected-file)))))
 
-(use-package yaml-mode)
+(use-package yaml-mode
+  :mode "\\.yml\\'"
+  :mode "\\.yaml\\'")
 
 (use-package json-mode
   :mode "\\.json\\'")
@@ -698,3 +705,5 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :config
   (load-theme 'dracula t))
 ;; end of packages - load emacs packages
+
+;;; init.el ends here

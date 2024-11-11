@@ -1,3 +1,5 @@
+export LANG=en_US.UTF-8
+
 # History
 # setopt inc_append_history share_history
 HISTSIZE=10000000

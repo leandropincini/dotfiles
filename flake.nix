@@ -8,18 +8,62 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager }:
   let
-    configuration = { pkgs, ... }: {
+    configuration = { pkgs, lib, ... }: {
+      imports = [
+        #home-manager.darwinModules.default
+      ];
+
+      # home-manager.users."leandro.pincini" = {
+      #   programs = {
+      #     # zsh.enable = true;
+
+      #     direnv = {
+      #       enable = true;
+
+      #       nix-direnv.enable = true;
+
+      #       config.global = {
+      #         load_dotenv = true;
+      #         hide_env_diff = true;
+      #         strict_env = true;
+      #       };
+      #     };
+      #   };
+
+      #   home = {
+      #     homeDirectory = lib.mkForce "/Users/leandro.pincini";
+
+      #     stateVersion = "24.05";
+      #   };
+      # };
+
+      # users.users."leandro.pincini" = {
+      # };
+
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages = with pkgs; [
+        asdf-vm
         aspell
         bat
+        colima
+        coreutils
+        direnv
+        docker
+        docker-buildx
+        docker-compose
         fzf
         gnupg
+        kubectl
         pinentry_mac
         rcm
         ripgrep
@@ -33,10 +77,13 @@
         ];
 
         brews = [
+#          "asdf"
+#          "bufbuild/buf/buf"
           "d12frosted/emacs-plus/emacs-plus@29"
         ];
 
         casks = [
+ #         "bufbuilg/buf/buf"
           "font-fira-code-nerd-font"
           "keepingyouawake"
           "slack"

@@ -35,7 +35,6 @@
     mergeoptions = log
 [remote "origin"]
     push = HEAD
-    fetch = +refs/heads/*:refs/remotes/origin/*
 [color]
     diff = auto
     status = auto
@@ -61,3 +60,5 @@
     gpgsign = true
 [gpg]
     program = gpg
+[pull]
+	rebase = false
