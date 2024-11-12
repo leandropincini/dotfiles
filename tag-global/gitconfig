@@ -61,4 +61,4 @@
 [gpg]
     program = gpg
 [pull]
-	rebase = false
+    rebase = false
