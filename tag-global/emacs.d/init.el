@@ -56,47 +56,15 @@
 ;; end of utils - emacs utils
 
 ;; visual-configs - emacs visual configs
-;; hide startup message
-(setq inhibit-startup-message t)
-
-;; turn off menubar
-(menu-bar-mode -1)
-
-;; turn off toolbar
-(tool-bar-mode -1)
-
-;; turn off scrollbar
-(scroll-bar-mode -1)
-(set-fringe-mode 10)
-
-;; no blinking cursor
-(blink-cursor-mode -1)
-
-;; show line, column number
-(column-number-mode t)
-
 ;; enable line numbers globally
 (global-display-line-numbers-mode t)
 (dolist (mode '(term-mode-hook
                 shell-mode-hook
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-;; show matching pairs
-(show-paren-mode 1)
-
-;; open maximized
-(toggle-frame-maximized)
-
-;; highline cursor line
-(global-hl-line-mode +1)
-
 ;; end of visual-configs - emacs visual configs
 
 ;; system-configs - emcs system configs
-;; alarmbell off
-(setq visible-bell -1)
-(setq ring-bell-function 'ignore)
 
 ;; UTF-8 encoding
 (setq utf-translate-cjk-mode nil)
@@ -231,6 +199,21 @@ If neither, we use the current indent-tabs-mode (spaces)."
 
 (setq use-package-always-ensure t)
 (setq use-package-always-pin "melpa")
+
+(use-package emacs
+  :config
+  (setq inhibit-startup-message t)
+  (setq ring-bell-function 'ignore)
+  (setq visible-bell -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (set-fringe-mode 10)
+  (menu-bar-mode -1)
+  (blink-cursor-mode -1)
+  (column-number-mode t)
+  (global-hl-line-mode 1)
+  (show-paren-mode 1)
+  (toggle-frame-maximized))
 
 (use-package auto-package-update
   :config
