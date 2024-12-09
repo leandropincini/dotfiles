@@ -151,8 +151,8 @@ asdf plugin update --all
 
 Take a look into the jdk releases list: https://www.java.com/releases/matrix/
 ```bash
-asdf install java openjdk-22.0.2 &&
-asdf global java openjdk-22.0.2
+asdf install java openjdk-23.0.1 &&
+asdf global java openjdk-23.0.1
 ```
 
 Add the following in the `~/.zshrc`:
@@ -168,14 +168,14 @@ java_macos_integration_enable=yes
 
 ## Programs
 ```bash
-brew install rcm visual-studio-code gnucash keepingyouawake ripgrep bat fzf
+brew install rcm visual-studio-code gnucash keepingyouawake ripgrep bat fzf font-fira-code-nerd-font
 ```
 
 ### Go lang
 ```bash
 asdf plugin add golang https://github.com/asdf-community/asdf-golang.git &&
-asdf install golang 1.23.1 &&
-asdf global golang 1.23.1 &&
+asdf install golang 1.23.4 &&
+asdf global golang 1.23.4 &&
 brew install protobuf &&
 cd ~ &&
 go install golang.org/x/tools/gopls@latest &&
@@ -198,7 +198,7 @@ Select and install everything.
 
 ```bash
 brew tap d12frosted/emacs-plus &&
-brew install aspell font-fira-code-nerd-font d12frosted/emacs-plus/emacs-plus@30
+brew install aspell d12frosted/emacs-plus/emacs-plus@30
 ```
 
 ### Github setup

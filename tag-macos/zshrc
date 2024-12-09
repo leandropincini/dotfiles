@@ -1,2 +1,8 @@
 export ZDOTDIR=$HOME/.config/zsh
+
+FILE=$HOME/.config/work/source.sh
+if [ -f $FILE ]; then
+   source $FILE;
+fi
+
 source $ZDOTDIR/zshrc

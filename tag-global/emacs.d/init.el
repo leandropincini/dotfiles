@@ -679,9 +679,15 @@ If neither, we use the current indent-tabs-mode (spaces)."
 (when (eq system-type 'darwin)
   (set-face-attribute 'default nil
                       :family "FiraCode Nerd Font Mono"
-                      :height 140
+                      :height 120
                       :weight 'Regular
                       :width 'Regular))
+
+;; (use-package catppuccin-theme
+;;   :if window-system
+;;   :config
+;;   (load-theme 'catppuccin :no-confirm)
+;;   (setq catppuccin-flavor 'macchiato))
 
 (use-package dracula-theme
   :if window-system
