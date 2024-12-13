@@ -54,6 +54,9 @@ alias docker-clean-restart="docker-cleanup && docker-compose up -d"
 alias em="emacs &"
 alias p="cd ~/projects"
 
+# Starship
+eval "$(starship init zsh)"
+
 # GO lang with asdf
 export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 . ~/.asdf/plugins/golang/set-env.zsh

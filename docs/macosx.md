@@ -168,7 +168,7 @@ java_macos_integration_enable=yes
 
 ## Programs
 ```bash
-brew install rcm visual-studio-code gnucash keepingyouawake ripgrep bat fzf font-fira-code-nerd-font
+brew install rcm visual-studio-code gnucash keepingyouawake ripgrep bat fzf font-fira-code-nerd-font kitty starship
 ```
 
 ### Go lang
