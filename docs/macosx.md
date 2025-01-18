@@ -168,7 +168,7 @@ java_macos_integration_enable=yes
 
 ## Programs
 ```bash
-brew install rcm visual-studio-code gnucash keepingyouawake ripgrep bat fzf font-fira-code-nerd-font kitty starship
+brew install rcm visual-studio-code gnucash keepingyouawake ripgrep bat fzf font-fira-code-nerd-font ghostty starship
 ```
 
 ### Go lang
@@ -179,6 +179,7 @@ asdf global golang 1.23.4 &&
 brew install protobuf &&
 cd ~ &&
 go install golang.org/x/tools/gopls@latest &&
+go install github.com/go-delve/delve/cmd/dlv@latest
 go install github.com/swaggo/swag/cmd/swag@latest &&
 go install github.com/google/wire/cmd/wire@latest &&
 go install golang.org/x/perf/cmd/benchstat@latest &&
