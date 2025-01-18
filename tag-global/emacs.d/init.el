@@ -64,47 +64,6 @@
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 ;; end of visual-configs - emacs visual configs
 
-;; system-configs - emcs system configs
-
-;; UTF-8 encoding
-(setq utf-translate-cjk-mode nil)
-(set-language-environment 'utf-8)
-(set-keyboard-coding-system 'utf-8-mac)
-(setq locale-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(unless (eq system-type 'windows-nt)
-  (set-selection-coding-system 'utf-8))
-(prefer-coding-system 'utf-8)
-(setq current-language-environment "UTF-8")
-
-;; Backup files
-(setq delete-auto-save-files t)
-(setq make-backup-files nil)
-(setq global-auto-revert-non-file-buffers t)
-(setq auto-revert-verbose nil)
-
-;; Always load newest byte code
-(setq load-prefer-newer t)
-
-;; reduce the frequency garbage collection by making it happen on
-;; each 100MB of allocated data (the default is on every 0.76MB)
-(setq gc-cons-threshold (* 100 1024 1024))
-
-;; warm when opening files bigger than 100MB
-(setq large-file-warning-threshold (* 100 1024 1024))
-;; end of system-configs - emacs system configs
-
-;; editor-configs - emacs editor configs
-;; change yes-or-no to y-or-n
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; classic select
-(setq shift-select-mode nil)
-
-;; indent with spaces
-(setq-default indent-tabs-mode nil)
-
 ;; smart inference of indentation style
 (defun how-many-region (begin end regexp &optional interactive)
   "Print number of non-trivial matches for REGEXP in region.
@@ -130,7 +89,10 @@ If neither, we use the current indent-tabs-mode (spaces)."
     (if (> space-count tab-count) (setq indent-tabs-mode nil))
     (if (> tab-count space-count) (setq indent-tabs-mode t))))
 
-(infer-indentation-style)
+(add-hook 'prog-mode-hook
+  (lambda ()
+    (unless (derived-mode-p 'go-mode)
+      (infer-indentation-style))))
 
 ;; auto (on save) clear trailing spaces
 (add-hook 'before-save-hook 'whitespace-cleanup)
@@ -202,6 +164,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
 
 (use-package emacs
   :config
+  ;; UI related
   (setq inhibit-startup-message t)
   (setq ring-bell-function 'ignore)
   (setq visible-bell -1)
@@ -213,7 +176,37 @@ If neither, we use the current indent-tabs-mode (spaces)."
   (column-number-mode t)
   (global-hl-line-mode 1)
   (show-paren-mode 1)
-  (toggle-frame-maximized))
+  (toggle-frame-maximized)
+
+  ;; UTF-8 encoding
+  (setq utf-translate-cjk-mode nil)
+  (set-language-environment 'utf-8)
+  (set-keyboard-coding-system 'utf-8-mac)
+  (setq locale-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (unless (eq system-type 'windows-nt)
+    (set-selection-coding-system 'utf-8))
+  (prefer-coding-system 'utf-8)
+  (setq current-language-environment "UTF-8")
+
+  ;; Backup files
+  (setq delete-auto-save-files t)
+  (setq make-backup-files nil)
+  (setq global-auto-revert-non-file-buffers t)
+  (setq auto-revert-verbose nil)
+
+  ;; Performance optmizations
+  (setq load-prefer-newer t) ;; Always load newest byte code
+  (setq gc-cons-threshold (* 100 1024 1024)) ;; GC Threshold 100MB
+  (setq large-file-warning-threshold (* 100 1024 1024)) ;; Warn at 100MB files
+
+  ;; Editor behavior
+  (fset 'yes-or-no-p 'y-or-n-p) ;; y-or-n instead of yes-or-no
+  (setq shift-select-mode nil) ;; Classic select
+  (setq-default indent-tabs-mode nil) ;; Indent with spaces by default
+
+)
 
 (use-package auto-package-update
   :config
@@ -359,7 +352,8 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :init (which-key-mode)
   :diminish which-key-mode
   :config
-  (setq which-key-idle-delay 0.2))
+  (which-key-mode)
+  (setq which-key-idle-delay 0.1))
 
 (use-package move-text
   :bind
@@ -373,9 +367,14 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :after magic
   :disabled)
 
+(use-package smartparens
+  :hook (go-mode . smartparens-mode)
+  :config
+  (require 'smartparens-config)
+  (sp-local-pair 'go-mode "{" nil :post-handlers '(("||\n[i]" "RET"))))
+
 (use-package paredit
   :hook ((clojure-mode . paredit-mode)
-         (go-mode . paredit-mode)
          (emacs-lisp-mode . paredit-mode)
          (lisp-interaction-mode . paredit-mode)
          (ielm-mode . paredit-mode)
@@ -395,8 +394,9 @@ If neither, we use the current indent-tabs-mode (spaces)."
 
 (use-package company
   :bind (("C-c /" . company-complete))
+  :hook (go-mode . company-mode)
   :config
-  (setq company-idle-delay 0.2
+  (setq company-idle-delay 0.1
         company-show-quick-access t
         company-echo-delay 0
         company-candidates-cache t
@@ -495,14 +495,30 @@ If neither, we use the current indent-tabs-mode (spaces)."
           "build")))
 
 (use-package dap-mode
+  :after lsp-mode
   ;; :defer
   ;; :custom
   ;; (dap-auto-configure-mode t)
   :config
-  (dap-ui-mode)
+  (dap-mode 1)
+  (dap-ui-mode 1)
   (dap-ui-controls-mode 1)
 ;;  (require 'dap-java)
-  (require 'dap-dlv-go))
+  (require 'dap-hydra)
+  (require 'dap-dlv-go)
+  (dap-register-debug-template
+    "Go Debug Current File"
+    (list :type "go"
+          :request "launch"
+          :name "Launch File"
+          :mode "auto"
+          :program "${fileDirname}"
+          :buildFlags nil
+          :args nil
+          :env nil
+          :envFile nil))
+  :custom
+  (dap-dlv-go-delve-path (executable-find "dlv")))
 
 (use-package treemacs
   :config
@@ -523,14 +539,14 @@ If neither, we use the current indent-tabs-mode (spaces)."
         ("C-c l t e" . lsp-treemacs-error-list)))
 
 (use-package lsp-mode
-  :hook ((go-mode . lsp)
+  :hook ((go-mode . lsp-deferred)
          (clojure-mode . lsp)
          (clojurec-mode . lsp)
          (java-mode . lsp)
          (clojurescript-mode . lsp)
          ;(lsp-mode . lsp-enable-which-key-intergration)
          )
-  :commands lsp
+  :commands (lsp lsp-deferred)
   :init
   (setq lsp-enable-indentation nil
         lsp-prefer-flymake nil
@@ -544,7 +560,10 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :custom
   ((lsp-clojure-server-command '("bash" "-c" "clojure-lsp")))
   :config
-  (setq lsp-headerline-breadcrumb-enable nil
+  (setq lsp-enable-file-watchers nil
+        lsp-gopls-complete-unimported t
+        lsp-gopls-staticcheck t
+        lsp-headerline-breadcrumb-enable nil
         lsp-signature-render-documentation nil
         lsp-signature-function 'lsp-signature-posframe
         lsp-semantic-tokens-enable t
@@ -634,6 +653,19 @@ If neither, we use the current indent-tabs-mode (spaces)."
 
 (use-package go-mode
   :mode "'\\.go\\'"
+  :custom
+  (tab-width 4)
+  :init
+  (defun personalized-go-mode-setup ()
+    (setq-local indent-tabs-mode t)
+    (setq-local tab-width 4)
+    (setq-local standard-indent 4)
+    (setq-local go-tab-width 4)
+    (setq whitespace-style '(face tabs tab-mark trailing))
+    (setq-local gofmt-command "gofmt")
+    (setq-local gofmt-args nil)
+    (setq-local golang-format-on-save t)
+    (setq-local tab-stop-list (number-sequence 4 200 4)))
   :hook ((go-mode . lsp-deferred)
          (before-save . lsp-format-buffer)
          (before-save . lsp-organize-imports)))
