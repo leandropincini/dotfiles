@@ -1,4 +1,5 @@
-theme = catppuccin-macchiato
+#theme = catppuccin-macchiato
+theme = Dracula
 shell-integration-features = no-cursor
 cursor-style = block
 cursor-style-blink = false
