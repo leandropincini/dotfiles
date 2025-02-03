@@ -353,7 +353,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :diminish which-key-mode
   :config
   (which-key-mode)
-  (setq which-key-idle-delay 0.1))
+  (setq which-key-idle-delay 0.2))
 
 (use-package move-text
   :bind
@@ -711,7 +711,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
 (when (eq system-type 'darwin)
   (set-face-attribute 'default nil
                       :family "FiraCode Nerd Font Mono"
-                      :height 120
+                      :height 140
                       :weight 'Regular
                       :width 'Regular))
 
