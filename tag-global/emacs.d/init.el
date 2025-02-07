@@ -353,7 +353,9 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :diminish which-key-mode
   :config
   (which-key-mode)
-  (setq which-key-idle-delay 0.2))
+  (setq which-key-idle-delay 0.2)
+  (which-key-add-key-based-replacements
+    "C-c C-k" "kubernetes"))
 
 (use-package move-text
   :bind
@@ -624,9 +626,35 @@ If neither, we use the current indent-tabs-mode (spaces)."
            (selected-file (completing-read "Select article: " files nil t)))
       (insert (format "{%% post_url %s %%}" selected-file)))))
 
+(use-package kubernetes
+  :commands (kubernetes-overview)
+  :config
+  (setq kubernetes-poll-frequency 3600)
+  (setq kubernetes-redraw-frequency 3600))
+
 (use-package yaml-mode
-  :mode "\\.yml\\'"
-  :mode "\\.yaml\\'")
+  :mode (("\\.yml\\'" . yaml-mode)
+         ("\\.yaml\\'" . yaml-mode)
+         ("/kubectl\\.conf\\'" . yaml-mode)
+         ("\\.kube/config\\'" . yaml-mode))
+  :hook ((yaml-mode . (lambda ()
+                        (flycheck-mode)
+                        (company-mode)
+                        (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
+  :config
+  (defun kubernetes-apply-current-file ()
+    "Apply the current kubernetes configuration file."
+    (interactive)
+    (shell-command (format "kubectl apply -f %s" (buffer-file-name))))
+
+  (defun kubernetes-delete-current-file ()
+    "Delete the resources defined in current kubernetes configuration file."
+    (interactive)
+    (shell-command (format "kubectl delete -f %s" (buffer-file-name))))
+
+  :bind (:map yaml-mode-map
+              ("C-c C-k a" . kubernetes-apply-current-file)
+              ("C-c C-k d" . kubernetes-delete-current-file)))
 
 (use-package json-mode
   :mode "\\.json\\'")
