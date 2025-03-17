@@ -20,72 +20,72 @@ fe80::1%lo0	localhost
 
 ### Enable tap to click
 ```bash
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true &&
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1 &&
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true &&
+sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1 &&
+sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 ```
 
 ### Enable tap to click for the login screen
 ```bash
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1 &&
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1 &&
+sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 ```
 
 ### Enable three finger drag
 ```bash
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true &&
-defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true &&
+sudo defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 ```
 ## Finder
 
 ### Setting finder to show all filename extensios
 ```bash
-defaults write com.apple.finder AppleShowAllExtensions -bool true
+sudo defaults write com.apple.finder AppleShowAllExtensions -bool true
 ```
 
 ### Setting finder to show status bar
 ```bash
-defaults write com.apple.finder ShowStatusBar -bool true
+sudo defaults write com.apple.finder ShowStatusBar -bool true
 ```
 
 ### Seeting finder to show path bar
 ```bash
-defaults write com.apple.finder ShowPathBar -bool true
+sudo defaults write com.apple.finder ShowPathBar -bool true
 ```
 
 ### Setting finder to search the current folder by default
 ```bash
-defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+sudo defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 ```
 
 ### Show Library folder
 ```bash
-chflags nohidden ~/Library
+sudo chflags nohidden ~/Library
 ```
 
 ## Time Machine
 
 ### No more Time Machine prompting to use new HDs as backup volumes
 ```bash
-defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+sudo defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 ```
 
 ### Turn off local Time Machine backpus
 ```bash
-hash tmutil &> /dev/null && sudo tmutil disablelocal
+sudo hash tmutil &> /dev/null && sudo tmutil disablelocal
 ```
 
 ### Require password immediataly after sleep or screen saver begins
 ```bash
-defaults write com.apple.screensaver askForPassword -int 1 &&
-defaults write com.apple.screensaver askForPasswordDelay -int 0
+sudo defaults write com.apple.screensaver askForPassword -int 1 &&
+sudo defaults write com.apple.screensaver askForPasswordDelay -int 0
 ```
 
 ## Display
 
 ### Enable subpixel font rendering on non-Apple LCDs
 ```bash
-defaults write NSGlobalDomain AppleFontSmoothing -int 2
+sudo defaults write NSGlobalDomain AppleFontSmoothing -int 2
 ```
 
 ### Enable HiDPI display modes (requires restart)
@@ -97,36 +97,37 @@ sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutio
 
 ### Increase sound quality for bluetooth headphones/headsets
 ```bash
-defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+sudo defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 ```
 
 ## Utils
 
 ### Do not create .DS_Store files on network volumes
 ```bash
-defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+sudo defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 ```
 
 ### Using only UTF-8 on Terminal.app
 ```bash
-defaults write com.apple.terminal StringEncodings -array 4
+sudo defaults write com.apple.terminal StringEncodings -array 4
 ```
 
 ### Save screen shots at ~/Pictures
 ```bash
-defaults write com.apple.screencapture location ~/Pictures
+sudo defaults write com.apple.screencapture location ~/Pictures
 ```
 
 ### Enable Auto Correct
 ```bash
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
+sudo defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
 ```
 
 ## Homebrew
 
 Install [Homebrew](https://brew.sh/):
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" &&
+eval "$(/opt/homebrew/bin/brew shellenv)" >> ~/.zprofile
 ```
 
 ### Update
@@ -253,7 +254,15 @@ Paste the result into github session
 cat ~/.ssh/id_ed25519.pub
 ```
 
-#### gpg key
+#### gpg key - execute it after the [Dotfiles](##Dotfiles) session.
+
+Optionally, install a graphical prompt with save in keychain option
+```bash
+brew install pinentry-mac &&
+echo "pinentry-program $(which pinentry-mac)" >> ~/.gnupg/gpg-agent.conf &&
+killall gpg-agent
+```
+
 ```bash
 brew install gnupg &&
 gpg --full-generate-key
@@ -267,13 +276,6 @@ git config --global user.signingkey 3AA5C34371567BD2 &&
 git config --global commit.gpgsign true &&
 if [ -r ~/.zshrc ]; then echo -e '\nexport GPG_TTY=$(tty)' >> ~/.zshrc; \
   else echo -e '\nexport GPG_TTY=$(tty)' >> ~/.zprofile; fi
-```
-
-Optionally, install a graphical prompt with save in keychain option
-```bash
-brew install pinentry-mac &&
-echo "pinentry-program $(which pinentry-mac)" >> ~/.gnupg/gpg-agent.conf &&
-killall gpg-agent
 ```
 
 ## Dotfiles
