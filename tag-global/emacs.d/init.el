@@ -1,7 +1,7 @@
 ;;; init.el --- emacs configuration
 
-;; only runs on emacs >= 27
-(let ((minver 27))
+;; only runs on emacs >= 29
+(let ((minver 29))
   (unless (>= emacs-major-version minver)
     (error "Your Emacs is too old --this configuration requires v%s or higher" minver)))
 
@@ -18,7 +18,7 @@
   (unless (server-running-p)
     (server-start)))
 
-;By default, the Emacs shell will show raw escape sequences used to print colors. In other words, it will display strange symbols in place of the desired colored output.
+;; Fix ANSI colors in shell mode
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 ;; utils - emacs utils
@@ -53,7 +53,7 @@
              (tramp-tramp-file-p file-name))
         (error "Cannot open tramp file")
       (browse-url (concat "file://" file-name)))))
-;; end of utils - emacs utils
+;; end of utils
 
 ;; visual-configs - emacs visual configs
 ;; enable line numbers globally
@@ -62,12 +62,10 @@
                 shell-mode-hook
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
-;; end of visual-configs - emacs visual configs
 
 ;; smart inference of indentation style
 (defun how-many-region (begin end regexp &optional interactive)
-  "Print number of non-trivial matches for REGEXP in region.
-Non-interactive arguments are Begin End Regexp"
+  "Print number of non-trivial matches for REGEXP in region."
   (interactive "r\nsHow many matches for (regex): \np")
   (let ((count 0) opoint)
     (save-excursion
@@ -82,8 +80,7 @@ Non-interactive arguments are Begin End Regexp"
       count)))
 
 (defun infer-indentation-style ()
-  "When our source file uses tabs, we use tabs, if spaces spaces.
-If neither, we use the current indent-tabs-mode (spaces)."
+  "When our source file uses tabs, we use tabs, if spaces spaces."
   (let ((space-count (how-many-region (point-min) (point-max) "^ "))
         (tab-count (how-many-region (point-min) (point-max) "^\t")))
     (if (> space-count tab-count) (setq indent-tabs-mode nil))
@@ -100,10 +97,9 @@ If neither, we use the current indent-tabs-mode (spaces)."
 
 ;; auto (on save) add new eof line
 (setq require-final-newline t)
-;; end of editor-configs emacs editor configs
+
 
 ;; packages - load emacs packages
-
 (require 'package)
 
 ;; secure gnu repo
@@ -125,7 +121,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
  (setq gnutls-verify-error t)
  (setq gnutls-trustfiles (list trustfile)))
 
-;; You can test settings by using the following code snippet:
+;; You can test the tls settings by using the following code snippet:
 
 ;;(let ((bad-hosts
 ;;       (loop for bad
@@ -165,9 +161,9 @@ If neither, we use the current indent-tabs-mode (spaces)."
 (use-package emacs
   :config
   ;; UI related
-  (setq inhibit-startup-message t)
-  (setq ring-bell-function 'ignore)
-  (setq visible-bell -1)
+  (setq inhibit-startup-message t
+        ring-bell-function 'ignore
+        visible-bell -1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (set-fringe-mode 10)
@@ -179,34 +175,32 @@ If neither, we use the current indent-tabs-mode (spaces)."
   (toggle-frame-maximized)
 
   ;; UTF-8 encoding
-  (setq utf-translate-cjk-mode nil)
+;;  (setq utf-translate-clj-mode nil)
   (set-language-environment 'utf-8)
-  (set-keyboard-coding-system 'utf-8-mac)
-  (setq locale-coding-system 'utf-8)
+;;  (set-keyboard-coding-system 'utf-8-mac)
+;;  (setq locale-coding-system 'utf-8)
   (set-default-coding-systems 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (unless (eq system-type 'windows-nt)
-    (set-selection-coding-system 'utf-8))
+;;  (set-terminal-coding-system 'utf-8)
+  ;; (unless (eq system-type 'windows-nt)
+  ;;   (set-selection-coding-system 'utf-8))
   (prefer-coding-system 'utf-8)
-  (setq current-language-environment "UTF-8")
+;;  (setq current-language-environment "UTF-8")
 
   ;; Backup files
-  (setq delete-auto-save-files t)
-  (setq make-backup-files nil)
-  (setq global-auto-revert-non-file-buffers t)
-  (setq auto-revert-verbose nil)
+  (setq delete-auto-save-files t
+        make-backup-files nil
+        global-auto-revert-non-file-buffers t
+        auto-revert-verbose nil)
 
   ;; Performance optmizations
-  (setq load-prefer-newer t) ;; Always load newest byte code
-  (setq gc-cons-threshold (* 100 1024 1024)) ;; GC Threshold 100MB
-  (setq large-file-warning-threshold (* 100 1024 1024)) ;; Warn at 100MB files
+;;  (setq load-prefer-newer t) ;; Always load newest byte code
+  (setq gc-cons-threshold (* 100 1024 1024))
+  (setq large-file-warning-threshold (* 100 1024 1024))
 
   ;; Editor behavior
-  (fset 'yes-or-no-p 'y-or-n-p) ;; y-or-n instead of yes-or-no
-  (setq shift-select-mode nil) ;; Classic select
-  (setq-default indent-tabs-mode nil) ;; Indent with spaces by default
-
-)
+  (fset 'yes-or-no-p 'y-or-n-p)
+;;  (setq shift-select-mode nil) ;; Classic select
+  (setq-default indent-tabs-mode nil))
 
 (use-package auto-package-update
   :config
@@ -264,66 +258,69 @@ If neither, we use the current indent-tabs-mode (spaces)."
   (push '(swiper . ivy--regex-ignore-order) ivy-re-builders-alist)
   (push '(counsel-M-x . ivy--regex-ignore-order) ivy-re-builders-alist)
 
-  (setf (alist-get 'counsel-projectile-ag ivy-height-alist) 15)
-  (setf (alist-get 'counsel-projectile-rg ivy-height-alist) 15)
-  (setf (alist-get 'swiper ivy-height-alist) 15)
-  (setf (alist-get 'counsel-switch-buffer ivy-height-alist) 7))
+;;  (setf (alist-get 'counsel-projectile-ag ivy-height-alist) 15)
+;;  (setf (alist-get 'counsel-projectile-rg ivy-height-alist) 15)
+;;  (setf (alist-get 'swiper ivy-height-alist) 15)
+;;  (setf (alist-get 'counsel-switch-buffer ivy-height-alist) 7)
+  )
 
 (use-package ivy-rich
   :after ivy
   :init
   (setq ivy-format-function #'ivy-format-function-line
         ivy-rich-path-style 'abbrev)
-  (setq ivy-rich-display-transformers-list
-        '(ivy-witch-buffer
-          (:columns ((ivy-rich-switch-buffer-icon (:width 2))
-                     (ivy-rich-candidate (:width 40))
-                     (ivy-rich-switch-buffer-size (:width 7))
-                     (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
-                     (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
-                     (ivy-rich-switch-buffer-project (:width 15 :face sucess))
-                     (ivy-rich-switch-buffer-path (:witdht (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
-                    :predicate (lambda (cand) (if-let ((buffer (get-buffer cand)))
-                                                  (with-current-buffer buffer
-                                                    (not (derived-mode-p 'exwm-mode))))))
-          counsel-find-file
-          (:columns ((ivy-read-file-transformer)
-                     (ivy-rich-counsel-find-file-truename (:face font-lock-doc-face))))
-          counsel-M-x
-          (:columns ((counsel-M-x-transformer (:width 35))
-                     (ivy-rich-counsel-function-docstring (:width 34 :face font-lock-doc-face))))
-          counsel-describe-function
-          (:columns ((counsel-describe-function-transformer (:width 35))
-                     (ivy-rich-counsel-function-docstring (:width 34 :face font-lock-doc-face))))
-          counsel-describe-variable
-          (:columns ((counsel-describe-variable-transformer (:width 35))
-                     (ivy-rich-counsel-variable-docstring (:width 34 :face font-lock-doc-face))))
-          package-install
-          (:columns ((ivy-rich-candidate (:width 25))
-                     (ivy-rich-package-version (:width 12 :face font-lock-comment-face))
-                     (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
-                     (ivy-rich-package-install-summary (:width 23 :face font-lock-doc-face))))
-          counsel-projectile-find-file
-          (:columns ((ivy-rich-switch-buffer-icon (:width 2))
-                     (ivy-rich-candidate (:width 30))
-                     (ivy-rich-switch-buffer-size (:width 7))
-                     (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
-                     (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
-                     (ivy-rich-switch-buffer-project (:width 15 :face success))
-                     (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
-           :predicate (lambda (cand) (get-buffer cand))))))
+  ;; (setq ivy-rich-display-transformers-list
+  ;;       '(ivy-witch-buffer
+  ;;         (:columns ((ivy-rich-switch-buffer-icon (:width 2))
+  ;;                    (ivy-rich-candidate (:width 40))
+  ;;                    (ivy-rich-switch-buffer-size (:width 7))
+  ;;                    (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
+  ;;                    (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
+  ;;                    (ivy-rich-switch-buffer-project (:width 15 :face sucess))
+  ;;                    (ivy-rich-switch-buffer-path (:witdht (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
+  ;;                   :predicate (lambda (cand) (if-let ((buffer (get-buffer cand)))
+  ;;                                                 (with-current-buffer buffer
+  ;;                                                   (not (derived-mode-p 'exwm-mode))))))
+  ;;         counsel-find-file
+  ;;         (:columns ((ivy-read-file-transformer)
+  ;;                    (ivy-rich-counsel-find-file-truename (:face font-lock-doc-face))))
+  ;;         counsel-M-x
+  ;;         (:columns ((counsel-M-x-transformer (:width 35))
+  ;;                    (ivy-rich-counsel-function-docstring (:width 34 :face font-lock-doc-face))))
+  ;;         counsel-describe-function
+  ;;         (:columns ((counsel-describe-function-transformer (:width 35))
+  ;;                    (ivy-rich-counsel-function-docstring (:width 34 :face font-lock-doc-face))))
+  ;;         counsel-describe-variable
+  ;;         (:columns ((counsel-describe-variable-transformer (:width 35))
+  ;;                    (ivy-rich-counsel-variable-docstring (:width 34 :face font-lock-doc-face))))
+  ;;         package-install
+  ;;         (:columns ((ivy-rich-candidate (:width 25))
+  ;;                    (ivy-rich-package-version (:width 12 :face font-lock-comment-face))
+  ;;                    (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
+  ;;                    (ivy-rich-package-install-summary (:width 23 :face font-lock-doc-face))))
+  ;;         counsel-projectile-find-file
+  ;;         (:columns ((ivy-rich-switch-buffer-icon (:width 2))
+  ;;                    (ivy-rich-candidate (:width 30))
+  ;;                    (ivy-rich-switch-buffer-size (:width 7))
+  ;;                    (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
+  ;;                    (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
+  ;;                    (ivy-rich-switch-buffer-project (:width 15 :face success))
+  ;;                    (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
+  ;;          :predicate (lambda (cand) (get-buffer cand))))))
+  :config
+  (ivy-rich-mode 1))
 
-(use-package helpful
-  :after counsel
-  :custom
-  (counsel-describe-function-function #'helpful-callable)
-  (counsel-describe-variable-function #'helpful-variable)
-  :bind
-  ([remap describe-function] . helpful-function)
-  ([remap describe-symbol] . helpful-symbol)
-  ([remap describe-variable] . helpful-variable)
-  ([remap describe-command] . helpful-command)
-  ([remap describe-key] . helpful-key))
+  (use-package helpful
+    :after counsel
+    :custom
+    (counsel-describe-function-function #'helpful-callable)
+    (counsel-describe-variable-function #'helpful-variable)
+    :bind
+    ([remap describe-function] . helpful-function)
+    ([remap describe-symbol] . helpful-symbol)
+    ([remap describe-variable] . helpful-variable)
+    ([remap describe-command] . helpful-command)
+    ([remap describe-key] . helpful-key))
 
 (use-package projectile
   :pin melpa
@@ -352,7 +349,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :init (which-key-mode)
   :diminish which-key-mode
   :config
-  (which-key-mode)
+;;  (which-key-mode)
   (setq which-key-idle-delay 0.2)
   (which-key-add-key-based-replacements
     "C-c C-k" "kubernetes"))
@@ -365,9 +362,9 @@ If neither, we use the current indent-tabs-mode (spaces)."
 (use-package magit
   :bind (("C-x g" . magit-status)))
 
-(use-package forge
-  :after magic
-  :disabled)
+;; (use-package forge
+;;   :after magic
+;;   :disabled)
 
 (use-package smartparens
   :hook (go-mode . smartparens-mode)
@@ -377,6 +374,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
 
 (use-package paredit
   :hook ((clojure-mode . paredit-mode)
+;;         (go-mode . paredit-mode)
          (emacs-lisp-mode . paredit-mode)
          (lisp-interaction-mode . paredit-mode)
          (ielm-mode . paredit-mode)
@@ -386,6 +384,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
 (use-package rainbow-delimiters
   :hook ((clojure-mode . rainbow-delimiters-mode)
          (go-mode . rainbow-delimiters-mode)
+         (python-mode . rainbow-delimiters-mode)
          (emacs-lisp-mode . rainbow-delimiters-mode)
          (lisp-mode . rainbow-delimiters-mode)))
 
@@ -394,9 +393,11 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :diminish
   :hook ((prog-mode . rainbow-mode)))
 
+;; Review
 (use-package company
   :bind (("C-c /" . company-complete))
-  :hook (go-mode . company-mode)
+  :hook ((go-mode . company-mode)
+         (python-mode . company-mode))
   :config
   (setq company-idle-delay 0.1
         company-show-quick-access t
@@ -444,18 +445,18 @@ If neither, we use the current indent-tabs-mode (spaces)."
          (cider-repl-mode . company-mode))
   :config
   (setq nrepl-log-messages t
-        cider-lein-command "lein"
+;;        cider-lein-command "lein"
         cider-repl-display-help-banner nil
-        cider-ns-refresh-show-logger-buffer t
+;;        cider-ns-refresh-show-logger-buffer t
         cider-show-error-buffer t
-        cider-font-lock-dynamically nil
-        cider-eldoc-display-for-symbol-at-point nil
+;;        cider-font-lock-dynamically nil
+;;        cider-eldoc-display-for-symbol-at-point nil
         cider-prompt-for-symbol nil
-        cider-use-xref nil
+;;        cider-use-xref nil
         cider-repl-history-file "~/.emacs.d/cider-history"
         cider-repl-wrap-history t)
   (setq cider-test-defining-forms '("deftest" "defspec" "defflow"))
-  (add-hook 'cider-mode-hook (lambda () (remove-hook 'completion-at-point-functions #'cider-copmlete-at-point)))
+;;  (add-hook 'cider-mode-hook (lambda () (remove-hook 'completion-at-point-functions #'cider-copmlete-at-point)))
   :bind
   (:map clojure-mode-map
         ("C-c c s"   . cider-jack-in)
@@ -508,17 +509,19 @@ If neither, we use the current indent-tabs-mode (spaces)."
 ;;  (require 'dap-java)
   (require 'dap-hydra)
   (require 'dap-dlv-go)
+  (require 'dap-python)
   (dap-register-debug-template
-    "Go Debug Current File"
-    (list :type "go"
-          :request "launch"
-          :name "Launch File"
-          :mode "auto"
-          :program "${fileDirname}"
-          :buildFlags nil
-          :args nil
-          :env nil
-          :envFile nil))
+   "Go Debug Current File"
+   (list :type "go"
+         :request "launch"
+         :name "Launch File"
+         :mode "auto"
+         :program "${fileDirname}"
+         :buildFlags nil
+         :args nil
+         :env nil
+         :envFile nil))
+  (setq dap-python-debugger 'debugpy)
   :custom
   (dap-dlv-go-delve-path (executable-find "dlv")))
 
@@ -544,8 +547,9 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :hook ((go-mode . lsp-deferred)
          (clojure-mode . lsp)
          (clojurec-mode . lsp)
-         (java-mode . lsp)
          (clojurescript-mode . lsp)
+         (java-mode . lsp)
+         (python-mode . lsp-deferred)
          ;(lsp-mode . lsp-enable-which-key-intergration)
          )
   :commands (lsp lsp-deferred)
@@ -562,18 +566,24 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :custom
   ((lsp-clojure-server-command '("bash" "-c" "clojure-lsp")))
   :config
+  (lsp-register-custom-settings
+   '(("glopls.usePlaceholders" t t)
+     ("gopls.staticcheck" t t)
+     ("gopls.completeUnimported" t t)
+     ("gopls.semanticTokens" t t)))
   (setq lsp-enable-file-watchers nil
         lsp-gopls-complete-unimported t
         lsp-gopls-staticcheck t
         lsp-headerline-breadcrumb-enable nil
-        lsp-signature-render-documentation nil
+        ;;        lsp-signature-render-documentation nil
         lsp-signature-function 'lsp-signature-posframe
         lsp-semantic-tokens-enable t
         lsp-idle-delay 0.2
         lsp-use-plist nil
         lsp-completion-sort-initial-results t
         lsp-completion-no-cache t
-        lsp-completion-use-last-result nil)
+        lsp-completion-use-last-result nil
+        lsp-pyls-plugins-flake8-enabled t)
   (advice-add #'lsp-rename :after (lambda (&rest _) (projectile-save-project-buffers)))
   (setenv "PATH" (concat
                   "/usr/local/bin" path-separator
@@ -591,7 +601,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
 
 (use-package lsp-ivy
   :after ivy
-  :ensure nil
+;;  :ensure nil
   :commands lsp-ivy-workspace-symbol)
 
 (use-package lsp-ui
@@ -600,7 +610,7 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :config
   (setq lsp-ui-peek-list-width 60
         lsp-ui-doc-max-width 60
-        lsp-ui-doc-enable nil
+        lsp-ui-doc-enable t
         lsp-ui-peek-fontify 'always
         lsp-ui-sideline-show-code-actions nil))
 
@@ -614,23 +624,24 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :mode ("\\.markdown\\'" . gfm-mode)
   :config
   (setq markdown-fontify-code-blocks-natively t)
-  :preface
-  (defun jekyll-insert-image-url ()
-    (interactive)
-    (let* ((files (directory-files "../assets/images"))
-            (selected-file (completing-read "Select image: " files nil t)))
-         (insert (format "![%s](/assets/images/%s)" selected-file selected-file))))
-  (defun jekyll-insert-post-url ()
-    (interactive)
-    (let* ((files (remove "." (mapcar #'file-name-sans-extension (directory-files "."))))
-           (selected-file (completing-read "Select article: " files nil t)))
-      (insert (format "{%% post_url %s %%}" selected-file)))))
+  ;; :preface
+  ;; (defun jekyll-insert-image-url ()
+  ;;   (interactive)
+  ;;   (let* ((files (directory-files "../assets/images"))
+  ;;           (selected-file (completing-read "Select image: " files nil t)))
+  ;;        (insert (format "![%s](/assets/images/%s)" selected-file selected-file))))
+  ;; (defun jekyll-insert-post-url ()
+  ;;   (interactive)
+  ;;   (let* ((files (remove "." (mapcar #'file-name-sans-extension (directory-files "."))))
+  ;;          (selected-file (completing-read "Select article: " files nil t)))
+  ;;     (insert (format "{%% post_url %s %%}" selected-file))))
+  )
 
 (use-package kubernetes
   :commands (kubernetes-overview)
   :config
-  (setq kubernetes-poll-frequency 3600)
-  (setq kubernetes-redraw-frequency 3600))
+  (setq kubernetes-poll-frequency 3600
+        kubernetes-redraw-frequency 3600))
 
 (use-package yaml-mode
   :mode (("\\.yml\\'" . yaml-mode)
@@ -664,13 +675,26 @@ If neither, we use the current indent-tabs-mode (spaces)."
   :mode "\\.wsdl\\'")
 
 (use-package web-mode
-  :mode "\\.phtml\\'"
-  :mode "\\.tpl\\.php\\'"
-  :mode "\\.[agj]sp\\'"
-  :mode "\\.erbl\\'"
-  :mode "\\.mustache\\'"
-  :mode "\\.djhtml\\'"
-  :mode "\\.html?\\'")
+  :mode (("\\.phtml\\'" . web-mode)
+         ("\\.tpl\\.php\\'" . web-mode)
+         ("\\.[agj]sp\\'" . web-mode)
+         ("\\.erbl\\'" . web-mode)
+         ("\\.mustache\\'" . web-mode)
+         ("\\.djhtml\\'" . web-mode)
+         ("\\.html?\\'" . web-mode)
+         ("\\.jinja\\'" . web-mode)
+         ("\\.template\\'" . web-mode))
+  :config
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2
+        web-mode-enable-auto-pairing t
+        web-mode-enable-css-colorization t
+        web-mode-enable-current-element-highlight t))
+
+(use-package emmet-mode
+  :hook ((web-mode . emmet-mode)
+         (css-mode . emmet-mode)))
 
 (use-package dockerfile-mode
   :mode "\\Dockerfile\\'")
@@ -680,26 +704,92 @@ If neither, we use the current indent-tabs-mode (spaces)."
 (use-package feature-mode)
 
 (use-package go-mode
-  :mode "'\\.go\\'"
+  :mode "\\.go\\'"
   :custom
   (tab-width 4)
   :init
   (defun personalized-go-mode-setup ()
+    (setq whitespace-style '(face tabs tab-mark trailing))
     (setq-local indent-tabs-mode t)
     (setq-local tab-width 4)
     (setq-local standard-indent 4)
-    (setq-local go-tab-width 4)
-    (setq whitespace-style '(face tabs tab-mark trailing))
+    (setq-local indent-line-function 'go-mode-indent-line)
     (setq-local gofmt-command "gofmt")
     (setq-local gofmt-args nil)
     (setq-local golang-format-on-save t)
-    (setq-local tab-stop-list (number-sequence 4 200 4)))
-  :hook ((go-mode . lsp-deferred)
+    (setq-local tab-stop-list (number-sequence 4 200 4))
+
+    ;; (electric-indent-local-mode 1)
+    (setq-local electric-indent-chars (append electric-indent-chars '(?} ?\) ?: ?\;))))
+  (defun go-mode-insert-space-before-colon ()
+    (when (and (eq (char-before) ?:)
+               (not (looking-back " :=\\w+" 1)))
+      (save-excursion
+        (backward-char 1)
+        (insert " "))))
+    :hook ((go-mode . personalized-go-mode-setup)
+         (go-mode . (lambda ()
+                (add-hook 'post-self-insert-hook
+                          'go-mode-insert-space-before-colon nil t)))
+         (go-mode . lsp-deferred)
          (before-save . lsp-format-buffer)
          (before-save . lsp-organize-imports)))
 
 (use-package protobuf-mode
-  :mode "'\\.proto\\'")
+  :mode "\\.proto\\'")
+
+(use-package python-mode
+  :ensure nil
+  :mode "\\.py\\'"
+  :custom
+  (python-indent-offset 4)
+  :hook
+  (python-mode . (lambda ()
+                   (setq tab-width 4)
+                   (setq python-indent-offset 4)
+                   (setq fill-column 88))))
+
+(use-package pyvenv
+  :after python-mode
+  :config
+  (pyenv-mode 1))
+
+(use-package anaconda-mode
+  :after python-mode
+  :hook
+  ((python-mode . anaconda-mode)
+   (python-mode . anaconda-eldoc-mode)))
+
+(use-package company-anaconda
+  :after (company anaconda-mode)
+  :config
+  (add-to-list 'company-backends 'company-anaconda))
+
+(use-package django-mode
+  :mode ("\\.djhtml\\'" . django-mode)
+  :hook (python-mode . (lambda ()
+                         (when (string-match-p "django" (buffer-file-name))
+                           (django-mode)))))
+
+(use-package djangonaut
+  :after django-mode)
+
+(use-package jinja2-mode
+  :mode (("\\.jinja\\'" . jinja2-mode)
+         ("\\.jinja2\\'" . jinja2-mode)))
+
+(use-package ein
+  :config
+  (setq ein:jupyter-default-server-command "jupyter"
+        ein:output-area-inlined-images t))
+
+(use-package python-black
+  :after python-mode
+  :hook (python-mode . python-blakc-on-save-mode))
+
+(use-package python-isort
+  :after python-mode
+  :hook ((python-mode . py-isort-enable-on-save)))
 
 (use-package org
   :bind (:map org-mode-map
@@ -756,3 +846,28 @@ If neither, we use the current indent-tabs-mode (spaces)."
 ;; end of packages - load emacs packages
 
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(lsp-clojure-custom-server-command '("bash" "-c" "clojure-lsp") nil nil "Customized with use-package lsp-mode")
+ '(package-selected-packages
+   '(auto-package-update clj-refactor clojure-mode-extra-font-locking
+                         company-anaconda counsel-projectile diminish
+                         django-mode djangonaut docker-compose-mode
+                         dockerfile-mode dracula-theme ein emmet-mode
+                         feature-mode flycheck-clojure flycheck-joker
+                         go-mode graphql-mode helpful ivy-rich
+                         jinja2-mode json-mode kubernetes lsp-ivy
+                         lsp-java lsp-ui magit move-text
+                         projectile-ripgrep protobuf-mode python-black
+                         python-isort pyvenv rainbow-delimiters
+                         rainbow-mode smartparens
+                         treemacs-all-the-icons web-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
