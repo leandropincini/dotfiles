@@ -254,7 +254,7 @@ Paste the result into github session
 cat ~/.ssh/id_ed25519.pub
 ```
 
-#### gpg key - execute it after the [Dotfiles](##Dotfiles) session.
+#### gpg key - execute it after the [Dotfiles](#dotfiles) session.
 
 Optionally, install a graphical prompt with save in keychain option
 ```bash
