@@ -151,31 +151,19 @@ asdf plugin update --all
 
 Take a look into the jdk releases list: https://www.java.com/releases/matrix/
 ```bash
-asdf install java openjdk-23.0.1 &&
-asdf global java openjdk-23.0.1
-```
-
-Add the following in the `~/.zshrc`:
-```bash
-# JAVA_HOME with asdf
-. ~/.asdf/plugins/java/set-java-home.zsh
+asdf install java openjdk-23.0.2 &&
+asdf set java openjdk-23.0.2 --home
 ```
 
 Add the following in the `~/.asdfrc`:
 ```bash
 java_macos_integration_enable=yes
 ```
-
-## Programs
-```bash
-brew install rcm visual-studio-code gnucash keepingyouawake ripgrep bat fzf font-fira-code-nerd-font ghostty starship
-```
-
 ### Go lang
 ```bash
 asdf plugin add golang https://github.com/asdf-community/asdf-golang.git &&
-asdf install golang 1.23.4 &&
-asdf global golang 1.23.4 &&
+asdf install golang 1.24.0 &&
+asdf set golang 1.24.0 --home &&
 brew install protobuf &&
 cd ~ &&
 go install golang.org/x/tools/gopls@latest &&
@@ -194,6 +182,39 @@ Open your vscode and type Cmd + Shift + P
 ```
 
 Select and install everything.
+
+### Setup ~/.zshrc
+```bash
+# asdf
+if [ -f "/opt/homebrew/opt/asdf/bin/asdf" ]; then
+    # Add asdf and shims to PATH (before other PATH modifications)
+    export ASDF_DIR="/opt/homebrew/opt/asdf"
+    export PATH="$HOME/.asdf/shims:$ASDF_DIR/bin:$PATH"
+
+    # Initialize asdf
+    eval "$(asdf exec env)"
+
+    # Add completions to fpath
+    fpath+=("$(brew --prefix asdf)/share/zsh/site-functions")
+    autoload -Uz compinit && compinit
+
+    # JAVA_HOME with asdf
+    if [ -f "$HOME/.asdf/plugins/java/set-java-home.zsh" ]; then
+        . "$HOME/.asdf/plugins/java/set-java-home.zsh"
+    fi
+
+    # GO lang with asdf
+    export ASDF_GOLANG_MOD_VERSION_ENABLED=true
+    if [ -f "$HOME/.asdf/plugins/golang/set-env.zsh" ]; then
+        . "$HOME/.asdf/plugins/golang/set-env.zsh"
+    fi
+fi
+```
+
+## Programs
+```bash
+brew install gnucash obs rcm visual-studio-code keepingyouawake ripgrep bat fzf font-fira-code-nerd-font ghostty starship
+```
 
 ### Emacs
 

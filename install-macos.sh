@@ -22,3 +22,4 @@ if [ -f ~/.config/zsh/.zshrc ]; then
     rm ~/.config/zsh/.zshrc
 fi
 ln -sv ~/.config/zsh/zshrc ~/.config/zsh/.zshrc
+ln -sv '~/projects/dotfiles/tag-macos/Library/Application\ Support/GnuCash/gtk-3.0.css' '~/Library/Application Support/Gnucash/gtk-3.0.css'

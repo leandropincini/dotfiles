@@ -17,14 +17,6 @@ alias egrep="egrep --color=auto"
 # FZF
 source <(fzf --zsh)
 
-# asdf
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
-
-# Node js
-export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
-export LDFLAGS="-L/opt/homebrew/opt/node@20/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/node@20/include"
-
 # Git
 export GPG_TTY=$(tty)
 
@@ -57,9 +49,32 @@ alias p="cd ~/projects"
 # Starship
 eval "$(starship init zsh)"
 
-# GO lang with asdf
-export ASDF_GOLANG_MOD_VERSION_ENABLED=true
-. ~/.asdf/plugins/golang/set-env.zsh
+# asdf
+if [ -f "/opt/homebrew/opt/asdf/bin/asdf" ]; then
+    # Add asdf and shims to PATH (before other PATH modifications)
+    export ASDF_DIR="/opt/homebrew/opt/asdf"
+    export PATH="$HOME/.asdf/shims:$ASDF_DIR/bin:$PATH"
 
-#JAVA_HOME with asdf
-. ~/.asdf/plugins/java/set-java-home.zsh
+    # Initialize asdf
+    eval "$(asdf exec env)"
+
+    # Add completions to fpath
+    fpath+=("$(brew --prefix asdf)/share/zsh/site-functions")
+    autoload -Uz compinit && compinit
+
+    # GO lang with asdf
+    export ASDF_GOLANG_MOD_VERSION_ENABLED=true
+    if [ -f "$HOME/.asdf/plugins/golang/set-env.zsh" ]; then
+        . "$HOME/.asdf/plugins/golang/set-env.zsh"
+    fi
+
+    # JAVA_HOME with asdf
+    if [ -f "$HOME/.asdf/plugins/java/set-java-home.zsh" ]; then
+        . "$HOME/.asdf/plugins/java/set-java-home.zsh"
+    fi
+fi
+
+# Node js
+export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/node@20/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/node@20/include"
