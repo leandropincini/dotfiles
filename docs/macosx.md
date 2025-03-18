@@ -135,83 +135,6 @@ eval "$(/opt/homebrew/bin/brew shellenv)" >> ~/.zprofile
 brew update && brew upgrade
 ```
 
-## asdf
-
-Install [asdf](https://asdf-vm.com/) with brew:
-```bash
-brew install asdf
-```
-
-### Java
-
-Install asdf's [java plugin](https://github.com/halcyon/asdf-java):
-```bash
-asdf plugin-add java https://github.com/halcyon/asdf-java.git &&
-asdf plugin update --all
-```
-
-Take a look into the jdk releases list: https://www.java.com/releases/matrix/
-```bash
-asdf install java openjdk-23.0.2 &&
-asdf set java openjdk-23.0.2 --home
-```
-
-Add the following in the `~/.asdfrc`:
-```bash
-java_macos_integration_enable=yes
-```
-### Go lang
-```bash
-asdf plugin add golang https://github.com/asdf-community/asdf-golang.git &&
-asdf install golang 1.24.0 &&
-asdf set golang 1.24.0 --home &&
-brew install protobuf &&
-cd ~ &&
-go install golang.org/x/tools/gopls@latest &&
-go install github.com/go-delve/delve/cmd/dlv@latest
-go install github.com/swaggo/swag/cmd/swag@latest &&
-go install github.com/google/wire/cmd/wire@latest &&
-go install golang.org/x/perf/cmd/benchstat@latest &&
-go install google.golang.org/protobuf/cmd/protoc-gen-go &&
-go install google.golang.org/grpc/cmd/protoc-gen-go-grpc &&
-asdf reshim golang
-```
-
-Open your vscode and type Cmd + Shift + P
-```bash
->go install/update tools
-```
-
-Select and install everything.
-
-### Setup ~/.zshrc
-```bash
-# asdf
-if [ -f "/opt/homebrew/opt/asdf/bin/asdf" ]; then
-    # Add asdf and shims to PATH (before other PATH modifications)
-    export ASDF_DIR="/opt/homebrew/opt/asdf"
-    export PATH="$HOME/.asdf/shims:$ASDF_DIR/bin:$PATH"
-
-    # Initialize asdf
-    eval "$(asdf exec env)"
-
-    # Add completions to fpath
-    fpath+=("$(brew --prefix asdf)/share/zsh/site-functions")
-    autoload -Uz compinit && compinit
-
-    # JAVA_HOME with asdf
-    if [ -f "$HOME/.asdf/plugins/java/set-java-home.zsh" ]; then
-        . "$HOME/.asdf/plugins/java/set-java-home.zsh"
-    fi
-
-    # GO lang with asdf
-    export ASDF_GOLANG_MOD_VERSION_ENABLED=true
-    if [ -f "$HOME/.asdf/plugins/golang/set-env.zsh" ]; then
-        . "$HOME/.asdf/plugins/golang/set-env.zsh"
-    fi
-fi
-```
-
 ## Programs
 ```bash
 brew install gnucash obs rcm visual-studio-code keepingyouawake ripgrep bat fzf font-fira-code-nerd-font ghostty starship
@@ -263,6 +186,8 @@ echo "pinentry-program $(which pinentry-mac)" >> ~/.gnupg/gpg-agent.conf &&
 killall gpg-agent
 ```
 
+Generate the GPG Key
+
 ```bash
 brew install gnupg &&
 gpg --full-generate-key
@@ -286,4 +211,81 @@ cd .dotfiles &&
 ./install-macos.sh &&
 mkdir ~/projects &&
 ln -s ~/.dotfiles ~/projects/dotfiles
+```
+
+## asdf
+
+Install [asdf](https://asdf-vm.com/) with brew:
+```bash
+brew install asdf
+```
+
+### Java
+
+Install asdf's [java plugin](https://github.com/halcyon/asdf-java):
+```bash
+asdf plugin-add java https://github.com/halcyon/asdf-java.git &&
+asdf plugin update --all
+```
+
+Take a look into the jdk releases list: https://www.java.com/releases/matrix/
+```bash
+asdf install java openjdk-23.0.2 &&
+asdf set java openjdk-23.0.2 --home
+```
+
+Add the following in the `~/.asdfrc`:
+```bash
+java_macos_integration_enable=yes
+```
+### Go lang
+```bash
+asdf plugin add golang https://github.com/asdf-community/asdf-golang.git &&
+asdf install golang 1.24.0 &&
+asdf set golang 1.24.0 --home &&
+brew install protobuf &&
+cd ~ &&
+go install golang.org/x/tools/gopls@latest &&
+go install github.com/go-delve/delve/cmd/dlv@latest
+go install github.com/swaggo/swag/cmd/swag@latest &&
+go install github.com/google/wire/cmd/wire@latest &&
+go install golang.org/x/perf/cmd/benchstat@latest &&
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest &&
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest &&
+asdf reshim golang
+```
+
+Open your vscode and type Cmd + Shift + P
+```bash
+>go install/update tools
+```
+
+Select and install everything.
+
+### Setup ~/.zshrc
+```bash
+# asdf
+if [ -f "/opt/homebrew/opt/asdf/bin/asdf" ]; then
+    # Add asdf and shims to PATH (before other PATH modifications)
+    export ASDF_DIR="/opt/homebrew/opt/asdf"
+    export PATH="$HOME/.asdf/shims:$ASDF_DIR/bin:$PATH"
+
+    # Initialize asdf
+    eval "$(asdf exec env)"
+
+    # Add completions to fpath
+    fpath+=("$(brew --prefix asdf)/share/zsh/site-functions")
+    autoload -Uz compinit && compinit
+
+    # JAVA_HOME with asdf
+    if [ -f "$HOME/.asdf/plugins/java/set-java-home.zsh" ]; then
+        . "$HOME/.asdf/plugins/java/set-java-home.zsh"
+    fi
+
+    # GO lang with asdf
+    export ASDF_GOLANG_MOD_VERSION_ENABLED=true
+    if [ -f "$HOME/.asdf/plugins/golang/set-env.zsh" ]; then
+        . "$HOME/.asdf/plugins/golang/set-env.zsh"
+    fi
+fi
 ```

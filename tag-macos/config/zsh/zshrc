@@ -20,6 +20,12 @@ source <(fzf --zsh)
 # Git
 export GPG_TTY=$(tty)
 
+git-cleanup-branches() {
+    git fetch --prune
+    git branch -vv | grep -E '(: gone]|merged)' | grep -vE '(^\*|master|main)' | awk '{print $1}' | xargs -r git branch -D
+    git branch -vv | awk '/^[^*]/ && !/\[origin\// {print $1}' | grep -vE '(master|main)' | xargs -r git branch -D
+}
+
 # Options (man zshoptions)
 stty stop undef
 unsetopt beep
@@ -38,7 +44,6 @@ alias lla="ls -lah"
 alias lsd='ls -lh | grep "^d"'
 alias cleanup="find . -type f -name '*DS_Store' -ls -delete"
 alias g="git"
-alias git-cleanup-local-branches="git branch | grep -v "main" | xargs git branch -D"
 alias bua="brew update && brew upgrade && brew cleanup"
 alias d="docker"
 alias docker-cleanup="docker-compose down && docker container ls -aq | xargs docker container rm -f && docker volume ls -q | xargs docker volume rm -f"
