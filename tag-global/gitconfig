@@ -64,3 +64,5 @@
     added = green bold
     changed = red bold
     untracked = blue bold
+[init]
+	deafultBranch = main
