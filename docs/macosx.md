@@ -232,7 +232,7 @@ asdf plugin update --all
 Take a look into the jdk releases list: https://www.java.com/releases/matrix/
 ```bash
 asdf install java openjdk-23.0.2 &&
-asdf set java openjdk-23.0.2 --home
+asdf set -u java openjdk-23.0.2
 ```
 
 Add the following in the `~/.asdfrc`:
@@ -243,7 +243,7 @@ java_macos_integration_enable=yes
 ```bash
 asdf plugin add golang https://github.com/asdf-community/asdf-golang.git &&
 asdf install golang 1.24.0 &&
-asdf set golang 1.24.0 --home &&
+asdf set -u golang 1.24.0 &&
 brew install protobuf &&
 cd ~ &&
 go install golang.org/x/tools/gopls@latest &&
