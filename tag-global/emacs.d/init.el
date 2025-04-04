@@ -852,19 +852,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(lsp-clojure-custom-server-command '("bash" "-c" "clojure-lsp") nil nil "Customized with use-package lsp-mode")
- '(package-selected-packages
-   '(auto-package-update clj-refactor clojure-mode-extra-font-locking
-                         company-anaconda counsel-projectile diminish
-                         django-mode djangonaut docker-compose-mode
-                         dockerfile-mode dracula-theme ein emmet-mode
-                         feature-mode flycheck-clojure flycheck-joker
-                         go-mode graphql-mode helpful ivy-rich
-                         jinja2-mode json-mode kubernetes lsp-ivy
-                         lsp-java lsp-ui magit move-text
-                         projectile-ripgrep protobuf-mode python-black
-                         python-isort pyvenv rainbow-delimiters
-                         rainbow-mode smartparens
-                         treemacs-all-the-icons web-mode)))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -138,7 +138,7 @@ brew update && brew upgrade
 
 ## Programs
 ```bash
-brew install gnucash obs rcm visual-studio-code keepingyouawake ripgrep bat fzf font-fira-code-nerd-font ghostty starship
+brew install gnucash obs rcm visual-studio-code keepingyouawake git ripgrep bat fzf font-fira-code-nerd-font ghostty starship
 ```
 
 ### Emacs
@@ -175,7 +175,7 @@ ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 
 Paste the result into github session
 ```bash
-cat ~/.ssh/id_ed25519.pub
+cat ~/.ssh/id_ed25519.pub | pbcopy
 ```
 
 #### gpg key - execute it after the [Dotfiles](#dotfiles) session.
@@ -225,14 +225,13 @@ brew install asdf
 
 Install asdf's [java plugin](https://github.com/halcyon/asdf-java):
 ```bash
-asdf plugin-add java https://github.com/halcyon/asdf-java.git &&
-asdf plugin update --all
+asdf plugin add java https://github.com/halcyon/asdf-java.git
 ```
 
 Take a look into the jdk releases list: https://www.java.com/releases/matrix/
 ```bash
-asdf install java openjdk-23.0.2 &&
-asdf set -u java openjdk-23.0.2
+asdf install java openjdk-24 &&
+asdf set -u java openjdk-24
 ```
 
 Add the following in the `~/.asdfrc`:
@@ -250,6 +249,7 @@ go install golang.org/x/tools/gopls@latest &&
 go install github.com/go-delve/delve/cmd/dlv@latest
 go install github.com/swaggo/swag/cmd/swag@latest &&
 go install github.com/google/wire/cmd/wire@latest &&
+go install golang.org/x/vuln/cmd/govulncheck@latest &&
 go install golang.org/x/perf/cmd/benchstat@latest &&
 go install google.golang.org/protobuf/cmd/protoc-gen-go@latest &&
 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest &&

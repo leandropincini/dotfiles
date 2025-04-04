@@ -73,9 +73,14 @@ if [ -f "/opt/homebrew/opt/asdf/bin/asdf" ]; then
         . "$HOME/.asdf/plugins/golang/set-env.zsh"
     fi
 
-    # JAVA_HOME with asdf
+    # JAVA with asdf
     if [ -f "$HOME/.asdf/plugins/java/set-java-home.zsh" ]; then
         . "$HOME/.asdf/plugins/java/set-java-home.zsh"
+    fi
+
+    # DOTNET with asdf
+    if [ -f "$HOME/.asdf/plugins/dotnet/set-dotnet-env.zsh" ]; then
+        . "$HOME/.asdf/plugins/dotnet/set-dotnet-env.zsh"
     fi
 fi
 
