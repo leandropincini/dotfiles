@@ -207,6 +207,7 @@ if [ -r ~/.zshrc ]; then echo -e '\nexport GPG_TTY=$(tty)' >> ~/.zshrc; \
 ## Dotfiles
 ```bash
 cd ~ &&
+mkdir ~/.cache/zsh &&
 git clone git@github.com:leandropincini/dotfiles.git .dotfiles --depth=1 &&
 cd .dotfiles &&
 ./install-macos.sh &&
