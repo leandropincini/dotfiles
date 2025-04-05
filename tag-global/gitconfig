@@ -31,6 +31,8 @@
     rebase = false
 [commit]
     gpgsign = true
+[tag]
+    gpgsign = true
 [url "ssh://git@github.com/"]
     insteadOf= https://github.com/
 [branch "master"]
