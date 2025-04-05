@@ -30,7 +30,7 @@
 [pull]
     rebase = false
 [commit]
-    gpgsign = true
+    gpgSign = true
 [tag]
     gngSign = true
 [url "ssh://git@github.com/"]
