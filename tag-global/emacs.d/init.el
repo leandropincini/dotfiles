@@ -791,6 +791,9 @@
   :after python-mode
   :hook ((python-mode . py-isort-enable-on-save)))
 
+(use-package make-mode
+  :mode (("\\Makefile\\..*" . makefile-mode)))
+
 (use-package org
   :bind (:map org-mode-map
               ("C-c o l" . org-store-link)
