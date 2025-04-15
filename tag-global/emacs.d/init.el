@@ -562,7 +562,8 @@
         lsp-lens-enable t
         lsp-semantic-tokens-enable t
         lsp-file-watch-threshold 15000
-        lsp-signature-auto-activate nil)
+        lsp-signature-auto-activate nil
+        lsp-go-use-gofumpt t)
   :custom
   ((lsp-clojure-server-command '("bash" "-c" "clojure-lsp")))
   :config
