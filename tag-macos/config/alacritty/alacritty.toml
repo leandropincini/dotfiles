@@ -1,0 +1,15 @@
+[general]
+import = [
+"themes/dracula.toml",
+]
+
+[window]
+startup_mode="Maximized"
+decorations="None"
+
+[font]
+normal = { family = "FiraCode Nerd Font Mono", style = "Regular" }
+size=14.0
+
+[cursor]
+style = { shape = "Block", blinking = "Never" }
