@@ -715,7 +715,7 @@
     (setq-local tab-width 4)
     (setq-local standard-indent 4)
     (setq-local indent-line-function 'go-mode-indent-line)
-    (setq-local gofmt-command "gofmt")
+    (setq-local gofmt-command "gofumpt")
     (setq-local gofmt-args nil)
     (setq-local golang-format-on-save t)
     (setq-local tab-stop-list (number-sequence 4 200 4))
@@ -735,6 +735,20 @@
          (go-mode . lsp-deferred)
          (before-save . lsp-format-buffer)
          (before-save . lsp-organize-imports)))
+
+(use-package gotest
+  :after go-mode
+  :bind (:map go-mode-map
+              ("C-c C-t P" . go-test-current-project)
+              ("C-c C-t C-P" . go-test-current-project)
+              ("C-c C-t p" . go-test-current-package)
+              ("C-c C-t C-p" . go-test-current-package)
+              ("C-c C-t f" . go-test-current-file)
+              ("C-c C-t C-f" . go-test-current-file)
+              ("C-c C-t t" . go-test-current-test)
+              ("C-c C-t C-t" . go-test-current-test)))
+;; (use-package flycheck-golangci-lint
+;;   :hook (go-mode . flycheck-golangci-lint-setup))
 
 (use-package protobuf-mode
   :mode "\\.proto\\'")
