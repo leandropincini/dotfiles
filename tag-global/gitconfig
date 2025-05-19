@@ -32,7 +32,7 @@
 [commit]
     gpgSign = true
 [tag]
-    gngSign = true
+    gpgSign = true
 [url "ssh://git@github.com/"]
     insteadOf= https://github.com/
 [branch "master"]
