@@ -26,6 +26,49 @@ git-cleanup-branches() {
     git branch -vv | awk '/^[^*]/ && !/\[origin\// {print $1}' | grep -vE '(master|main)' | xargs -r git branch -D
 }
 
+go-setup-dev-env(){
+    go install golang.org/x/tools/gopls@latest
+    go install github.com/go-delve/delve/cmd/dlv@latest
+    go install mvdan.cc/gofumpt@latest
+    go install github.com/cweill/gotests/gotests@latest
+    go install github.com/fatih/gomodifytags@latest
+    go install github.com/josharian/impl@latest
+    go install github.com/haya14busa/goplay/cmd/goplay@latest
+    go install honnef.co/go/tools/cmd/staticcheck@latest
+    go install github.com/rinchsan/gosimports/cmd/gosimports@latest
+    go install github.com/segmentio/golines@latest
+    go install github.com/google/yamlfmt/cmd/yamlfmt@latest
+    go install golang.org/x/vuln/cmd/govulncheck@latest
+    go install golang.org/x/perf/cmd/benchstat@latest
+    go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+    go install github.com/bufbuild/buf/cmd/buf@latest
+    go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest
+    asdf reshim golang
+}
+
+# Convert markdown to pdf
+## brew install pandoc mactex
+convert-to-pdf() {
+  if [ -z "$1" ]; then
+    echo "Usage: convert-to-pdf <markdown-file>"
+    return 1
+  fi
+
+  local input_file="$1"
+
+  if [ ! -f "$input_file" ]; then
+    echo "Error: '$input_file' not found."
+    return 1
+  fi
+
+  local base_name
+  base_name=$(basename "$input_file" .md)
+  local output_file="/tmp/$(echo "$base_name" | tr '[:upper:]' '[:lower:]').pdf"
+
+  pandoc "$input_file" -o "$output_file" --pdf-engine=/Library/TeX/texbin/pdflatex && open "$output_file"
+}
+
 # Options (man zshoptions)
 stty stop undef
 unsetopt beep
