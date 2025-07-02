@@ -260,9 +260,11 @@ go install honnef.co/go/tools/cmd/staticcheck@latest &&
 go install github.com/rinchsan/gosimports/cmd/gosimports@latest
 go install github.com/segmentio/golines@latest &&
 go install github.com/google/yamlfmt/cmd/yamlfmt@latest &&
+go install gotest.tools/gotestsum@latest &&
 ## tools
 go install golang.org/x/vuln/cmd/govulncheck@latest &&
 go install golang.org/x/perf/cmd/benchstat@latest &&
+go install github.com/vektra/mockery/v2@latest &&
 go install google.golang.org/protobuf/cmd/protoc-gen-go@latest &&
 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest &&
 go install github.com/bufbuild/buf/cmd/buf@latest &&

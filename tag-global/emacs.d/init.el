@@ -159,6 +159,9 @@
 (setq use-package-always-pin "melpa")
 
 (use-package emacs
+  :init
+  (add-to-list 'default-frame-alist '(undecorated . t))
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
   :config
   ;; UI related
   (setq inhibit-startup-message t
@@ -172,7 +175,6 @@
   (column-number-mode t)
   (global-hl-line-mode 1)
   (show-paren-mode 1)
-  (toggle-frame-maximized)
 
   ;; UTF-8 encoding
 ;;  (setq utf-translate-clj-mode nil)
@@ -808,6 +810,9 @@
 
 (use-package make-mode
   :mode (("\\Makefile\\..*" . makefile-mode)))
+
+(use-package terraform-mode
+  :mode (("\\.tf\\'" . terraform-mode)))
 
 (use-package org
   :bind (:map org-mode-map
