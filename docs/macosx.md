@@ -231,44 +231,23 @@ asdf plugin add java https://github.com/halcyon/asdf-java.git
 
 Take a look into the jdk releases list: https://www.java.com/releases/matrix/
 ```bash
-asdf install java openjdk-24 &&
-asdf set -u java openjdk-24
+asdf install java adoptopenjdk-24.0.1+9 &&
+asdf set -u java adoptopenjdk-24.0.1+9
 ```
 
 Add the following in the `~/.asdfrc`:
 ```bash
 java_macos_integration_enable=yes
 ```
+
 ### Go lang
 ```bash
 asdf plugin add golang https://github.com/asdf-community/asdf-golang.git &&
 asdf install golang 1.24.4 &&
 asdf set -u golang 1.24.4 &&
-brew install protobuf &&
-# brew install golangci-lint &&
+brew install protobuf grpcurl grpcui &&
 cd ~ &&
-## base
-go install golang.org/x/tools/gopls@latest &&
-go install github.com/go-delve/delve/cmd/dlv@latest &&
-go install mvdan.cc/gofumpt@latest &&
-## dev
-go install github.com/cweill/gotests/gotests@latest &&
-go install github.com/fatih/gomodifytags@latest &&
-go install github.com/josharian/impl@latest &&
-go install github.com/haya14busa/goplay/cmd/goplay@latest &&
-go install honnef.co/go/tools/cmd/staticcheck@latest &&
-go install github.com/rinchsan/gosimports/cmd/gosimports@latest
-go install github.com/segmentio/golines@latest &&
-go install github.com/google/yamlfmt/cmd/yamlfmt@latest &&
-go install gotest.tools/gotestsum@latest &&
-## tools
-go install golang.org/x/vuln/cmd/govulncheck@latest &&
-go install golang.org/x/perf/cmd/benchstat@latest &&
-go install github.com/vektra/mockery/v2@latest &&
-go install google.golang.org/protobuf/cmd/protoc-gen-go@latest &&
-go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest &&
-go install github.com/bufbuild/buf/cmd/buf@latest &&
-go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest &&
+go-setup-dev-env
 # libs
 # go install github.com/swaggo/swag/cmd/swag@latest &&
 # go install github.com/google/wire/cmd/wire@latest &&
