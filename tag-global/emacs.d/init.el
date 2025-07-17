@@ -724,16 +724,7 @@
 
     ;; (electric-indent-local-mode 1)
     (setq-local electric-indent-chars (append electric-indent-chars '(?} ?\) ?: ?\;))))
-  (defun go-mode-insert-space-before-colon ()
-    (when (and (eq (char-before) ?:)
-               (not (looking-back " :=\\w+" 1)))
-      (save-excursion
-        (backward-char 1)
-        (insert " "))))
     :hook ((go-mode . personalized-go-mode-setup)
-         (go-mode . (lambda ()
-                (add-hook 'post-self-insert-hook
-                          'go-mode-insert-space-before-colon nil t)))
          (go-mode . lsp-deferred)
          (before-save . lsp-format-buffer)
          (before-save . lsp-organize-imports)))
