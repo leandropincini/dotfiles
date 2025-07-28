@@ -138,7 +138,7 @@ brew update && brew upgrade
 
 ## Programs
 ```bash
-brew install gnucash obs rcm visual-studio-code keepingyouawake git ripgrep bat fzf font-fira-code-nerd-font ghostty starship
+brew install gnucash obs rcm visual-studio-code keepingyouawake git ripgrep bat fzf font-fira-code-nerd-font font-iosevka-term-nerd-font alacritty ghostty starship
 ```
 
 ### Emacs

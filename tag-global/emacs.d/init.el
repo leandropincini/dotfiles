@@ -842,10 +842,17 @@
 
 (when (eq system-type 'darwin)
   (set-face-attribute 'default nil
-                      :family "FiraCode Nerd Font Mono"
-                      :height 140
-                      :weight 'Regular
-                      :width 'Regular))
+                      :family "IosevkaTerm Nerd Font"
+                      :height 160
+                      :weight 'medium)
+  (setq-default line-spacing 3))
+
+;; (when (eq system-type 'darwin)
+;;   (set-face-attribute 'default nil
+;;                       :family "FiraCode Nerd Font Mono"
+;;                       :height 140
+;;                       :weight 'Regular
+;;                       :width 'Regular))
 
 ;; (use-package catppuccin-theme
 ;;   :if window-system
@@ -853,12 +860,20 @@
 ;;   (load-theme 'catppuccin :no-confirm)
 ;;   (setq catppuccin-flavor 'macchiato))
 
-(use-package dracula-theme
-  :if window-system
-  :config
-  (load-theme 'dracula t))
-;; end of packages - load emacs packages
+;; (use-package dracula-theme
+;;   :if window-system
+;;   :config
+;;   (load-theme 'dracula t))
 
+;; (use-package modus-themes
+;;   :config
+;;   (load-theme 'modus-vivendi t))
+
+(use-package gruvbox-theme
+  :config
+  (load-theme 'gruvbox-dark-soft t))
+
+;; end of packages - load emacs packages
 ;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
