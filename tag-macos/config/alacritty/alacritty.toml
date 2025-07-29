@@ -1,6 +1,7 @@
 [general]
 import = [
-"themes/dracula.toml",
+#"themes/dracula.toml",
+"themes/gruvbox-dark.toml",
 ]
 
 [window]
@@ -8,8 +9,11 @@ startup_mode="Maximized"
 decorations="None"
 
 [font]
-normal = { family = "FiraCode Nerd Font Mono", style = "Regular" }
+#normal = { family = "FiraCode Nerd Font Mono", style = "Regular" }
 size=14.0
+[font.normal]
+family = "IosevkaTerm Nerd Font"
+style = "Medium"
 
 [cursor]
 style = { shape = "Block", blinking = "Never" }
