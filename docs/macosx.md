@@ -141,8 +141,14 @@ brew update && brew upgrade
 brew install gnucash obs rcm visual-studio-code keepingyouawake git ripgrep bat fzf font-fira-code-nerd-font font-iosevka-term-nerd-font alacritty ghostty starship
 ```
 
-### Emacs
+### Alacritty
 
+Better font display
+```bash
+defaults write org.alacritty AppleFontSmoothing -int 0
+```
+
+### Emacs
 ```bash
 brew tap d12frosted/emacs-plus &&
 brew install aspell d12frosted/emacs-plus/emacs-plus@30
