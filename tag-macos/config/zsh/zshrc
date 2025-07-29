@@ -17,6 +17,9 @@ alias egrep="egrep --color=auto"
 # FZF
 source <(fzf --zsh)
 
+# Bat
+export BAT_THEME="gruvbox-dark"
+
 # Git
 export GPG_TTY=$(tty)
 
@@ -130,6 +133,6 @@ if [ -f "/opt/homebrew/opt/asdf/bin/asdf" ]; then
 fi
 
 # Node js
-export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
-export LDFLAGS="-L/opt/homebrew/opt/node@20/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/node@20/include"
+# export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
+# export LDFLAGS="-L/opt/homebrew/opt/node@20/lib"
+# export CPPFLAGS="-I/opt/homebrew/opt/node@20/include"

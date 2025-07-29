@@ -1,5 +1,6 @@
 #palette = "catppuccin_macchiato"
-palette = "dracula"
+#palette = "dracula"
+palette = "gruvbox_dark"
 
 [character]
 success_symbol = "[>](bold green)"
@@ -282,3 +283,15 @@ pink = "#ff79c6"
 purple = "#bd93f9"
 red = "#ff5555"
 yellow = "#f1fa8c"
+
+[palettes.gruvbox_dark]
+color_fg0 = '#fbf1c7'
+color_bg1 = '#3c3836'
+color_bg3 = '#665c54'
+color_blue = '#458588'
+color_aqua = '#689d6a'
+color_green = '#98971a'
+color_orange = '#d65d0e'
+color_purple = '#b16286'
+color_red = '#cc241d'
+color_yellow = '#d79921'
