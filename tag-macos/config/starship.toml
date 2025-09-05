@@ -1,6 +1,6 @@
 #palette = "catppuccin_macchiato"
 #palette = "dracula"
-palette = "gruvbox_dark"
+#palette = "gruvbox_dark"
 
 [character]
 success_symbol = "[>](bold green)"

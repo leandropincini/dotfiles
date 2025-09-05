@@ -505,6 +505,7 @@
   ;; :custom
   ;; (dap-auto-configure-mode t)
   :config
+  (dap-auto-configure-mode)
   (dap-mode 1)
   (dap-ui-mode 1)
   (dap-ui-controls-mode 1)
@@ -842,10 +843,17 @@
 
 (when (eq system-type 'darwin)
   (set-face-attribute 'default nil
-                      :family "IosevkaTerm Nerd Font"
-                      :height 160
-                      :weight 'medium)
-  (setq-default line-spacing 3))
+                      :family "JetBrains Mono"
+                      :height 150
+                      :weight 'regular
+                      :width 'regular))
+
+;; (when (eq system-type 'darwin)
+;;   (set-face-attribute 'default nil
+;;                       :family "IosevkaTerm Nerd Font"
+;;                       :height 160
+;;                       :weight 'medium)
+;;   (setq-default line-spacing 3))
 
 ;; (when (eq system-type 'darwin)
 ;;   (set-face-attribute 'default nil
@@ -869,9 +877,13 @@
 ;;   :config
 ;;   (load-theme 'modus-vivendi t))
 
-(use-package gruvbox-theme
+;; (use-package gruvbox-theme
+;;   :config
+;;   (load-theme 'gruvbox-dark-soft t))
+
+(use-package solarized-theme
   :config
-  (load-theme 'gruvbox-dark-soft t))
+  (load-theme 'solarized-dark t))
 
 ;; end of packages - load emacs packages
 ;;; init.el ends here

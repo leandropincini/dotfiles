@@ -1,10 +1,17 @@
-theme = GruvboxDark
+theme = "Builtin Solarized Dark"
+#theme = GruvboxDark
 #theme = catppuccin-macchiato
 #theme = Dracula
+
 shell-integration-features = no-cursor
+
 cursor-style = block
 cursor-style-blink = false
-font-family = ""
+
+#font-family = ""
 #font-family = FiraCode Nerd Font Mono
-font-family = "IosevkaTerm NFM Medium"
-font-size = 16.0
+#font-family = "IosevkaTerm NFM Medium"
+font-family = "JetBrainsMono Nerd Font"
+font-size = 15.0
+
+keybind = shift+enter=text:\n

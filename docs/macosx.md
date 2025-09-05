@@ -94,6 +94,11 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 2
 defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
 ```
 
+### Enable Retina-aware font smoothing:
+```bash
+defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
+```
+
 ## Sound
 
 ### Increase sound quality for bluetooth headphones/headsets
@@ -138,7 +143,7 @@ brew update && brew upgrade
 
 ## Programs
 ```bash
-brew install gnucash obs rcm visual-studio-code keepingyouawake git ripgrep bat fzf font-fira-code-nerd-font font-iosevka-term-nerd-font alacritty ghostty starship
+brew install gnucash obs rcm visual-studio-code keepingyouawake git ripgrep bat fzf font-fira-code-nerd-font font-iosevka-term-nerd-font font-jetbrains-mono font-jetbrains-mono-nerd-font alacritty ghostty starship
 ```
 
 ### Alacritty
