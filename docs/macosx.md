@@ -20,20 +20,13 @@ fe80::1%lo0	localhost
 
 ### Enable tap to click
 ```bash
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true &&
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1 &&
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-```
-
-### Enable tap to click for the login screen
-```bash
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1 &&
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 ```
 
 ### Enable three finger drag
 ```bash
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true &&
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 ```
 
@@ -71,39 +64,17 @@ chflags nohidden ~/Library
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 ```
 
-### Turn off local Time Machine backpus
-```bash
-hash tmutil &> /dev/null && sudo tmutil disablelocal
-```
-
 ### Require password immediataly after sleep or screen saver begins
 ```bash
-defaults write com.apple.screensaver askForPassword -int 1 &&
+defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 ```
 
 ## Display
 
-### Enable subpixel font rendering on non-Apple LCDs
+### Better font display for external monitors
 ```bash
-defaults write NSGlobalDomain AppleFontSmoothing -int 2
-```
-
-### Enable HiDPI display modes (requires restart)
-```bash
-defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
-```
-
-### Enable Retina-aware font smoothing:
-```bash
-defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
-```
-
-## Sound
-
-### Increase sound quality for bluetooth headphones/headsets
-```bash
-defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+defaults write -g AppleFontSmoothing -int 0
 ```
 
 ## Utils
@@ -111,6 +82,11 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 ### Do not create .DS_Store files on network volumes
 ```bash
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+```
+
+### Do not create .DS_Store files on usb volumes
+```bash
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 ```
 
 ### Using only UTF-8 on Terminal.app
@@ -144,13 +120,6 @@ brew update && brew upgrade
 ## Programs
 ```bash
 brew install gnucash obs rcm visual-studio-code keepingyouawake git ripgrep bat fzf font-fira-code-nerd-font font-iosevka-term-nerd-font font-jetbrains-mono font-jetbrains-mono-nerd-font alacritty ghostty starship
-```
-
-### Alacritty
-
-Better font display
-```bash
-defaults write org.alacritty AppleFontSmoothing -int 0
 ```
 
 ### Emacs
