@@ -15,6 +15,29 @@ Add the following in the /etc/hosts file:
 ::1             localhost
 fe80::1%lo0	localhost
 ```
+## Configuration Setup
+Run this script and restart the computer, you can see each command in detail below:
+
+```bash
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+defaults write com.apple.finder AppleShowAllExtensions -bool true
+defaults write com.apple.finder ShowStatusBar -bool true
+defaults write com.apple.finder ShowPathBar -bool true
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+chflags nohidden ~/Library
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
+defaults write -g AppleFontSmoothing -int 0
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+defaults write com.apple.terminal StringEncodings -array 4
+defaults write com.apple.screencapture location ~/Pictures
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
+```
 
 ## Trackpad
 
@@ -119,7 +142,23 @@ brew update && brew upgrade
 
 ## Programs
 ```bash
-brew install gnucash obs rcm visual-studio-code keepingyouawake git ripgrep bat fzf font-fira-code-nerd-font font-iosevka-term-nerd-font font-jetbrains-mono font-jetbrains-mono-nerd-font alacritty ghostty starship
+brew install \
+  gnucash \
+  obs \
+  rcm \
+  visual-studio-code \
+  keepingyouawake \
+  git \
+  ripgrep \
+  bat \
+  fzf \
+  # font-fira-code-nerd-font \
+  # font-iosevka-term-nerd-font \
+  font-jetbrains-mono \
+  font-jetbrains-mono-nerd-font \
+  alacritty \
+  ghostty \
+  starship
 ```
 
 ### Emacs

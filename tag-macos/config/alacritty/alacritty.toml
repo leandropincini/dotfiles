@@ -4,6 +4,9 @@ import = [
 "themes/gruvbox-dark.toml",
 ]
 
+[env]
+TERM = "alacritty"
+
 [window]
 startup_mode="Maximized"
 decorations="None"
