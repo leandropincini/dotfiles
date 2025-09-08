@@ -18,7 +18,8 @@ alias egrep="egrep --color=auto"
 source <(fzf --zsh)
 
 # Bat
-export BAT_THEME="gruvbox-dark"
+# export BAT_THEME="gruvbox-dark"
+export BAT_THEME="Solarized (dark)"
 
 # Git
 export GPG_TTY=$(tty)
