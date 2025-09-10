@@ -518,12 +518,30 @@
    (list :type "go"
          :request "launch"
          :name "Launch File"
-         :mode "auto"
+         :mode "debug"
          :program "${fileDirname}"
-         :buildFlags nil
-         :args nil
-         :env nil
-         :envFile nil))
+         :buildFlags ""
+         :args []
+         :env nil))
+  (define-prefix-command 'dap-prefix-map)
+  (global-set-key (kbd "C-c d") 'dap-prefix-map)
+  (global-set-key (kbd "C-c C-d") 'dap-prefix-map)
+  (define-key dap-prefix-map (kbd "d") 'dap-debug)
+  (define-key dap-prefix-map (kbd "C-d") 'dap-debug)
+  (define-key dap-prefix-map (kbd "b a") 'dap-breakpoint-add)
+  (define-key dap-prefix-map (kbd "C-b a") 'dap-breakpoint-add)
+  (define-key dap-prefix-map (kbd "C-b C-a") 'dap-breakpoint-add)
+  (define-key dap-prefix-map (kbd "b d") 'dap-breakpoint-delete-all)
+  (define-key dap-prefix-map (kbd "C-b d") 'dap-breakpoint-delete-all)
+  (define-key dap-prefix-map (kbd "C-b C-d") 'dap-breakpoint-delete-all)
+  (define-key dap-prefix-map (kbd "i") 'dap-step-in)
+  (define-key dap-prefix-map (kbd "C-i") 'dap-step-in)
+  (define-key dap-prefix-map (kbd "o") 'dap-step-out)
+  (define-key dap-prefix-map (kbd "C-o") 'dap-step-out)
+  (define-key dap-prefix-map (kbd "n") 'dap-next)
+  (define-key dap-prefix-map (kbd "C-n") 'dap-next)
+  (define-key dap-prefix-map (kbd "c") 'dap-continue)
+  (define-key dap-prefix-map (kbd "C-c") 'dap-continue)
   (setq dap-python-debugger 'debugpy)
   :custom
   (dap-dlv-go-delve-path (executable-find "dlv")))
