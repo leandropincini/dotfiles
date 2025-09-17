@@ -24,11 +24,21 @@ export BAT_THEME="Solarized (dark)"
 # Git
 export GPG_TTY=$(tty)
 
-git-cleanup-branches() {
+git-cleanup-branches(){
     git fetch --prune
     git branch -vv | grep -E '(: gone]|merged)' | grep -vE '(^\*|master|main)' | awk '{print $1}' | xargs -r git branch -D
     git branch -vv | awk '/^[^*]/ && !/\[origin\// {print $1}' | grep -vE '(master|main)' | xargs -r git branch -D
 }
+
+#gh(){
+#  remote=$(git config --get remote.origin.url 2>/dev/null)
+#  if echo "$remote" | grep -Eq 'Work1|work2'; then
+#    command gh "$@"
+#  else
+#    echo "gh disabled here (not a company repo)"
+#  fi
+#}
+
 
 go-setup-dev-env(){
     go install golang.org/x/tools/gopls@latest

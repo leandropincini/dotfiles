@@ -149,6 +149,7 @@ brew install \
   visual-studio-code \
   keepingyouawake \
   git \
+  gh \
   ripgrep \
   bat \
   fzf \
