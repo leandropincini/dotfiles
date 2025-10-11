@@ -364,9 +364,8 @@
 (use-package magit
   :bind (("C-x g" . magit-status)))
 
-;; (use-package forge
-;;   :after magic
-;;   :disabled)
+(use-package forge
+  :after magit)
 
 (use-package smartparens
   :hook (go-mode . smartparens-mode)
@@ -619,6 +618,8 @@
   (:map lsp-mode-map
         ("C-c l f r" . lsp-find-references)
         ("C-c l f d" . lsp-find-definition)
+        ("C-c l f i" . lsp-goto-implementation)
+        ("C-c l f I" . lsp-find-implementation)
         ("C-c l f u" . pop-tag-mark)))
 
 (use-package lsp-ivy
@@ -719,7 +720,7 @@
          (css-mode . emmet-mode)))
 
 (use-package dockerfile-mode
-  :mode "\\Dockerfile\\'")
+  :mode "\\Dockerfile.*\\'")
 
 (use-package docker-compose-mode)
 

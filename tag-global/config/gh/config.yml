@@ -20,6 +20,7 @@ aliases:
     prc: 'pr create --assignee @me'
     prd: 'pr create --draft --assignee @me'
     mergeit: '!gh pr merge --squash --delete-branch && echo "✅ Squash merged and branch deleted."'
+    prls: pr list
 # The path to a unix socket through which to send HTTP connections. If blank, HTTP traffic will be handled by net/http.DefaultTransport.
 http_unix_socket:
 # What web browser gh should use when opening URLs. If blank, will refer to environment.
