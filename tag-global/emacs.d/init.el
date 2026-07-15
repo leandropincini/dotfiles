@@ -691,7 +691,8 @@
               ("C-c C-k d" . kubernetes-delete-current-file)))
 
 (use-package json-mode
-  :mode "\\.json\\'")
+  :mode (("\\.json\\'" . json-mode)
+         ("\\.jsonc\\'" . json-mode)))
 
 (use-package xml-mode
   :ensure nil
@@ -863,7 +864,7 @@
 (when (eq system-type 'darwin)
   (set-face-attribute 'default nil
                       :family "JetBrains Mono"
-                      :height 150
+                      :height 210
                       :weight 'regular
                       :width 'regular))
 
