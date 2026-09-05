@@ -723,8 +723,6 @@
 (use-package dockerfile-mode
   :mode "\\Dockerfile.*\\'")
 
-(use-package docker-compose-mode)
-
 (use-package feature-mode)
 
 (use-package go-mode
@@ -863,7 +861,7 @@
 
 (when (eq system-type 'darwin)
   (set-face-attribute 'default nil
-                      :family "JetBrains Mono"
+                      :family "JetBrainsMono Nerd Font Mono"
                       :height 210
                       :weight 'regular
                       :width 'regular))
@@ -913,7 +911,20 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(lsp-clojure-custom-server-command '("bash" "-c" "clojure-lsp") nil nil "Customized with use-package lsp-mode")
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(auto-package-update clj-refactor clojure-mode-extra-font-locking
+                         company-anaconda counsel-projectile diminish
+                         django-mode djangonaut dockerfile-mode ein
+                         emmet-mode feature-mode flycheck-clojure
+                         flycheck-joker forge go-mode gotest
+                         graphql-mode helpful inflections ivy-rich
+                         jinja2-mode json-mode kubernetes lsp-ivy
+                         lsp-java lsp-ui move-text multiple-cursors
+                         projectile-ripgrep protobuf-mode python-black
+                         python-isort pyvenv rainbow-delimiters
+                         rainbow-mode smartparens solarized-theme
+                         terraform-mode treemacs-all-the-icons
+                         web-mode yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
