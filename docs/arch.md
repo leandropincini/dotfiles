@@ -903,51 +903,35 @@ cd .dotfiles
 ./install-archlinux.sh
 ```
 
-## ASDF
-[adsf](https://asdf-vm.com/):
+## Mise
+[mise](https://mise.jdx.dev/):
 
-Install with yay:
+Install with pacman:
 
 ```bash
-yay -Sy asdf-vm
+sudo pacman -S mise
 ```
 
 Add the following in the end of `~/.zshrc`:
 
 ```bash
-# asdf
-. /opt/asdf-vm/asdf.sh
+# mise
+eval "$(mise activate zsh)"
 ```
 
 ## Java
 
-Install the asdf plugin:
+Install java using mise:
 
 ```bash
-asdf plugin-add java https://github.com/halcyon/asdf-java.git
-asdf plugin update java
-asdf list-all java | grep openjdk-21
-asdf install java openjdk-21.0.1
-asdf global java openjdk-21.0.1
-```
-
-Add the following in the `~/.zshrc`:
-
-```bash
-# JAVA_HOME with asdf
-. ~/.asdf/plugins/java/set-java-home.zsh
+mise use -g java@temurin-26.0.2+101
 ```
 
 ## Clojure
+From inside your clojure projects directory:
+
 ```bash
-asdf list-all java | grep adoptopenjdk-11
-asdf install java adoptopenjdk-11.0.21+9
+mise use java@temurin-21.0.12+101.0.LTS
 pacman -Sy clojure leiningen aspell aspell-en aspell-pt
 yay -Sy clojure-lsp-bin
-```
-
-And from inside your clojure projects directory:
-
-```bash
-asdf local java adoptopenjdk-11.0.21+9
 ```

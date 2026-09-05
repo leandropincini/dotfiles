@@ -235,43 +235,29 @@ mkdir ~/projects &&
 ln -s ~/.dotfiles ~/projects/dotfiles
 ```
 
-## asdf
+## mise
 
-Install [asdf](https://asdf-vm.com/) with brew:
+Install [mise](https://mise.jdx.dev/) with brew:
 ```bash
-brew install asdf
+brew install mise
 ```
 
 ### Java
 
-Install asdf's [java plugin](https://github.com/halcyon/asdf-java):
+Install java using mise:
 ```bash
-asdf plugin add java https://github.com/halcyon/asdf-java.git
-```
-
-Take a look into the jdk releases list: https://www.java.com/releases/matrix/
-```bash
-asdf install java adoptopenjdk-24.0.1+9 &&
-asdf set -u java adoptopenjdk-24.0.1+9
-```
-
-Add the following in the `~/.asdfrc`:
-```bash
-java_macos_integration_enable=yes
+mise use -g java@temurin-26.0.2+101
 ```
 
 ### Go lang
 ```bash
-asdf plugin add golang https://github.com/asdf-community/asdf-golang.git &&
-asdf install golang 1.24.4 &&
-asdf set -u golang 1.24.4 &&
+mise use -g go@1.27.1 &&
 brew install protobuf grpcurl grpcui &&
 cd ~ &&
 go-setup-dev-env
 # libs
 # go install github.com/swaggo/swag/cmd/swag@latest &&
 # go install github.com/google/wire/cmd/wire@latest &&
-asdf reshim golang
 ```
 
 Open your vscode and type Cmd + Shift + P
@@ -283,28 +269,6 @@ Select and install everything.
 
 ### Setup ~/.zshrc
 ```bash
-# asdf
-if [ -f "/opt/homebrew/opt/asdf/bin/asdf" ]; then
-    # Add asdf and shims to PATH (before other PATH modifications)
-    export ASDF_DIR="/opt/homebrew/opt/asdf"
-    export PATH="$HOME/.asdf/shims:$ASDF_DIR/bin:$PATH"
-
-    # Initialize asdf
-    eval "$(asdf exec env)"
-
-    # Add completions to fpath
-    fpath+=("$(brew --prefix asdf)/share/zsh/site-functions")
-    autoload -Uz compinit && compinit
-
-    # JAVA_HOME with asdf
-    if [ -f "$HOME/.asdf/plugins/java/set-java-home.zsh" ]; then
-        . "$HOME/.asdf/plugins/java/set-java-home.zsh"
-    fi
-
-    # GO lang with asdf
-    export ASDF_GOLANG_MOD_VERSION_ENABLED=true
-    if [ -f "$HOME/.asdf/plugins/golang/set-env.zsh" ]; then
-        . "$HOME/.asdf/plugins/golang/set-env.zsh"
-    fi
-fi
+# mise
+eval "$(mise activate zsh)"
 ```

@@ -58,10 +58,9 @@ go-setup-dev-env(){
     go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
     go install github.com/bufbuild/buf/cmd/buf@latest
     go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest
-    go install github.com/vektra/mockery/v2@latest
+    go install github.com/vektra/mockery/v2@latesty
     go install gotest.tools/gotestsum@latest
     go install github.com/pressly/goose/v3/cmd/goose@latest
-    asdf reshim golang
 }
 
 # Convert markdown to pdf
@@ -114,35 +113,8 @@ alias p="cd ~/projects"
 # Starship
 eval "$(starship init zsh)"
 
-# asdf
-if [ -f "/opt/homebrew/opt/asdf/bin/asdf" ]; then
-    # Add asdf and shims to PATH (before other PATH modifications)
-    export ASDF_DIR="/opt/homebrew/opt/asdf"
-    export PATH="$HOME/.asdf/shims:$ASDF_DIR/bin:$PATH"
-
-    # Initialize asdf
-    eval "$(asdf exec env)"
-
-    # Add completions to fpath
-    fpath+=("$(brew --prefix asdf)/share/zsh/site-functions")
-    autoload -Uz compinit && compinit
-
-    # GO lang with asdf
-    export ASDF_GOLANG_MOD_VERSION_ENABLED=true
-    if [ -f "$HOME/.asdf/plugins/golang/set-env.zsh" ]; then
-        . "$HOME/.asdf/plugins/golang/set-env.zsh"
-    fi
-
-    # JAVA with asdf
-    if [ -f "$HOME/.asdf/plugins/java/set-java-home.zsh" ]; then
-        . "$HOME/.asdf/plugins/java/set-java-home.zsh"
-    fi
-
-    # DOTNET with asdf
-    if [ -f "$HOME/.asdf/plugins/dotnet/set-dotnet-env.zsh" ]; then
-        . "$HOME/.asdf/plugins/dotnet/set-dotnet-env.zsh"
-    fi
-fi
+# mise
+eval "$(mise activate zsh)"
 
 # Node js
 # export PATH="/opt/homebrew/opt/node@20/bin:$PATH"

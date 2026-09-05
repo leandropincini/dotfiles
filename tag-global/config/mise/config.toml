@@ -1,0 +1,3 @@
+[tools]
+java = "temurin-26.0.2+101"
+go = "1.27.1"

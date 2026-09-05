@@ -75,8 +75,5 @@ alias git-cleanup-local-branches="git branch | grep -v "main" | xargs git branch
 alias cpu-temperature="echo $(($(cat /sys/class/thermal/thermal_zone0/temp) / 1000))C"
 alias gpu-temperature="echo $(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)C"
 
-# asdf
-. /opt/asdf-vm/asdf.sh
-
-# JAVA_HOME with asdf
-. ~/.asdf/plugins/java/set-java-home.zsh
+# mise
+eval "$(mise activate zsh)"
